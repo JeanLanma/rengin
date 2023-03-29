@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('name');
             $table->string('description');
-            $table->string('cover');
+            $table->string('cover')->nullable();
             $table->integer('base_capacity');
             $table->integer('max_capacity');
             $table->integer('base_price');
