@@ -1,13 +1,18 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Rooms from '@/Pages/Rooms/Partials/RoomTable.vue';
+import Button from '../../Components/Button.vue';
+import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <AppLayout title="Reservaciones">
+    <AppLayout title="Habitaciones">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Habitaciones
+                <Link :href="route('rooms.create')">
+                    <Button text="Agregar" class="ml-4"/>
+                </Link>
             </h2>
         </template>
 

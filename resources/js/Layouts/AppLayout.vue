@@ -51,6 +51,12 @@ const logout = () => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
+                                <NavLink :href="route('bookings.index')" :active="route().current('bookings.index')">
+                                    Reservaciones
+                                </NavLink>
+                                <NavLink :href="route('rooms.index')" :active="route().current('rooms.index')">
+                                    Habitaciones
+                                </NavLink>
                             </div>
                         </div>
 
@@ -193,6 +199,12 @@ const logout = () => {
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('bookings.index')" :active="route().current('bookings.index')">
+                            Reservaciones
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('rooms.index')" :active="route().current('rooms.index')">
+                            Habitaciones
                         </ResponsiveNavLink>
                     </div>
 

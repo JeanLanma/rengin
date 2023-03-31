@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { Link, router, useForm } from '@inertiajs/vue3';
+import { router, useForm } from '@inertiajs/vue3';
 import ActionMessage from '@/Components/ActionMessage.vue';
 import FormSection from '@/Components/FormSection.vue';
 import InputError from '@/Components/InputError.vue';
@@ -21,20 +21,20 @@ const form = useForm({
     description: '',
     base_capacity: '',
     max_capacity: '',
-    price: '',
+    price: '0.00',
     photo: '',
 });
 
 const photoPreview = ref(null);
 const photoInput = ref(null);
 
-const updateProfileInformation = () => {
-    if (photoInput.value) {
+const storeRoom = () => {
+    if (photoInput.value && photoInput.value.files[0]) {
         form.photo = photoInput.value.files[0];
     }
 
     form.post(route('rooms.store'), {
-        errorBag: 'updateProfileInformation',
+        errorBag: 'storeRoom',
         preserveScroll: true,
         onSuccess: () => clearPhotoFileInput(),
     });
@@ -44,11 +44,11 @@ const selectNewPhoto = () => {
     photoInput.value.click();
 };
 
-const updatePhotoPreview = () => {
-    const photo = photoInput.value.files[0];
+const updatePhotoPreview = (Photo = null) => {
+    const photo = photoInput.value.files[0] ?? Photo;
 
     if (! photo) return;
-
+    form.photo = photo;
     const reader = new FileReader();
 
     reader.onload = (e) => {
@@ -76,7 +76,7 @@ const clearPhotoFileInput = () => {
 </script>
 
 <template>
-    <FormSection @submitted="updateProfileInformation">
+    <FormSection @submitted="storeRoom">
         <template #title>
             Información de la habitación
         </template>
@@ -99,17 +99,13 @@ const clearPhotoFileInput = () => {
                 <InputLabel for="photo" value="Imagen Principal" />
 
                 <!-- Current Profile Photo -->
-                <div v-show="! photoPreview" class="mt-2">
+                <div class="mt-2">
                     <!-- <img :src="user.profile_photo_url" :alt="user.name" class="rounded h-40 w-full object-cover"> -->
-                    <Dropzone />
-                </div>
-
-                <!-- New Profile Photo Preview -->
-                <div v-show="photoPreview" class="mt-2">
-                    <span
-                        class="block rounded h-40 w-full bg-cover bg-no-repeat bg-center"
-                        :style="'background-image: url(\'' + photoPreview + '\');'"
-                    />
+                    <Dropzone
+                        @click.prevent="selectNewPhoto"
+                        @file-dropped="updatePhotoPreview"
+                        :style=" photoPreview ? 'background-image: url(\'' + photoPreview + '\');' : ''"
+                        />
                 </div>
 
                 <SecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewPhoto">
