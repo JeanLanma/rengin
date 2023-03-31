@@ -86,9 +86,9 @@ const clearPhotoFileInput = () => {
         </template>
 
         <template #form>
-            <!-- Profile Photo -->
-            <div v-if="$page.props.jetstream.managesProfilePhotos" class="col-span-6 sm:col-span-4">
-                <!-- Profile Photo File Input -->
+            <!-- Cover -->
+            <div class="col-span-6 sm:col-span-4">
+                <!-- Cover -->
                 <input
                     ref="photoInput"
                     type="file"
@@ -100,7 +100,6 @@ const clearPhotoFileInput = () => {
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2">
-                    <!-- <img :src="user.profile_photo_url" :alt="user.name" class="rounded h-40 w-full object-cover"> -->
                     <Dropzone
                         @click.prevent="selectNewPhoto"
                         @file-dropped="updatePhotoPreview"
@@ -110,15 +109,6 @@ const clearPhotoFileInput = () => {
 
                 <SecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewPhoto">
                     Select A New Photo
-                </SecondaryButton>
-
-                <SecondaryButton
-                    v-if="user.profile_photo_path"
-                    type="button"
-                    class="mt-2"
-                    @click.prevent="deletePhoto"
-                >
-                    Remove Photo
                 </SecondaryButton>
 
                 <InputError :message="form.errors.photo" class="mt-2" />
