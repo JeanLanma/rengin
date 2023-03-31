@@ -21,8 +21,8 @@ const form = useForm({
     description: '',
     base_capacity: '',
     max_capacity: '',
-    price: '0.00',
-    photo: '',
+    base_price: '0.00',
+    cover: '',
 });
 
 const photoPreview = ref(null);
@@ -30,7 +30,7 @@ const photoInput = ref(null);
 
 const storeRoom = () => {
     if (photoInput.value && photoInput.value.files[0]) {
-        form.photo = photoInput.value.files[0];
+        form.cover = photoInput.value.files[0];
     }
 
     form.post(route('rooms.store'), {
@@ -48,7 +48,7 @@ const updatePhotoPreview = (Photo = null) => {
     const photo = photoInput.value.files[0] ?? Photo;
 
     if (! photo) return;
-    form.photo = photo;
+    form.cover = photo;
     const reader = new FileReader();
 
     reader.onload = (e) => {
@@ -191,15 +191,15 @@ const clearPhotoFileInput = () => {
             <br>
             <!-- Price -->
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="price" value="Precio base" />
+                <InputLabel for="base_price" value="Precio base" />
                 <TextInput
-                    id="price"
-                    v-model="form.price"
+                    id="base_price"
+                    v-model="form.base_price"
                     type="text"
                     class="mt-1 block w-full"
-                    autocomplete="price"
+                    autocomplete="base_price"
                 />
-                <InputError :message="form.errors.price" class="mt-2" />
+                <InputError :message="form.errors.base_price" class="mt-2" />
             </div>
         </template>
 
