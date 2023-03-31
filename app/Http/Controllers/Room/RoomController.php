@@ -12,7 +12,9 @@ class RoomController extends Controller
     
     public function index()
     {
-        return inertia('Rooms/Index');
+        return inertia('Rooms/Index', [
+            'rooms' => RoomRepository::getPaginate()
+        ]);
     }
 
     public function create()
@@ -24,7 +26,7 @@ class RoomController extends Controller
     {
         $room = $request->validated();
 
-        $room['cover'] = $request->file('cover')->store('rooms');
+        $room['cover'] = $request->file('cover')->store('rooms', 'public');
 
         $roomRepository->save($room);
 

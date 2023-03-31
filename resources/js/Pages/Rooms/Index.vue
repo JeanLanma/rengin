@@ -1,8 +1,12 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Rooms from '@/Pages/Rooms/Partials/RoomTable.vue';
+import RoomTable from '@/Pages/Rooms/Partials/RoomTable.vue';
 import Button from '../../Components/Button.vue';
 import { Link } from '@inertiajs/vue3';
+
+const props = defineProps({
+    rooms: Object,
+});
 </script>
 
 <template>
@@ -19,7 +23,7 @@ import { Link } from '@inertiajs/vue3';
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                    <Rooms />
+                    <RoomTable :rooms="props.rooms" />
                 </div>
             </div>
         </div>

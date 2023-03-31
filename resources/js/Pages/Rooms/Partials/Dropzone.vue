@@ -35,7 +35,7 @@ const handleDrop = (event) => {
 <template>
 
 <span
-    class="block rounded h-40 w-full bg-cover bg-no-repeat bg-center bg-gray-800 border-2 border-dashed border-gray-400"
+    class="block rounded h-40 w-full bg-cover bg-no-repeat bg-center bg-gray-300 dark:bg-gray-800 border-2 border-dashed border-gray-400"
     @dragenter.prevent.stop="handleDragEnter"
     @dragleave.prevent.stop="handleDragLeave"
     @dragover.prevent.stop="handleDragOver"

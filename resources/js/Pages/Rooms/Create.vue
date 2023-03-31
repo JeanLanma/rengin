@@ -25,7 +25,7 @@ import AddRoomForm from '@/Pages/Rooms/Partials/AddRoomForm.vue';
                     <SectionBorder />
                 </div>
 
-                <template v-if="$page.props.jetstream.hasAccountDeletionFeatures">
+                <template v-if="false">
 
                     <DeleteUserForm class="mt-10 sm:mt-0" />
                 </template>

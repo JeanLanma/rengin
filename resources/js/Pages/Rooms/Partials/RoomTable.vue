@@ -1,6 +1,10 @@
 <script setup>
-import Room from './Room.vue';
 
+import RoomCard from './RoomCard.vue';
+
+const props = defineProps({
+    rooms: Object,
+});
 </script>
 
 <template>
@@ -12,8 +16,7 @@ import Room from './Room.vue';
             </h1>
 
             <div class="text-white overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg flex flex-col gap-4">
-                <Room />
-                <Room />
+                <RoomCard v-for="room in props.rooms.data" :room="room" />
             </div>
         </div>
 
