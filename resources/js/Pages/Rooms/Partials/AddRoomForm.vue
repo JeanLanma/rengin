@@ -9,6 +9,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import Dropzone from '@/Pages/Rooms/Partials/Dropzone.vue';
+import Tooltip from '@/Components/Tooltip.vue';
 
 const props = defineProps({
     user: Object,
@@ -96,7 +97,13 @@ const clearPhotoFileInput = () => {
                     @change="updatePhotoPreview"
                 >
 
-                <InputLabel for="photo" value="Imagen Principal" />
+                <div class="flex">
+                    <InputLabel for="photo" value="Imagen Principal" />
+                    <div class="tooltip group text-white relative whitespace-nowrap">
+                        <svg class="fill-white w-6 ml-4 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm168-72c0-30.9 25.1-56 56-56h56.9c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4V272v24H232V272 250.5 236.6l12.1-6.9 44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H224c-4.4 0-8 3.6-8 8l0 6.5-48 0V184zm64 152h48v48H232V336z"/></svg>
+                        <span class="after:content-[''] after:absolute after:bottom-full after:left-1/2 after:-mr-1 after:border-[5px] after:border-solid after:border-b-2-transparent after:border-t-transparent after:border-r-transparent after:border-l-transparent tooltiptext invisible group-hover:visible  absolute top-[125%] left-1/2 -translate-x-1/2 w-max max-w-[17rem] px-4 py-1 bg-white text-black/60 rounded whitespace-pre-wrap">Esta sera la imagen que salga primero</span>
+                    </div>
+                </div>
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2">
@@ -116,7 +123,10 @@ const clearPhotoFileInput = () => {
 
             <!-- Name -->
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="name" value="Nombre" />
+                <div class="flex">
+                    <InputLabel for="name" value="Nombre" />
+                    <Tooltip text="El nombre que se mostrara al publico"/>
+                </div>
                 <TextInput
                     id="name"
                     v-model="form.name"
@@ -129,7 +139,10 @@ const clearPhotoFileInput = () => {
 
             <!-- Type -->
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="type" value="Tipo" />
+                <div class="flex">
+                    <InputLabel for="type" value="Tipo" />
+                    <Tooltip text="Nombre interno o referencia interna de la habitación, Sencilla, Doble Suite etc.."/>
+                </div>
                 <TextInput
                     id="type"
                     v-model="form.type"
@@ -181,7 +194,10 @@ const clearPhotoFileInput = () => {
             <br>
             <!-- Price -->
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="base_price" value="Precio base" />
+                <div class="flex">
+                    <InputLabel for="base_price" value="Precio base" />
+                    <Tooltip text="Este sera el precio minimo para el tipo de habitación"/>
+                </div>
                 <TextInput
                     id="base_price"
                     v-model="form.base_price"
