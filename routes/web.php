@@ -34,6 +34,9 @@ Route::get('/rooms/create', [App\Http\Controllers\Room\RoomController::class, 'c
 
 Route::post('/rooms/create', [App\Http\Controllers\Room\RoomController::class, 'store'])->name('rooms.store');
 
+Route::get('/rooms/edit/{roomId}', [App\Http\Controllers\Room\RoomController::class, 'edit'])->name('rooms.edit');
+
+Route::put('/rooms/update/{roomId}', [App\Http\Controllers\Room\RoomController::class, 'update'])->name('rooms.update');
 
 });
 

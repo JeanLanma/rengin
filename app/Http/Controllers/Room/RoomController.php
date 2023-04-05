@@ -33,4 +33,18 @@ class RoomController extends Controller
         return redirect()->route('rooms.index')->banner('¡Habitación creada con éxito!');
     }
 
+    public function edit(RoomRepository $roomRepository, $roomId)
+    {
+        $room = $roomRepository->find($roomId);
+
+        return inertia('Rooms/Edit', [
+            'room' => $room
+        ]);
+    }
+
+    public function update(StoreRoomRequest $request, RoomRepository $roomRepository, $roomId)
+    {
+        $roomRepository->findAndUpdate($roomId, $request->validated());
+        return redirect()->route('rooms.index')->banner('¡Habitación actualizada con éxito!');
+    }
 }

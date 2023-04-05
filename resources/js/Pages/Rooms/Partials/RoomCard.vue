@@ -1,5 +1,5 @@
 <script setup>
-
+import { Link } from '@inertiajs/vue3';
 const props = defineProps({
     room: Object,
 });
@@ -65,9 +65,15 @@ const props = defineProps({
             <small class="uppercase">{{ room.type }}</small>
             <h3 class="uppercase text-black text-2xl font-medium">{{ room.name }}</h3>
             <h3 class="text-2xl font-semibold mb-7">Desde: ${{ room.base_price }} mxn.</h3>
+            <div>
+                <small class="text-black mr-4">Capacidad: {{ room.base_capacity }}</small>
+                <small class="text-black">Capacidad Maxima: {{ room.max_capacity }}</small>
+            </div>
             <small class="text-black">{{ room.description }}</small>
             <div class="flex gap-0.5 mt-4">
-                <button id="addToCartButton" class="bg-indigo-600 hover:bg-indigo-500 focus:outline-none transition text-white uppercase px-8 py-3">Detalles</button>
+                <Link :href="route('rooms.edit', {'roomId': room.id})">
+                    <button id="addToCartButton" class="bg-indigo-600 hover:bg-indigo-500 focus:outline-none transition text-white uppercase px-8 py-3">Detalles</button>
+                </Link>
                 <button id="likeButton" class="hidden bg-indigo-600 hover:bg-indigo-500 focus:outline-none transition text-white uppercase p-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
                         <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
