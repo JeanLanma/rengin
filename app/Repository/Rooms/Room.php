@@ -3,6 +3,7 @@
 namespace App\Repository\Rooms;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Room {
 
@@ -26,6 +27,17 @@ class Room {
     {
         // Update room
         DB::table('rooms')->where('id', $roomId)->update($room);
+    }
+
+    public static function UpdateImage($roomId, $image)
+    {
+        // Delete old cover
+        $oldCover = DB::table('rooms')->where('id', $roomId)->first()->cover;
+        
+        Storage::disk('public')->delete($oldCover);
+
+        // Update cover
+        return Storage::disk('public')->put('rooms', $image);
     }
 
 }

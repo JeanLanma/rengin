@@ -44,7 +44,12 @@ class RoomController extends Controller
 
     public function update(StoreRoomRequest $request, RoomRepository $roomRepository, $roomId)
     {
-        $roomRepository->findAndUpdate($roomId, $request->validated());
+        $room = $request->validated();
+        if($request->hasFile('cover')) {
+            $room['cover'] = RoomRepository::UpdateImage($roomId, request()->file('cover'));
+        }
+
+        $roomRepository->findAndUpdate($roomId, $room);
         return redirect()->route('rooms.index')->banner('¡Habitación actualizada con éxito!');
     }
 }

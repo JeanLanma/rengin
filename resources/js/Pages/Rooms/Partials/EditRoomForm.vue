@@ -34,7 +34,7 @@ const storeRoom = () => {
         form.cover = photoInput.value.files[0];
     }
 
-    form.put(route('rooms.update', {roomId: props.room.id}), {
+    form.post(route('rooms.update', {roomId: props.room.id}), {
         errorBag: 'storeRoom',
         preserveScroll: true,
         onSuccess: (response) => {
@@ -93,6 +93,8 @@ const clearPhotoFileInput = () => {
         photoInput.value.value = null;
     }
 };
+
+console.log(props.room);
 </script>
 
 <template>
@@ -128,7 +130,7 @@ const clearPhotoFileInput = () => {
                     <!-- Current Profile Photo -->
                     <Dropzone
                         @click.prevent="selectNewPhoto"
-                        @file-dropped="setPhotoPreview"
+                        @file-dropped="updatePhotoPreview"
                         :style=" photoPreview ? 'background-image: url(\'' + photoPreview + '\');' : ''"
                         />
                 </div>
