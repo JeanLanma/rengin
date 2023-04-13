@@ -4,7 +4,15 @@
 
 
 @layer utilities {
-    .blur-in-expand{animation:blur-in-expand 0.4s linear both} @keyframes blur-in-expand{0%{transform:scale(0);filter:blur(12px);opacity:0}100%{transform:scale(1);filter:blur(0);opacity:1}}
+    .animate-blur:hover {
+        animation: blur-in-expand 0.4s linear both;
+    }
 
-    .scale-up-center{animation:scale-up-center 0.4s; } @keyframes scale-up-center{ 0%{transform:scale(.5)} 100%{transform:scale(1)} }
+    .blur-in-expand{animation:blur-in-expand 0.4s linear both}
+    
+    @keyframes blur-in-expand{0%{transform:scale(0);filter:blur(12px);opacity:0}100%{transform:scale(1);filter:blur(0);opacity:1}}
+
+    .scale-up-center{animation:scale-up-center 0.4s; } 
+    
+    @keyframes scale-up-center{ 0%{transform:scale(.5)} 100%{transform:scale(1)} }
 }

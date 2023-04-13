@@ -1,4 +1,12 @@
 <script setup>
+
+const props = defineProps({
+    rate: {
+        type: Object,
+        required: true,
+    },
+});
+
 </script>
 
 <template>
@@ -14,7 +22,7 @@
                     <thead>
                         <tr>
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span class="font-bold block text-xl">&nbsp;</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Dom</span><span class="font-bold block text-xl">3</span></th>
+                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center hover:bg-slate-50 rounded animate-blur"><span>Dom</span><span class="font-bold block text-xl">3</span></th>
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Lun</span><span class="font-bold block text-xl">4</span></th>
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Mar</span><span class="font-bold block text-xl">5</span></th>
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Mie</span><span class="font-bold block text-xl">6</span></th>

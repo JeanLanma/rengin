@@ -1,6 +1,15 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import RateTable from '@/Pages/Rate/Partials/RateTable.vue';
+
+const props = defineProps({
+    rate: {
+        type: Object,
+        required: true,
+    },
+});
+
+console.log(props.rate);
 </script>
 
 <template>
