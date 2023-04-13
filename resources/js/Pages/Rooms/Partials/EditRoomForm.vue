@@ -68,6 +68,9 @@ const updatePhotoPreview = (Photo = null) => {
     const photo = photoInput.value.files[0] ?? Photo;
 
     if (! photo) return;
+    
+    if ( photo.size && photo.size >  photoMaxSize ) return alert('La imagen no puede ser mayor a 2MB');
+    
     form.cover = photo;
     const reader = new FileReader();
 

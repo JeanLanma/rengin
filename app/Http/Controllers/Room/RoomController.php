@@ -22,8 +22,9 @@ class RoomController extends Controller
         return inertia('Rooms/Create');
     }
 
-    public function store(StoreRoomRequest $request, RoomRepository $roomRepository)
+    public function store(Request $request, RoomRepository $roomRepository)
     {
+        dd($request->all());
         $room = $request->validated();
 
         $room['cover'] = $request->file('cover')->store('rooms', 'public');
