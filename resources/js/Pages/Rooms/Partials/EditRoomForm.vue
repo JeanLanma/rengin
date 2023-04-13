@@ -28,6 +28,7 @@ const form = useForm({
 
 const photoPreview = ref(null);
 const photoInput = ref(null);
+const photoMaxSize = 1024 * 1024 * 2; // 2MB
 
 const storeRoom = () => {
     if (photoInput.value && photoInput.value.files[0]) {
@@ -70,7 +71,7 @@ const updatePhotoPreview = (Photo = null) => {
     if (! photo) return;
     
     if ( photo.size && photo.size >  photoMaxSize ) return alert('La imagen no puede ser mayor a 2MB');
-    
+
     form.cover = photo;
     const reader = new FileReader();
 

@@ -26,7 +26,7 @@ class StoreRoomRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'type' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
-            'cover' => [Rule::excludeIf($this->routeIs('rooms.update')) , 'image', 'max:1024'],
+            'cover' => [Rule::requiredIf($this->routeIs('rooms.store')) , 'image', 'max:1024'],
             'base_capacity' => ['required', 'numeric'],
             'max_capacity' => ['required', 'numeric'],
             'base_price' => ['required', 'numeric', 'min:0'],
