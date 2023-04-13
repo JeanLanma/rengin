@@ -196,7 +196,7 @@ const clearPhotoFileInput = () => {
             <div class="col-span-6 sm:col-span-4">
                 <div class="flex">
                     <InputLabel for="base_price" value="Precio base" />
-                    <Tooltip text="Este sera el precio minimo para el tipo de habitación"/>
+                    <Tooltip text="Este sera el precio minimo en MXN sin impuestos para el tipo de habitación"/>
                 </div>
                 <TextInput
                     id="base_price"
