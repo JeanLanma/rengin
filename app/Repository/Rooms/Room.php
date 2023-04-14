@@ -44,4 +44,10 @@ class Room {
         return Storage::disk('public')->put('rooms', $image);
     }
 
+    public function findAndDelete($roomId)
+    {
+        // Delete room
+        return DB::table('rooms')->where('id', $roomId)->delete();
+    }
+
 }

@@ -38,6 +38,8 @@ Route::get('/rooms/edit/{roomId}', [App\Http\Controllers\Room\RoomController::cl
 
 Route::put('/rooms/update/{roomId}', [App\Http\Controllers\Room\RoomController::class, 'update'])->name('rooms.update');
 
+Route::delete('/rooms/delete/{roomId}', [App\Http\Controllers\Room\RoomController::class, 'destroy'])->name('rooms.destroy');
+
 // Rates
 
 Route::get('/rates', [App\Http\Controllers\Rate\RateController::class, 'index'])->name('rates.index');

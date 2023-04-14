@@ -53,4 +53,10 @@ class RoomController extends Controller
         $roomRepository->findAndUpdate($roomId, $room);
         return redirect()->route('rooms.index')->banner('¡Habitación actualizada con éxito!');
     }
+
+    public function destroy(RoomRepository $roomRepository, $roomId)
+    {
+        $roomRepository->findAndDelete($roomId);
+        return redirect()->route('rooms.index')->banner('¡Habitación eliminada con éxito!');
+    }
 }
