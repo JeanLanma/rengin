@@ -42,7 +42,9 @@ Route::delete('/rooms/delete/{roomId}', [App\Http\Controllers\Room\RoomControlle
 
 // Rates
 
-Route::get('/rates', [App\Http\Controllers\Rate\RateController::class, 'index'])->name('rates.index');
+Route::get('/distribution', [App\Http\Controllers\Distribution\DistributionController::class, 'index'])->name('distribution.index');
+
+Route::get('/distribution/room/{roomId}/{date?}', [App\Http\Controllers\Distribution\DistributionController::class, 'getByRoomId'])->name('distribution.getByRoomId');
 });
 
 
