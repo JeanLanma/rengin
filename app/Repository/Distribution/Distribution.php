@@ -15,7 +15,7 @@ class Distribution {
 
     public function getDistributionForTwoWeeks($room_id, $start_date)
     {
-        $end_date = date('Y-m-d', strtotime($start_date . ' +14 day'));
+        $end_date = date('Y-m-d', strtotime($start_date . ' +13 day'));
         return self::formatDistributionDates(self::GetDistribution($room_id, $start_date, $end_date));
     }
 
@@ -25,7 +25,7 @@ class Distribution {
 
         foreach ($distribution as $key => $value) {
             
-            $formatted[$value->date] = $value;
+            $formatted[] = $value;
             # extract day from date
             $value->day = date('d', strtotime($value->date));
             # extract day name from date

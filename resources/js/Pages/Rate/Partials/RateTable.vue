@@ -7,6 +7,10 @@ const props = defineProps({
     },
 });
 
+
+const navigate = (direction) => {
+    alert(direction);
+}
 </script>
 
 <template>
@@ -22,33 +26,20 @@ const props = defineProps({
                 <div class="text-slate-50 font-bold text-xl flex gap-4 rounded-xl p-2">
 
                     <div class="flex p-2 w-full max-w-md justify-center space-x-0">
-                        <button innerText="<< prev week" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-full hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden"></button>
-                        <button innerText="Today" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-x-2 border-x-sky-300"></button>
-                        <button innerText="next week >>" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-full hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden"></button>
+                        <button @click="navigate('Prev Week')" innerText="<< prev week" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden"></button>
+                        <button @click="navigate('This Week')" innerText="Today" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-x-2 border-x-sky-300"></button>
+                        <button @click="navigate('Next Week')" innerText="next week >>" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden"></button>
                     </div>
 
                 </div>
             </section>
 
-            <div class="text-white border border-gray-200 dark:border-gray-700 md:rounded-lg overflow-auto">
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 cursor-pointer">
+            <div class="text-white border border-gray-200 dark:border-gray-700 md:rounded-lg overflow-auto" id="thin-scroll">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 cursor-pointer box-shadow">
                     <thead>
                         <tr>
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span class="font-bold block text-xl">&nbsp;</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center hover:bg-slate-50 rounded blur-in-expand"><span>Dom</span><span class="font-bold block text-xl">3</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Lun</span><span class="font-bold block text-xl">4</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Mar</span><span class="font-bold block text-xl">5</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Mie</span><span class="font-bold block text-xl">6</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Jue</span><span class="font-bold block text-xl">7</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Vie</span><span class="font-bold block text-xl">8</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Sab</span><span class="font-bold block text-xl">9</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Dom</span><span class="font-bold block text-xl">10</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Lun</span><span class="font-bold block text-xl">11</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Mar</span><span class="font-bold block text-xl">12</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Mie</span><span class="font-bold block text-xl">13</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Jue</span><span class="font-bold block text-xl">14</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Vie</span><span class="font-bold block text-xl">15</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Sab</span><span class="font-bold block text-xl">16</span></th>
+                            <th v-for="rate in props.rate" class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center" :class="(rate.day_name == 'Sun' || rate.day_name == 'Sat') ? 'bg-gray-700' : '' "><span>{{ rate.day_name }}</span><span class="font-bold block text-xl">{{ rate.day }}</span></th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
@@ -58,34 +49,7 @@ const props = defineProps({
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center text-sm whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>Disponibles</span></th>
 
 
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>3</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>3</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>4</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>5</span></td>
-                            
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>6</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>7</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>8</span></td>
-
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>3</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>3</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>4</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>5</span></td>
-                            
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>6</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>7</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>8</span></td>
+                            <td v-for="rate in props.rate" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>{{ rate.availability }}</span></td>
                             
                         </tr>
 
@@ -94,34 +58,7 @@ const props = defineProps({
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center text-sm whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>Precio</span></th>
 
 
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>300</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>300</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>400</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>500</span></td>
-                            
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>600</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>700</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>800</span></td>
-
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span contenteditable class="foc">300</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>300</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>400</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>500</span></td>
-                            
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>600</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>700</span></td>
-
-                            <td class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>800</span></td>
+                            <td v-for="rate in props.rate" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700 cursor-text"><span contenteditable>{{ rate.price }}</span></td>
                             
                         </tr>
 
@@ -139,4 +76,24 @@ const props = defineProps({
 [contenteditable]:focus {
     outline: 0px solid transparent;
 }
+
+#thin-scroll::-webkit-scrollbar {
+    width: 4px;
+    height: 10px;
+    cursor: pointer;
+    /*background-color: rgba(229, 231, 235, var(--bg-opacity));*/
+}
+#thin-scroll::-webkit-scrollbar-track {
+    background-color: rgba(229, 231, 235, var(--bg-opacity));
+    cursor: pointer;
+    /*background: red;*/
+    border-radius: 10px;
+}
+#thin-scroll::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    background-color: #a0aec0;
+    /*outline: 1px solid slategrey;*/
+    border-radius: 10px;
+}
+
 </style>

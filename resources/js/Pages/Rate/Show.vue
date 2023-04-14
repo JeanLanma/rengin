@@ -23,7 +23,7 @@ console.log(props.rate);
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                    <RateTable />
+                    <RateTable :rate="props.rate" />
                 </div>
             </div>
         </div>

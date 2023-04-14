@@ -2,6 +2,7 @@
 
 namespace App\Repository\Rooms;
 
+use App\Repository\Distribution\Distribution;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,7 +21,10 @@ class Room {
     public function save($room)
     {
         // Save room
-        DB::table('rooms')->insert($room);           
+        $RoomId = DB::table('rooms')->insertGetId($room);
+
+        // Register distribution
+        return Distribution::RegisterNewRoomDistributionForOneYear($RoomId, date('Y-m-d'), $room['base_price'], 0); 
     }
 
     public function findAndUpdate($roomId, $room)
