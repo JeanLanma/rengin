@@ -16,13 +16,26 @@ const props = defineProps({
             <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 Habitación Sencilla
             </h1>
+            
+            <!-- Filters -->
+            <section>
+                <div class="text-slate-50 font-bold text-xl flex gap-4 rounded-xl p-2">
+
+                    <div class="flex p-2 w-full max-w-md justify-center space-x-0">
+                        <button innerText="<< prev week" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-full hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden"></button>
+                        <button innerText="Today" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-x-2 border-x-sky-300"></button>
+                        <button innerText="next week >>" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-full hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden"></button>
+                    </div>
+
+                </div>
+            </section>
 
             <div class="text-white border border-gray-200 dark:border-gray-700 md:rounded-lg overflow-auto">
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 cursor-pointer">
                     <thead>
                         <tr>
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span class="font-bold block text-xl">&nbsp;</span></th>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center hover:bg-slate-50 rounded animate-blur"><span>Dom</span><span class="font-bold block text-xl">3</span></th>
+                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center hover:bg-slate-50 rounded blur-in-expand"><span>Dom</span><span class="font-bold block text-xl">3</span></th>
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Lun</span><span class="font-bold block text-xl">4</span></th>
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Mar</span><span class="font-bold block text-xl">5</span></th>
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span>Mie</span><span class="font-bold block text-xl">6</span></th>

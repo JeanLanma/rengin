@@ -14,7 +14,7 @@ class RateController extends Controller
         $rate = new \App\Repository\Distribution\Distribution();
 
         return Inertia::render('Rate/Show', [
-            'rate' => $rate->getDistributionForTwoWeeks(1, '2023-04-15'),
+            'rate' => $rate->getDistributionForTwoWeeks(3, '2023-04-25'),
         ]);
     }
 
