@@ -10,13 +10,11 @@ class DistributionController extends Controller {
     
     public function index()
     {
-        request()->validate([
-            'date' => 'date_format:Y-m-d',
-        ]);
-        $rate = new \App\Repository\Distribution\Distribution();
 
-        return Inertia::render('Rate/Show', [
-            'rate' => $rate->getDistributionForTwoWeeks(4, date('Y-m-d')),
+        $room = new \App\Repository\Rooms\Room();
+
+        return Inertia::render('Rate/ListRooms', [
+            'rooms' => $room->getPaginate(),
         ]);
     }
 
