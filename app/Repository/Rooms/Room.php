@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Storage;
 
 class Room {
 
+    public function first()
+    {
+        return DB::table('rooms')->first();
+    }
+
     public function find($id)
     {
         return DB::table('rooms')->where('id', $id)->first();

@@ -20,10 +20,12 @@ class DistributionController extends Controller {
     public function getByRoomId($roomId, $date = null)
     {
         $rate = new \App\Repository\Distribution\Distribution();
+        $room = new \App\Repository\Rooms\Room();
         $date = $date ?? date('Y-m-d');
 
         return Inertia::render('Rate/Show', [
             'rate' => $rate->getDistributionForTwoWeeks($roomId, date('Y-m-d')),
+            'room' => $room->find($roomId)
         ]);
     }
 

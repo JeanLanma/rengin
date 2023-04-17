@@ -7,9 +7,13 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    room: {
+        type: Object,
+        required: true,
+    },
 });
 
-console.log(props.rate);
+console.log(props.room);
 </script>
 
 <template>
@@ -23,7 +27,7 @@ console.log(props.rate);
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                    <RateTable :rate="props.rate" />
+                    <RateTable :rate="props.rate" :room="props.room"/>
                 </div>
             </div>
         </div>

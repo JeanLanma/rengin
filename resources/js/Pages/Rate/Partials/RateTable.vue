@@ -1,7 +1,15 @@
 <script setup>
 
+import Link from '@/inertiajs/vue3';
+
+// Set the current date with format YYYY-MM-DD
+
 const props = defineProps({
     rate: {
+        type: Object,
+        required: true,
+    },
+    room: {
         type: Object,
         required: true,
     },
@@ -18,7 +26,7 @@ const navigate = (direction) => {
         <div class="p-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
 
             <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Habitación Sencilla
+                {{ props.room.name }}
             </h1>
             
             <!-- Filters -->
@@ -28,7 +36,9 @@ const navigate = (direction) => {
                     <div class="flex p-2 w-full max-w-md justify-center space-x-0">
                         <button @click="navigate('Prev Week')" innerText="<< prev week" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden"></button>
                         <button @click="navigate('This Week')" innerText="Today" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-x-2 border-x-sky-300"></button>
-                        <button @click="navigate('Next Week')" innerText="next week >>" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden"></button>
+                        <Link href="/">
+                            <button @click="navigate('Next Week')" innerText="next week >>" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden"></button>
+                        </Link>
                     </div>
 
                 </div>
