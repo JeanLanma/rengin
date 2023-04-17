@@ -1,8 +1,12 @@
 <script setup>
 
-import Link from '@/inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
+import { DateTime } from 'luxon';
+import { ref } from 'vue';
 
 // Set the current date with format YYYY-MM-DD
+
+const currentDate = ref(DateTime.local());
 
 const props = defineProps({
     rate: {
@@ -13,12 +17,35 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    start_date: {
+        type: String,
+        required: false,
+    },
 });
 
-
-const navigate = (direction) => {
-    alert(direction);
+const formatDT = (date) => {
+    return DateTime.fromFormat(date, 'yyyy-LL-dd');
 }
+
+const nextWeek = (queryDate) => {
+    return formatDT(queryDate).plus({days: 7}).toFormat('yyyy-LL-dd');
+}
+
+const prevWeek = (queryDate) => {
+    return formatDT(queryDate).minus({days: 7}).toFormat('yyyy-LL-dd');
+}
+
+const thisWeek = () => {
+    return DateTime.local().toFormat('yyyy-LL-dd');
+}
+
+const testDate = () => {
+    console.clear();
+
+    console.log(props.start_date);
+}
+
+testDate();
 </script>
 
 <template>
@@ -34,10 +61,15 @@ const navigate = (direction) => {
                 <div class="text-slate-50 font-bold text-xl flex gap-4 rounded-xl p-2">
 
                     <div class="flex p-2 w-full max-w-md justify-center space-x-0">
-                        <button @click="navigate('Prev Week')" innerText="<< prev week" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden"></button>
-                        <button @click="navigate('This Week')" innerText="Today" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-x-2 border-x-sky-300"></button>
-                        <Link href="/">
-                            <button @click="navigate('Next Week')" innerText="next week >>" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden"></button>
+                        
+                        <Link :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': prevWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden">
+                            <button innerText="<< prev week" ></button>
+                        </Link>
+                        <Link :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': thisWeek() })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-x-2 border-x-sky-300 text-center">
+                            <button innerText="Today"></button>
+                        </Link>
+                        <Link :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': nextWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden" >
+                            <button innerText="next week >>"></button>
                         </Link>
                     </div>
 
@@ -49,7 +81,7 @@ const navigate = (direction) => {
                     <thead>
                         <tr>
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span class="font-bold block text-xl">&nbsp;</span></th>
-                            <th v-for="rate in props.rate" class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center" :class="(rate.day_name == 'Sun' || rate.day_name == 'Sat') ? 'dark:bg-gray-700 bg-gray-200' : '' "><span>{{ rate.day_name }}</span><span class="font-bold block text-xl">{{ rate.day }}</span></th>
+                            <th v-for="rate in props.rate" class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center" :class="(rate.day_name == 'Dom' || rate.day_name == 'Sáb') ? 'dark:bg-gray-700 bg-gray-200' : '' "><span>{{ rate.day_name }}</span><span class="font-bold block text-xl">{{ rate.day }}</span></th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">

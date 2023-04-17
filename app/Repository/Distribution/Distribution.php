@@ -21,6 +21,14 @@ class Distribution {
 
     public function formatDistributionDates($distribution)
     {
+        $fmt = new \IntlDateFormatter(
+            'es_ES',
+            \IntlDateFormatter::FULL,
+            \IntlDateFormatter::FULL,
+            'America/Mexico_City',
+            \IntlDateFormatter::GREGORIAN,
+            'EEE'
+        );
         $formatted = [];
 
         foreach ($distribution as $key => $value) {
@@ -29,7 +37,7 @@ class Distribution {
             # extract day from date
             $value->day = date('d', strtotime($value->date));
             # extract day name from date
-            $value->day_name = date('D', strtotime($value->date));;
+            $value->day_name = ucfirst(datefmt_format($fmt, strtotime($value->date)));
 
         }
 

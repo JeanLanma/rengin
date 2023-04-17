@@ -24,8 +24,9 @@ class DistributionController extends Controller {
         $date = $date ?? date('Y-m-d');
 
         return Inertia::render('Rate/Show', [
-            'rate' => $rate->getDistributionForTwoWeeks($roomId, date('Y-m-d')),
-            'room' => $room->find($roomId)
+            'rate' => $rate->getDistributionForTwoWeeks($roomId, $date),
+            'room' => $room->find($roomId),
+            'start_date' => $date,
         ]);
     }
 
