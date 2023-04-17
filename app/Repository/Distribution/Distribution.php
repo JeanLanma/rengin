@@ -130,4 +130,19 @@ class Distribution {
         }
     }
 
+    # Validators
+
+    public function isDateValid($date)
+    {
+        $date = date('Y-m-d', strtotime($date));
+        $date = date_create($date);
+        $now = date_create(date('Y-m-d'));
+        $diff = date_diff($date, $now);
+
+        if ($diff->format('%R%a') < 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

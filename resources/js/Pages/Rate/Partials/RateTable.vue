@@ -26,6 +26,14 @@ const props = defineProps({
 const formatDT = (date) => {
     return DateTime.fromFormat(date, 'yyyy-LL-dd');
 }
+// ! Check if the prop date is today by string comparison
+const isBeforeToday = (date) => {
+    return formatDT(date) <= DateTime.local();
+}
+// ! Check if the prop date is today by string comparison
+const isToday = (date) => {
+    return date == DateTime.local().toFormat('yyyy-LL-dd');
+}
 
 const nextWeek = (queryDate) => {
     return formatDT(queryDate).plus({days: 7}).toFormat('yyyy-LL-dd');
@@ -42,7 +50,7 @@ const thisWeek = () => {
 const testDate = () => {
     console.clear();
 
-    console.log(props.start_date);
+    console.log(isBeforeToday(props.start_date));
 }
 
 testDate();
@@ -62,10 +70,10 @@ testDate();
 
                     <div class="flex p-2 w-full max-w-md justify-center space-x-0">
                         
-                        <Link :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': prevWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden">
+                        <Link as="button" :disabled="isBeforeToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': prevWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden">
                             <button innerText="<< prev week" ></button>
                         </Link>
-                        <Link :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': thisWeek() })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-x-2 border-x-sky-300 text-center">
+                        <Link as="button" :disabled="isToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': thisWeek() })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-x-2 border-x-sky-300 text-center">
                             <button innerText="Today"></button>
                         </Link>
                         <Link :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': nextWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden" >

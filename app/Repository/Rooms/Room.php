@@ -15,7 +15,7 @@ class Room {
 
     public function find($id)
     {
-        return DB::table('rooms')->where('id', $id)->first();
+        return DB::table('rooms')->where('id', $id)->first() ?? abort(404);
     }
 
     public static function getPaginate($limit = 5)

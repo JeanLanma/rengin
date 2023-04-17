@@ -10,6 +10,9 @@ class DistributionController extends Controller {
     
     public function index()
     {
+        request()->validate([
+            'date' => 'date_format:Y-m-d',
+        ]);
         $rate = new \App\Repository\Distribution\Distribution();
 
         return Inertia::render('Rate/Show', [
@@ -21,7 +24,7 @@ class DistributionController extends Controller {
     {
         $rate = new \App\Repository\Distribution\Distribution();
         $room = new \App\Repository\Rooms\Room();
-        $date = $date ?? date('Y-m-d');
+        $date = $rate->isDateValid($date) ? $date : date('Y-m-d');
 
         return Inertia::render('Rate/Show', [
             'rate' => $rate->getDistributionForTwoWeeks($roomId, $date),
