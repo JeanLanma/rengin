@@ -97,6 +97,11 @@ class Distribution {
 
     # Updaters
 
+    public function updateSingleRoomPrice($room_id, $date, $price)
+    {
+        return DB::table('distribution')->where('room_id', $room_id)->where('date', $date)->update(['price' => $price]);
+    }
+
     public function updateRoomPrice($room_id, $prcie, $start_date, $end_date)
     {
         $distribution = DB::table('distribution')->where('room_id', $room_id)->where('date', '>=', $start_date)->where('date', '<=', $end_date)->get();
@@ -128,6 +133,21 @@ class Distribution {
         } else {
             return false;
         }
+    }
+
+    public function updateMultipleById($data)
+    {
+        $response = [];
+        foreach ($data as $key => $value) {
+            $response[] = ['id' => $value['id'], 'price' => $this->formatPrice($value['price']), 'success' => DB::table('distribution')->where('id', $value['id'])->update(['price' => $value['price'], 'availability' => $value['availability']])];
+        }
+
+        return $response;
+    }
+
+    public function formatPrice($price)
+    {
+        return number_format($price, 2, '.', ',');
     }
 
     # Validators

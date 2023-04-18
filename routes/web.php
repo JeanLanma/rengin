@@ -45,6 +45,10 @@ Route::delete('/rooms/delete/{roomId}', [App\Http\Controllers\Room\RoomControlle
 Route::get('/distribution', [App\Http\Controllers\Distribution\DistributionController::class, 'index'])->name('distribution.index');
 
 Route::get('/distribution/room/{roomId}/{date?}', [App\Http\Controllers\Distribution\DistributionController::class, 'getByRoomId'])->name('distribution.getByRoomId');
+
+Route::put('/distribution/update/{roomId}/{date}', [App\Http\Controllers\Distribution\DistributionController::class, 'update'])->name('distribution.update');
+
+Route::post('/distribution/update/multiple', [App\Http\Controllers\Distribution\DistributionController::class, 'updateMultiple'])->name('distribution.update.multiple');
 });
 
 

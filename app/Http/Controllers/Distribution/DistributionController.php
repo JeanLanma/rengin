@@ -6,7 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class DistributionController extends Controller {  
+class DistributionController extends Controller {
+
+    private $distribution;
+
+    public function __construct()
+    {
+        $this->distribution = new \App\Repository\Distribution\Distribution();
+    }
     
     public function index()
     {
@@ -31,4 +38,20 @@ class DistributionController extends Controller {
         ]);
     }
 
+    public function update($roomId, $date)
+    {
+        dd(request()->all());
+        $distribution = new \App\Repository\Distribution\Distribution();
+        $date = $distribution->isDateValid($date) ? $date : date('Y-m-d');
+
+        $distribution->updateSingleRoomPrice($roomId, $date, request()->price);
+
+        return redirect()->route('distribution.getByRoomId', ['roomId' => $roomId, 'date' => $date]);
+    }
+
+    public function updateMultiple()
+    {
+        $this->distribution->updateMultipleById(request()->data);
+        return redirect()->route('distribution.getByRoomId', ['roomId' => request()->data[0]['room_id']])->withBanner('Distribución actualizada');
+    }
 }

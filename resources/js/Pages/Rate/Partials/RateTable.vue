@@ -2,11 +2,8 @@
 
 import { Link } from '@inertiajs/vue3';
 import { DateTime } from 'luxon';
+import axios from 'axios';
 import { ref } from 'vue';
-
-// Set the current date with format YYYY-MM-DD
-
-const currentDate = ref(DateTime.local());
 
 const props = defineProps({
     rate: {
@@ -22,6 +19,63 @@ const props = defineProps({
         required: false,
     },
 });
+
+const updateMultipleRequest = () => {
+
+    axios.post(route('distribution.update.multiple', { 'roomId': props.room.id }), {
+        data: priceCellsModified.value
+    }).then( (response) => {
+        console.log(response);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+}
+
+const priceCells = ref([]);
+const priceCellsModified = ref([]);
+
+const getPriceCells = (element) => {
+    if(element && !priceCells.value.includes(element)) {
+        priceCells.value.push(element);
+    }
+}
+
+const updateRoomPrice = (rate, price, index) => {
+
+    const rateClone = {...rate, price: price};
+
+    if(!isInModifiedList(rate.id)) {
+        priceCellsModified.value = [...priceCellsModified.value, rateClone];
+    }
+
+    if(priceCells.value[index]) {
+        priceCells.value[index].classList.add('dark:bg-indigo-600', 'bg-indigo-100');
+    }
+
+    if(isOriginalPrice(rate.id, price)){
+        priceCellsModified.value = priceCellsModified.value.filter((item) => item.id != rate.id);
+        priceCells.value[index].classList.remove('dark:bg-indigo-600', 'bg-indigo-100');
+    }
+
+    console.log(priceCellsModified.value);
+}
+
+const isOriginalPrice = ( id, price ) => {
+    return props.rate.find((item) => {
+                return  (item.id == id && 
+                        item.price == price);
+            }) 
+            ? true 
+            : false;
+}
+
+const isInModifiedList = ( id ) => {
+    return  priceCellsModified.value.find((item) => item.id == id) 
+            ? true 
+            : false;
+}
 
 const formatDT = (date) => {
     return DateTime.fromFormat(date, 'yyyy-LL-dd');
@@ -50,10 +104,10 @@ const thisWeek = () => {
 const testDate = () => {
     console.clear();
 
-    console.log(isBeforeToday(props.start_date));
+    console.log(props.rate[0]);
 }
 
-testDate();
+// testDate();
 </script>
 
 <template>
@@ -63,6 +117,12 @@ testDate();
             <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 {{ props.room.name }}
             </h1>
+            <div v-if="priceCellsModified.length > 0">
+                <h2 class="text-xl text-gray-900 dark:text-white mb-4"> Se modificaran {{ priceCellsModified.length }} elementos! <Link :href="route('distribution.update.multiple')" :data="{data: priceCellsModified}" method="POST" as="button" class="text-base bg-sky-500 p-2 rounded-lg font-bold hover:bg-sky-600 duration-200 outline-white text-white" >Aceptar</Link></h2>
+            </div>
+            <div v-else>
+                <h2 class="text-xl text-gray-900 dark:text-white mb-4">Modifica los precios y disponibilidad  en la tabla de abajo o <button class="text-base border-2 border-sky-500 p-1 rounded-lg hover:bg-sky-600 duration-200 outline-white text-sky-400 hover:text-white" >Selecciona un periodo</button></h2>
+            </div>
             
             <!-- Filters -->
             <section>
@@ -107,8 +167,11 @@ testDate();
 
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center text-sm whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>Precio</span></th>
 
+                            <template v-for="(rate, index) in props.rate" :key="rate.id">
 
-                            <td v-for="rate in props.rate" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700 cursor-text"><span contenteditable>{{ rate.price }}</span></td>
+                                <td :ref="getPriceCells" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700 cursor-text"><span contenteditable @keydown.enter.prevent.stop="updateRoomPrice(rate, $event.target.textContent, index)" @blur="updateRoomPrice(rate, $event.target.textContent, index)">{{ rate.price }}</span></td>
+                            
+                            </template>
                             
                         </tr>
 
