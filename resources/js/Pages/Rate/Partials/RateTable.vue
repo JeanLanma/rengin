@@ -61,11 +61,39 @@ const updateRoomPrice = (rate, price, index) => {
 
     console.log(priceCellsModified.value);
 }
+const updateRoomAvailability = (rate, availability, index) => {
+
+    const rateClone = {...rate, availability: availability};
+
+    if(!isInModifiedList(rate.id)) {
+        priceCellsModified.value = [...priceCellsModified.value, rateClone];
+    }
+
+    if(priceCells.value[index]) {
+        priceCells.value[index].classList.add('dark:bg-indigo-600', 'bg-indigo-100');
+    }
+
+    if(isOriginalAvailability(rate.id, price)){
+        priceCellsModified.value = priceCellsModified.value.filter((item) => item.id != rate.id);
+        priceCells.value[index].classList.remove('dark:bg-indigo-600', 'bg-indigo-100');
+    }
+
+    console.log(priceCellsModified.value);
+}
 
 const isOriginalPrice = ( id, price ) => {
     return props.rate.find((item) => {
                 return  (item.id == id && 
                         item.price == price);
+            }) 
+            ? true 
+            : false;
+}
+
+const isOriginalAvailability = ( id, availability ) => {
+    return props.rate.find((item) => {
+                return  (item.id == id && 
+                        item.availability == availability);
             }) 
             ? true 
             : false;
@@ -159,7 +187,7 @@ const testDate = () => {
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center text-sm whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>Disponibles</span></th>
 
 
-                            <td v-for="rate in props.rate" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>{{ rate.availability }}</span></td>
+                            <td v-for="rate in props.rate" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span contenteditable @keydown.enter.prevent.stop="updateRoomAvailability(rate, $event.target.textContent, index)" @blur="updateRoomAvailability(rate, $event.target.textContent, index)" >{{ rate.availability }}</span></td>
                             
                         </tr>
 
