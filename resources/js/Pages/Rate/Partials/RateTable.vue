@@ -95,24 +95,6 @@ const updateRoomAvailability = (rate, availability, index) => {
 
 }
 
-const isOriginalPrice = ( id, price ) => {
-    return props.rate.find((item) => {
-                return  (item.id == id && 
-                        item.price == price);
-            }) 
-            ? true 
-            : false;
-}
-
-const isOriginalAvailability = ( id, availability ) => {
-    return props.rate.find((item) => {
-                return  (item.id == id && 
-                        item.availability == availability);
-            }) 
-            ? true 
-            : false;
-}
-
 const isOriginalDistribution = ( id, price, availability ) => {
     return props.rate.find((item) => {
                 return  (item.id == id && 
@@ -138,7 +120,7 @@ const isBeforeToday = (date) => {
 }
 // ! Check if the prop date is today by string comparison
 const isToday = (date) => {
-    return date == DateTime.local().toFormat('yyyy-LL-dd');
+    return (date == DateTime.local().toFormat('yyyy-LL-dd'));
 }
 
 const nextWeek = (queryDate) => {
@@ -156,19 +138,23 @@ const thisWeek = () => {
 const testDate = () => {
     console.clear();
 
-    console.log(props.rate[0]);
+    console.log(props.rate);
 }
 
-// testDate();
+testDate();
 </script>
 
 <template>
     <div>
         <div class="p-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
 
-            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                {{ props.room.name }}
-            </h1>
+            <section class="sm:flex sm:justify-between">
+
+                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                    {{ props.room.name }}
+                </h1>
+
+            </section>
             <div v-if="priceCellsModified.length > 0">
                 <h2 class="text-xl text-gray-900 dark:text-white mb-4"> Se modificaran {{ priceCellsModified.length }} elementos! <Link :href="route('distribution.update.multiple')" :data="{data: priceCellsModified}" method="POST" as="button" class="text-base bg-sky-500 p-2 rounded-lg font-bold hover:bg-sky-600 duration-200 outline-white text-white" >Aceptar</Link></h2>
             </div>
@@ -182,14 +168,14 @@ const testDate = () => {
 
                     <div class="flex p-2 w-full max-w-md justify-center space-x-0">
                         
-                        <Link as="button" :disabled="isBeforeToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': prevWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden">
-                            <button innerText="<< prev week" ></button>
+                        <Link as="button" :disabled="isBeforeToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': prevWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
+                            <button innerText="<<" ></button>
                         </Link>
-                        <Link as="button" :disabled="isToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': thisWeek() })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-x-2 border-x-sky-300 text-center">
+                        <Link as="button" :disabled="isToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': thisWeek() })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
                             <button innerText="Today"></button>
                         </Link>
-                        <Link :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': nextWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden" >
-                            <button innerText="next week >>"></button>
+                        <Link :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': nextWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-r-2 flex justify-center items-center" preserveScroll>
+                            <button innerText=">>"></button>
                         </Link>
                     </div>
 
@@ -200,8 +186,8 @@ const testDate = () => {
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 cursor-pointer box-shadow">
                     <thead>
                         <tr>
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center"><span class="font-bold block text-xl">&nbsp;</span></th>
-                            <th v-for="rate in props.rate" class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center" :class="(rate.day_name == 'Dom' || rate.day_name == 'Sáb') ? 'dark:bg-gray-700 bg-gray-200' : '' "><span>{{ rate.day_name }}</span><span class="font-bold block text-xl">{{ rate.day }}</span></th>
+                            <th class="px-4 py-1 font-bold text-gray-500 dark:text-gray-400 text-center"><span class="font-bold block text-xl">&nbsp;</span></th>
+                            <th v-for="rate in props.rate" class="px-4 py-1 font-bold text-gray-500 dark:text-gray-400 text-center min-w-[5.5rem]" :class="(rate.day_name == 'Dom' || rate.day_name == 'Sáb') ? 'dark:bg-gray-700 bg-gray-200' : '' "><span>{{ isToday(rate.date) ? 'Hoy' : rate.day_name }}</span><span class="font-bold block text-2xl">{{ rate.day }}</span><span class="text-sm font-normal">{{ rate.month_name }}</span></th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">

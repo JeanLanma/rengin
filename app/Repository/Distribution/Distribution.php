@@ -21,13 +21,21 @@ class Distribution {
 
     public function formatDistributionDates($distribution)
     {
-        $fmt = new \IntlDateFormatter(
+        $fmtDayName = new \IntlDateFormatter(
             'es_ES',
             \IntlDateFormatter::FULL,
             \IntlDateFormatter::FULL,
             'America/Mexico_City',
             \IntlDateFormatter::GREGORIAN,
             'EEE'
+        );
+        $fmtMonthName = new \IntlDateFormatter(
+            'es_ES',
+            \IntlDateFormatter::FULL,
+            \IntlDateFormatter::FULL,
+            'America/Mexico_City',
+            \IntlDateFormatter::GREGORIAN,
+            'MMM'
         );
         $formatted = [];
 
@@ -37,7 +45,9 @@ class Distribution {
             # extract day from date
             $value->day = date('d', strtotime($value->date));
             # extract day name from date
-            $value->day_name = ucfirst(datefmt_format($fmt, strtotime($value->date)));
+            $value->day_name = ucfirst(datefmt_format($fmtDayName, strtotime($value->date)));
+            # extract month name from date
+            $value->month_name = ucfirst(datefmt_format($fmtMonthName, strtotime($value->date)));
 
         }
 

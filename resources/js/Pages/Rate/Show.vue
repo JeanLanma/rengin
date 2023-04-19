@@ -23,7 +23,7 @@ const props = defineProps({
     <AppLayout title="Reservaciones">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Tarifas
+                Tarifas de {{ props.room.name }}
             </h2>
         </template>
 
