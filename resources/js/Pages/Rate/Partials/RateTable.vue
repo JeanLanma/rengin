@@ -34,6 +34,7 @@ const updateMultipleRequest = () => {
 }
 
 const priceCells = ref([]);
+const availabilityCells = ref([]);
 const priceCellsModified = ref([]);
 
 const getPriceCells = (element) => {
@@ -42,43 +43,56 @@ const getPriceCells = (element) => {
     }
 }
 
+const getAvailabilityCells = (element) => {
+    if(element && !availabilityCells.value.includes(element)) {
+        availabilityCells.value.push(element);
+    }
+}
+
 const updateRoomPrice = (rate, price, index) => {
 
-    const rateClone = {...rate, price: price};
+    let rateClone = {};
 
     if(!isInModifiedList(rate.id)) {
+        rateClone = {...rate, price: price}
         priceCellsModified.value = [...priceCellsModified.value, rateClone];
+    } else {
+        priceCellsModified.value = priceCellsModified.value.map((item) => {
+            if(item.id == rate.id) {
+                item.price = price;
+            }
+            return item;
+        });
     }
 
     if(priceCells.value[index]) {
         priceCells.value[index].classList.add('dark:bg-indigo-600', 'bg-indigo-100');
     }
 
-    if(isOriginalPrice(rate.id, price)){
+    if(isOriginalDistribution(rateClone.id, price, rateClone.availability)){
         priceCellsModified.value = priceCellsModified.value.filter((item) => item.id != rate.id);
         priceCells.value[index].classList.remove('dark:bg-indigo-600', 'bg-indigo-100');
     }
 
-    console.log(priceCellsModified.value);
 }
 const updateRoomAvailability = (rate, availability, index) => {
 
-    const rateClone = {...rate, availability: availability};
+    let rateClone = {};
 
     if(!isInModifiedList(rate.id)) {
+        rateClone = {...rate, availability: availability}
         priceCellsModified.value = [...priceCellsModified.value, rateClone];
     }
 
-    if(priceCells.value[index]) {
-        priceCells.value[index].classList.add('dark:bg-indigo-600', 'bg-indigo-100');
+    if(availabilityCells.value[index]) {
+        availabilityCells.value[index].classList.add('dark:bg-indigo-600', 'bg-indigo-100');
     }
 
-    if(isOriginalAvailability(rate.id, price)){
+    if(isOriginalDistribution(rateClone.id, rateClone.price, availability)){
         priceCellsModified.value = priceCellsModified.value.filter((item) => item.id != rate.id);
-        priceCells.value[index].classList.remove('dark:bg-indigo-600', 'bg-indigo-100');
+        availabilityCells.value[index].classList.remove('dark:bg-indigo-600', 'bg-indigo-100');
     }
 
-    console.log(priceCellsModified.value);
 }
 
 const isOriginalPrice = ( id, price ) => {
@@ -93,6 +107,16 @@ const isOriginalPrice = ( id, price ) => {
 const isOriginalAvailability = ( id, availability ) => {
     return props.rate.find((item) => {
                 return  (item.id == id && 
+                        item.availability == availability);
+            }) 
+            ? true 
+            : false;
+}
+
+const isOriginalDistribution = ( id, price, availability ) => {
+    return props.rate.find((item) => {
+                return  (item.id == id && 
+                        item.price == price && 
                         item.availability == availability);
             }) 
             ? true 
@@ -187,7 +211,9 @@ const testDate = () => {
                             <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center text-sm whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>Disponibles</span></th>
 
 
-                            <td v-for="rate in props.rate" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span contenteditable @keydown.enter.prevent.stop="updateRoomAvailability(rate, $event.target.textContent, index)" @blur="updateRoomAvailability(rate, $event.target.textContent, index)" >{{ rate.availability }}</span></td>
+                            <template  v-for="(rate, index) in props.rate" :key="rate.id">
+                                <td :ref="getAvailabilityCells" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span contenteditable @keydown.enter.prevent.stop="updateRoomAvailability(rate, $event.target.textContent, index)" @blur="updateRoomAvailability(rate, $event.target.textContent, index)" >{{ rate.availability }}</span></td>
+                            </template>
                             
                         </tr>
 
