@@ -1,10 +1,10 @@
 <script setup>
 
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 import { Link } from '@inertiajs/vue3';
 import { DateTime } from 'luxon';
-import axios from 'axios';
-import { ref } from 'vue';
-
+import { ref, onMounted } from 'vue';
 const props = defineProps({
     rate: {
         type: Object,
@@ -20,22 +20,16 @@ const props = defineProps({
     },
 });
 
-const updateMultipleRequest = () => {
-
-    axios.post(route('distribution.update.multiple', { 'roomId': props.room.id }), {
-        data: priceCellsModified.value
-    }).then( (response) => {
-        console.log(response);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-
-}
-
 const priceCells = ref([]);
 const availabilityCells = ref([]);
 const priceCellsModified = ref([]);
+const date = ref();
+
+onMounted(() => {
+    const startDate = new Date();
+    const endDate = new Date( new Date().setDate(startDate + 7) );
+    date.value = [startDate, endDate];
+})
 
 const getPriceCells = (element) => {
     if(element && !priceCells.value.includes(element)) {
@@ -153,6 +147,8 @@ testDate();
                 <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
                     {{ props.room.name }}
                 </h1>
+
+                <VueDatePicker v-model="date" range />
 
             </section>
             <div v-if="priceCellsModified.length > 0">
