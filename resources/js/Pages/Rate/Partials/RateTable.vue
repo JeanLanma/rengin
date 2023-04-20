@@ -150,14 +150,13 @@ const format = ([DateStart, DateEnd]) => {
 
     if(!DateEnd)
     {
-        day2 = DateEnd.getDate();
-        month2 = DateEnd.getMonth() + 1;
-        year2 = DateEnd.getFullYear();
-    }else {
         day2 = DateStart.getDate();
         month2 = DateStart.getMonth() + 1;
         year2 = DateStart.getFullYear();
-
+    }else {
+        day2 = DateEnd.getDate();
+        month2 = DateEnd.getMonth() + 1;
+        year2 = DateEnd.getFullYear();
     }
 
     return `${day}/${month}/${year} - ${day2}/${month2}/${year2}`;
