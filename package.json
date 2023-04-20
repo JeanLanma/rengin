@@ -21,5 +21,8 @@
     "dependencies": {
         "@vuepic/vue-datepicker": "^4.4.0",
         "luxon": "^3.3.0"
+    },
+    "imports": {
+        "#utils": "./resources/js/utils"
     }
 }

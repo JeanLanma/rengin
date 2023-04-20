@@ -3,8 +3,9 @@
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { Link } from '@inertiajs/vue3';
-import { DateTime } from 'luxon';
 import { ref, onMounted } from 'vue';
+import { DateTime } from 'luxon';
+import { hasDarkMode } from '#utils';
 const props = defineProps({
     rate: {
         type: Object,
@@ -132,10 +133,35 @@ const thisWeek = () => {
 const testDate = () => {
     console.clear();
 
-    console.log(props.rate);
+    console.log('hasDarkPreference', hasDarkMode());
 }
 
 testDate();
+
+const format = ([DateStart, DateEnd]) => {
+
+    const day = DateStart.getDate();
+    const month = DateStart.getMonth() + 1;
+    const year = DateStart.getFullYear();
+
+    let day2;
+    let month2;
+    let year2;
+
+    if(!DateEnd)
+    {
+        day2 = DateEnd.getDate();
+        month2 = DateEnd.getMonth() + 1;
+        year2 = DateEnd.getFullYear();
+    }else {
+        day2 = DateStart.getDate();
+        month2 = DateStart.getMonth() + 1;
+        year2 = DateStart.getFullYear();
+
+    }
+
+    return `${day}/${month}/${year} - ${day2}/${month2}/${year2}`;
+}
 </script>
 
 <template>
@@ -148,15 +174,35 @@ testDate();
                     {{ props.room.name }}
                 </h1>
 
-                <VueDatePicker v-model="date" range />
-
             </section>
-            <div v-if="priceCellsModified.length > 0">
-                <h2 class="text-xl text-gray-900 dark:text-white mb-4"> Se modificaran {{ priceCellsModified.length }} elementos! <Link :href="route('distribution.update.multiple')" :data="{data: priceCellsModified}" method="POST" as="button" class="text-base bg-sky-500 p-2 rounded-lg font-bold hover:bg-sky-600 duration-200 outline-white text-white" >Aceptar</Link></h2>
-            </div>
-            <div v-else>
-                <h2 class="text-xl text-gray-900 dark:text-white mb-4">Modifica los precios y disponibilidad  en la tabla de abajo o <button class="text-base border-2 border-sky-500 p-1 rounded-lg hover:bg-sky-600 duration-200 outline-white text-sky-400 hover:text-white" >Selecciona un periodo</button></h2>
-            </div>
+
+            <section>
+                
+                <div v-if="priceCellsModified.length > 0">
+                    <h2 class="text-xl text-gray-900 dark:text-white mb-4"> Se modificaran {{ priceCellsModified.length }} elementos! <Link :href="route('distribution.update.multiple')" :data="{data: priceCellsModified}" method="POST" as="button" class="text-base bg-sky-500 p-2 rounded-lg font-bold hover:bg-sky-600 duration-200 outline-white text-white" >Aceptar</Link></h2>
+                </div>
+                <div v-else>
+                    <h2 class="text-xl text-gray-900 dark:text-white mb-4">Modifica los precios y disponibilidad  en la tabla de abajo o <button class="text-base border-2 border-sky-500 p-1 rounded-lg hover:bg-sky-600 duration-200 outline-white text-sky-400 hover:text-white" >Selecciona un periodo</button></h2>
+                </div>
+
+                <!-- Modify by Date range -->
+                <div class="my-8">
+
+                    <h2 class="text-xl text-gray-900 dark:text-white mb-4 underline ">Seleccione un rango de fechas para modificar</h2> 
+
+                    <div >
+
+                        <div class="w-full md:w-96 relative z-10" >
+
+                            <VueDatePicker :format="format"  v-model="date" range :dark="hasDarkMode()" multi-calendars placeholder="Seleccione un rango de fechas"/>
+                        
+                        </div>
+
+                    
+                    </div>
+                </div>
+            
+            </section>
             
             <!-- Filters -->
             <section>
@@ -164,7 +210,7 @@ testDate();
 
                     <div class="flex p-2 w-full max-w-md justify-center space-x-0">
                         
-                        <Link as="button" :disabled="isBeforeToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': prevWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
+                        <Link as="button" :disabled="isBeforeToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': prevWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
                             <button innerText="<<" ></button>
                         </Link>
                         <Link as="button" :disabled="isToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': thisWeek() })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
@@ -222,6 +268,29 @@ testDate();
 </template>
 
 <style>
+.dp__theme_dark {
+   --dp-background-color: #212121;
+   --dp-text-color: #ffffff;
+   --dp-hover-color: #484848;
+   --dp-hover-text-color: #ffffff;
+   --dp-hover-icon-color: #959595;
+   --dp-primary-color: #005cb2;
+   --dp-primary-text-color: #ffffff;
+   --dp-secondary-color: #a9a9a9;
+   --dp-border-color: #2d2d2d;
+   --dp-menu-border-color: #2d2d2d;
+   --dp-border-color-hover: #aaaeb7;
+   --dp-disabled-color: #737373;
+   --dp-scroll-bar-background: #212121;
+   --dp-scroll-bar-color: #484848;
+   --dp-success-color: #00701a;
+   --dp-success-color-disabled: #428f59;
+   --dp-icon-color: #959595;
+   --dp-danger-color: #e53935;
+   --dp-highlight-color: rgba(0, 92, 178, 0.2);
+}
+
+/* Distribution Table */
 [contenteditable]:focus {
     outline: 0px solid transparent;
 }
