@@ -155,6 +155,14 @@ class Distribution {
         return $response;
     }
 
+    public function updatePeriod($data)
+    {
+        DB::table('distribution')->where('room_id', $data['room_id'])->where('date', '>=', $data['start_date'])->where('date', '<=', $data['end_date'])->update(['price' => $data['price'], 'availability' => $data['availability']]);
+    }
+
+
+    # Utils
+
     public function formatPrice($price)
     {
         return number_format($price, 2, '.', ',');

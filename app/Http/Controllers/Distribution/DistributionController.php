@@ -54,4 +54,10 @@ class DistributionController extends Controller {
         $this->distribution->updateMultipleById(request()->data);
         return redirect()->route('distribution.getByRoomId', ['roomId' => request()->data[0]['room_id']])->withBanner('Distribución actualizada');
     }
+
+    public function updatePeriod()
+    {
+        dd(request()->all());
+        $this->distribution->updatePeriod(request()->data);
+    }
 }

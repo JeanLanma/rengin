@@ -3,9 +3,12 @@
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { Link } from '@inertiajs/vue3';
-import { ref, onMounted } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import { DateTime } from 'luxon';
 import { hasDarkMode } from '#utils';
+import InputLabel from '@/Components/InputLabel.vue';
+import NumberInput from '@/Components/AppInput.vue';
+import axios from 'axios';
 const props = defineProps({
     rate: {
         type: Object,
@@ -24,12 +27,21 @@ const props = defineProps({
 const priceCells = ref([]);
 const availabilityCells = ref([]);
 const priceCellsModified = ref([]);
-const date = ref();
+const date = ref([]);
 
-onMounted(() => {
-    const startDate = new Date();
-    const endDate = new Date( new Date().setDate(startDate + 7) );
-    date.value = [startDate, endDate];
+onBeforeMount(() => {
+    const starDate = new Date();
+    const endDate = new Date().setDate(starDate.getDate() + 7);
+
+    console.log(starDate, endDate);
+});
+
+
+const periodDistribution = ref({
+    price: 0,
+    availability: 0,
+    start_date: '',
+    end_date: '',
 })
 
 const getPriceCells = (element) => {
@@ -130,14 +142,6 @@ const thisWeek = () => {
     return DateTime.local().toFormat('yyyy-LL-dd');
 }
 
-const testDate = () => {
-    console.clear();
-
-    console.log('hasDarkPreference', hasDarkMode());
-}
-
-testDate();
-
 const format = ([DateStart, DateEnd]) => {
 
     const day = DateStart.getDate();
@@ -160,6 +164,28 @@ const format = ([DateStart, DateEnd]) => {
     }
 
     return `${day}/${month}/${year} - ${day2}/${month2}/${year2}`;
+}
+
+const updatePeriodDistribution = () => {
+    // format date to string
+    const startDate = DateTime.fromJSDate(date.value[0]).toFormat('yyyy-LL-dd');
+    const endDate = DateTime.fromJSDate(date.value[1]).toFormat('yyyy-LL-dd');
+    
+    periodDistribution.value = {
+        ...periodDistribution.value,
+        start_date: startDate,
+        end_date: endDate,
+    }
+
+    return console.log(periodDistribution.value);
+
+    axios.post(route('distribution.update.period'), {data: periodDistribution.value})
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
 }
 </script>
 
@@ -185,20 +211,52 @@ const format = ([DateStart, DateEnd]) => {
                 </div>
 
                 <!-- Modify by Date range -->
-                <div class="my-8">
+                <div class="box-shadow my-8 dark:bg-gray-700 bg-gray-200 py-8 px-4 rounded">
 
-                    <h2 class="text-xl text-gray-900 dark:text-white mb-4 underline ">Seleccione un rango de fechas para modificar</h2> 
+                    <h2 class="text-2xl text-gray-900 dark:text-white mb-4 font-bold">Seleccione un rango de fechas para modificar</h2> 
 
-                    <div >
+                    <div class="flex justify-around items-baseline xl:items-center flex-wrap">
 
-                        <div class="w-full md:w-96 relative z-10" >
+                        <div class="w-full md:w-96" >
 
-                            <VueDatePicker :format="format"  v-model="date" range :dark="hasDarkMode()" multi-calendars placeholder="Seleccione un rango de fechas"/>
+                            <InputLabel for="datePicker" value="Fechas a modificar"/>
+                            <VueDatePicker class="mt-2" :format="format"  v-model="date" range :dark="hasDarkMode()" multi-calendars placeholder="Seleccione un rango de fechas"/>
                         
                         </div>
 
-                    
+                        <div class="flex">
+
+                            <div class="w-60 mr-2">
+                                
+                                <InputLabel for="periodPrice" value="Precio" />
+                                <NumberInput
+                                    type="number"
+                                    id="periodPrice"
+                                    v-model="periodDistribution.price"
+                                    class="mt-1 block w-full"
+                                />
+                                
+                            </div>
+                            <div class="w-60">
+                                
+                                <InputLabel for="PeriodAvailability" value="Disponibilidad" />
+                                <NumberInput
+                                    type="number"
+                                    id="PeriodAvailability"
+                                    v-model="periodDistribution.availability"
+                                    class="mt-1 block w-full"
+                                />
+                                
+                            </div>
+                        
+                        </div>
+
+
+                        <div class="mr-auto xl:mr-0 mt-4">                            
+                                <button @click="updatePeriodDistribution" class="ml-3 text-base border-2 border-sky-500 p-1 rounded-lg hover:bg-sky-600 duration-200 outline-white text-sky-400 hover:text-white" >Guardar los cambios</button>
+                        </div>
                     </div>
+
                 </div>
             
             </section>
