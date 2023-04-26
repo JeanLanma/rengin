@@ -155,9 +155,17 @@ class Distribution {
         return $response;
     }
 
-    public function updatePeriod($data)
+    public function updatePeriod($roomId, $data)
     {
-        DB::table('distribution')->where('room_id', $data['room_id'])->where('date', '>=', $data['start_date'])->where('date', '<=', $data['end_date'])->update(['price' => $data['price'], 'availability' => $data['availability']]);
+        return DB::table('distribution')->where('room_id', $roomId)->where('date', '>=', $data['start_date'])->where('date', '<=', $data['end_date'])->update(['price' => $data['price'], 'availability' => $data['availability']]);
+    }
+    public function updatePeriodPrice($roomId, $data)
+    {
+        return DB::table('distribution')->where('room_id', $roomId)->where('date', '>=', $data['start_date'])->where('date', '<=', $data['end_date'])->update(['price' => $data['price']]);
+    }
+    public function updatePeriodAvailability($roomId, $data)
+    {
+        return DB::table('distribution')->where('room_id', $roomId)->where('date', '>=', $data['start_date'])->where('date', '<=', $data['end_date'])->update(['availability' => $data['availability']]);
     }
 
 

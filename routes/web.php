@@ -50,7 +50,7 @@ Route::put('/distribution/update/{roomId}/{date}', [App\Http\Controllers\Distrib
 
 Route::post('/distribution/update/multiple', [App\Http\Controllers\Distribution\DistributionController::class, 'updateMultiple'])->name('distribution.update.multiple');
 
-Route::post('/distribution/update/period', [App\Http\Controllers\Distribution\DistributionController::class, 'updatePeriod'])->name('distribution.update.period');
+Route::post('/distribution/update/period/room/{roomId}', [App\Http\Controllers\Distribution\DistributionController::class, 'updatePeriod'])->name('distribution.update.period');
 
 });
 

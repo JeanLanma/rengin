@@ -1,13 +1,15 @@
 <script setup>
 
 import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
-import { Link } from '@inertiajs/vue3';
-import { ref, onBeforeMount } from 'vue';
-import { DateTime } from 'luxon';
-import { hasDarkMode } from '#utils';
 import InputLabel from '@/Components/InputLabel.vue';
 import NumberInput from '@/Components/AppInput.vue';
+import Modal from '@/Components/DialogModal.vue';
+import { Link, router } from '@inertiajs/vue3';
+import '@vuepic/vue-datepicker/dist/main.css'
+import { ref, onBeforeMount } from 'vue';
+import { hasDarkMode } from '#utils';
+import OutlinedButton from '@/Shared/OutlinedButton.vue';
+import { DateTime } from 'luxon';
 import axios from 'axios';
 const props = defineProps({
     rate: {
@@ -28,13 +30,8 @@ const priceCells = ref([]);
 const availabilityCells = ref([]);
 const priceCellsModified = ref([]);
 const date = ref([]);
-
-onBeforeMount(() => {
-    const starDate = new Date();
-    const endDate = new Date().setDate(starDate.getDate() + 7);
-
-    console.log(starDate, endDate);
-});
+const showSuccess = ref(false);
+const switchPriceOrAvailability = ref(null);
 
 
 const periodDistribution = ref({
@@ -42,6 +39,7 @@ const periodDistribution = ref({
     availability: 0,
     start_date: '',
     end_date: '',
+    priceOrAvailability: 'precio',
 })
 
 const getPriceCells = (element) => {
@@ -177,20 +175,64 @@ const updatePeriodDistribution = () => {
         end_date: endDate,
     }
 
-    return console.log(periodDistribution.value);
-
-    axios.post(route('distribution.update.period'), {data: periodDistribution.value})
+    // return console.log(periodDistribution.value);
+    axios.post(route('distribution.update.period', {'roomId': props.room.id}), {data: periodDistribution.value})
         .then((response) => {
-            console.log(response);
+            router.reload({ only: ['rate'] })
+            showSuccess.value = true;
+            
+            periodDistribution.value = {
+                price: 0,
+                availability: 0,
+                start_date: '',
+                end_date: '',
+                priceOrAvailability: 'precio',
+            }
+            date.value = [];
+
+            if (switchPriceOrAvailability.value.classList.contains('right-1')){
+                switchPriceOrAvailability.value.classList.remove('right-1')
+                switchPriceOrAvailability.value.classList.add('left-1')
+            }else {
+                switchPriceOrAvailability.value.classList.remove('left-1')
+                switchPriceOrAvailability.value.classList.add('right-1')
+            }
         })
         .catch((error) => {
             console.log(error);
         })
 }
+
+function togglePeriodDistribution(isModfied){
+    periodDistribution.value.priceOrAvailability = isModfied;
+
+    if (switchPriceOrAvailability.value.classList.contains('right-1')){
+        switchPriceOrAvailability.value.classList.remove('right-1')
+        switchPriceOrAvailability.value.classList.add('left-1')
+    }else {
+        switchPriceOrAvailability.value.classList.remove('left-1')
+        switchPriceOrAvailability.value.classList.add('right-1')
+    }
+}
 </script>
 
 <template>
     <div>
+        <!-- Modal -->
+        <Modal :show="showSuccess" @close="showSuccess = false">
+            <template #title>
+                Operación exitosa
+            </template>
+            <template #content>
+                La actulalización de la distribución se ha realizado con éxito.
+            </template>
+            <template #footer>
+                <OutlinedButton @click.native="showSuccess = false">
+                    Entendido
+                </OutlinedButton>
+            </template>
+        </Modal>
+        <!-- /Modal -->
         <div class="p-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
 
             <section class="sm:flex sm:justify-between">
@@ -207,13 +249,27 @@ const updatePeriodDistribution = () => {
                     <h2 class="text-xl text-gray-900 dark:text-white mb-4"> Se modificaran {{ priceCellsModified.length }} elementos! <Link :href="route('distribution.update.multiple')" :data="{data: priceCellsModified}" method="POST" as="button" class="text-base bg-sky-500 p-2 rounded-lg font-bold hover:bg-sky-600 duration-200 outline-white text-white" >Aceptar</Link></h2>
                 </div>
                 <div v-else>
-                    <h2 class="text-xl text-gray-900 dark:text-white mb-4">Modifica los precios y disponibilidad  en la tabla de abajo o <button class="text-base border-2 border-sky-500 p-1 rounded-lg hover:bg-sky-600 duration-200 outline-white text-sky-400 hover:text-white" >Selecciona un periodo</button></h2>
+                    <h2 class="text-xl text-gray-900 dark:text-white mb-4">Modifica los precios y disponibilidad  en la tabla de abajo o <OutlinedButton class="text-base border-2 border-sky-500 p-1 rounded-lg hover:bg-sky-600 duration-200 outline-white text-sky-400 hover:text-white" >Selecciona un periodo</OutlinedButton></h2>
                 </div>
 
                 <!-- Modify by Date range -->
                 <div class="box-shadow my-8 dark:bg-gray-700 bg-gray-200 py-8 px-4 rounded">
 
-                    <h2 class="text-2xl text-gray-900 dark:text-white mb-4 font-bold">Seleccione un rango de fechas para modificar</h2> 
+                    <h2 class="text-2xl text-gray-900 dark:text-white mb-4 font-bold">Seleccione un rango de fechas para modificar</h2>
+                    <h4 class="text-white font-bold">Tipo de actulalización </h4>
+                    <div class="mx-8 max-w-sm shadow rounded-full h-10 mt-4 flex p-1 relative items-center dark:bg-gray-800 bg-gray-50">
+                        <div class="w-full flex justify-center dark:text-white">
+                            <button @click="togglePeriodDistribution('precio')">Precio</button>
+                        </div>
+                        <div class="w-full flex justify-center dark:text-white">
+                            <button @click="togglePeriodDistribution('disponibilidad')">Disponibilidad</button>
+                        </div>
+                        <span 
+                        ref="switchPriceOrAvailability"
+                        class="elSwitch bg-sky-500 shadow text-white flex items-center justify-center w-1/2 rounded-full h-8 transition-all top-[4px] absolute left-1 ">
+                        {{ periodDistribution.priceOrAvailability }}
+                        </span>
+                    </div>
 
                     <div class="flex justify-around items-baseline xl:items-center flex-wrap">
 
@@ -226,7 +282,7 @@ const updatePeriodDistribution = () => {
 
                         <div class="flex">
 
-                            <div class="w-60 mr-2">
+                            <div v-if="periodDistribution.priceOrAvailability == 'precio'" class="full">
                                 
                                 <InputLabel for="periodPrice" value="Precio" />
                                 <NumberInput
@@ -237,7 +293,7 @@ const updatePeriodDistribution = () => {
                                 />
                                 
                             </div>
-                            <div class="w-60">
+                            <div v-else class="w-full">
                                 
                                 <InputLabel for="PeriodAvailability" value="Disponibilidad" />
                                 <NumberInput
@@ -253,7 +309,7 @@ const updatePeriodDistribution = () => {
 
 
                         <div class="mr-auto xl:mr-0 mt-4">                            
-                                <button @click="updatePeriodDistribution" class="ml-3 text-base border-2 border-sky-500 p-1 rounded-lg hover:bg-sky-600 duration-200 outline-white text-sky-400 hover:text-white" >Guardar los cambios</button>
+                                <OutlinedButton @click="updatePeriodDistribution" >Guardar los cambios</OutlinedButton>
                         </div>
                     </div>
 
@@ -281,7 +337,7 @@ const updatePeriodDistribution = () => {
                 </div>
             </section>
 
-            <div class="text-white border border-gray-200 dark:border-gray-700 md:rounded-lg overflow-auto" id="thin-scroll">
+            <div class="text-white border border-gray-200 dark:border-gray-700 md:rounded-lg overflow-auto " id="thin-scroll">
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 cursor-pointer box-shadow">
                     <thead>
                         <tr>

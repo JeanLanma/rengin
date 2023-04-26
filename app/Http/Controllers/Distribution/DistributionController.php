@@ -55,9 +55,20 @@ class DistributionController extends Controller {
         return redirect()->route('distribution.getByRoomId', ['roomId' => request()->data[0]['room_id']])->withBanner('Distribución actualizada');
     }
 
-    public function updatePeriod()
+    public function updatePeriod($roomId)
     {
-        dd(request()->all());
-        $this->distribution->updatePeriod(request()->data);
+        // return response()->json(['message' => 'ok', 'data' => request()->data['priceOrAvailability']], 200);
+        if(isset(request()->data['priceOrAvailability']) && request()->data['priceOrAvailability'] == 'precio')
+        {
+            return response()->json(['message' => 'ok', 'data' => $this->distribution->updatePeriodPrice($roomId, request()->data)], 200);
+        }
+        elseif (isset(request()->data['priceOrAvailability']) && request()->data['priceOrAvailability'] == 'disponibilidad')
+        {
+            return response()->json(['message' => 'ok', 'data' => $this->distribution->updatePeriodAvailability($roomId, request()->data)], 200);
+        }
+        else
+        {
+            return response()->json(['message' => 'ok', 'data' => $this->distribution->updatePeriod($roomId, request()->data)], 200);
+        }
     }
 }
