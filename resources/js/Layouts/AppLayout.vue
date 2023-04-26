@@ -51,13 +51,13 @@ const logout = () => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('bookings.index')" :active="route().current('bookings.index')">
+                                <NavLink :href="route('bookings.index')" :active="route().current('bookings.*')">
                                     Reservaciones
                                 </NavLink>
-                                <NavLink :href="route('rooms.index')" :active="route().current('rooms.index')">
+                                <NavLink :href="route('rooms.index')" :active="route().current('rooms.*')">
                                     Habitaciones
                                 </NavLink>
-                                <NavLink :href="route('distribution.index')" :active="route().current('distribution.index')">
+                                <NavLink :href="route('distribution.index')" :active="route().current('distribution.*')">
                                     Distribución
                                 </NavLink>
                             </div>
@@ -203,13 +203,13 @@ const logout = () => {
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('bookings.index')" :active="route().current('bookings.index')">
+                        <ResponsiveNavLink :href="route('bookings.index')" :active="route().current('bookings.*')">
                             Reservaciones
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('rooms.index')" :active="route().current('rooms.index')">
+                        <ResponsiveNavLink :href="route('rooms.index')" :active="route().current('rooms.*')">
                             Habitaciones
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('distribution.index')" :active="route().current('distribution.index')">
+                        <ResponsiveNavLink :href="route('distribution.index')" :active="route().current('distribution.*')">
                             Distribución
                         </ResponsiveNavLink>
                     </div>
