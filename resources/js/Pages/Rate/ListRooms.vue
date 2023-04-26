@@ -37,13 +37,13 @@ console.log(props.rooms);
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 
                                 <Link v-for="room in props.rooms.data" :href="route('distribution.getByRoomId', {'roomId': room.id})">
-                                    <div class="w-full bg-black/25 hover:bg-black/50 dark:bg-gray-900 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center hover:rounded-none duration-200 ease-in-out cursor-pointer">
+                                    <div class="w-full box-shadow bg-gray-100 hover:bg-black/10 dark:bg-gray-900 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center hover:rounded-none duration-200 ease-in-out cursor-pointer">
                                         <div class="mb-8">
                                             <img class="object-center object-cover rounded-full h-36 w-36" :src="'storage/'+ room.cover" :alt="room.type">
                                         </div>
                                         <div class="text-center">
                                             <p class="text-xl text-gray-800 dark:text-white font-bold mb-2">{{ room.type }}</p>
-                                            <p class="text-base text-gray-100 font-normal">{{ room.name }}</p>
+                                            <p class="text-base text-gray-500 font-normal">{{ room.name }}</p>
                                         </div>
                                     </div>
                                 </Link>
