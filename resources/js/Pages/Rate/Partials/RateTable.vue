@@ -32,6 +32,7 @@ const priceCellsModified = ref([]);
 const date = ref([]);
 const showSuccess = ref(false);
 const switchPriceOrAvailability = ref(null);
+const showPeriodDistribution = ref(false);
 
 
 const periodDistribution = ref({
@@ -249,11 +250,11 @@ function togglePeriodDistribution(isModfied){
                     <h2 class="text-xl text-gray-900 dark:text-white mb-4"> Se modificaran {{ priceCellsModified.length }} elementos! <Link :href="route('distribution.update.multiple')" :data="{data: priceCellsModified}" method="POST" as="button" class="text-base bg-sky-500 p-2 rounded-lg font-bold hover:bg-sky-600 duration-200 outline-white text-white" >Aceptar</Link></h2>
                 </div>
                 <div v-else>
-                    <h2 class="text-xl text-gray-900 dark:text-white mb-4">Modifica los precios y disponibilidad  en la tabla de abajo o <OutlinedButton class="text-base border-2 border-sky-500 p-1 rounded-lg hover:bg-sky-600 duration-200 outline-white text-sky-400 hover:text-white" >Selecciona un periodo</OutlinedButton></h2>
+                    <h2 class="text-xl text-gray-900 dark:text-white mb-4">Modifica los precios y disponibilidad  en la tabla de abajo o <OutlinedButton @click="showPeriodDistribution = !showPeriodDistribution" class="text-base border-2 border-sky-500 p-1 rounded-lg hover:bg-sky-600 duration-200 outline-white text-sky-400 hover:text-white" >Selecciona un periodo</OutlinedButton></h2>
                 </div>
 
                 <!-- Modify by Date range -->
-                <div class="box-shadow my-8 dark:bg-gray-700 bg-gray-200 py-8 px-4 rounded">
+                <div v-show="showPeriodDistribution" class="scale-up-center box-shadow my-8 dark:bg-gray-700 bg-gray-200 py-8 px-4 rounded">
 
                     <h2 class="text-2xl text-gray-900 dark:text-white mb-4 font-bold">Seleccione un rango de fechas para modificar</h2>
                     <h4 class="text-white font-bold">Tipo de actulalización </h4>
