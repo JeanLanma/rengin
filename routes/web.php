@@ -52,6 +52,11 @@ Route::post('/distribution/update/multiple', [App\Http\Controllers\Distribution\
 
 Route::post('/distribution/update/period/room/{roomId}', [App\Http\Controllers\Distribution\DistributionController::class, 'updatePeriod'])->name('distribution.update.period');
 
+Route::get('/users/me/', function(){
+    $user = Auth::user();
+    return response()->json(['user'=> $user, 'permissions' => $user->getPermissionNames()]);
+})->name('users.me');
+
 });
 
 
