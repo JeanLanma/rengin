@@ -23,7 +23,7 @@ const form = useForm({
     base_capacity: props.room.base_capacity.toString(),
     max_capacity: props.room.max_capacity.toString(),
     base_price: props.room.base_price.toString(),
-    cover: props.room.cover,
+    cover: null,
 });
 
 const photoPreview = ref(null);
