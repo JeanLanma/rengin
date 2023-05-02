@@ -59,5 +59,7 @@ Route::get('/users/me/', function(){
 
 });
 
+Route::get('/booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking.getAvailabilityDate');
+
 
 
