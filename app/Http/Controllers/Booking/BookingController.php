@@ -14,9 +14,17 @@ class BookingController extends Controller
      */
     public function index(GetBookingRequest $request, Booking $booking)
     {
-        return response()->json([
-            'data' => $booking->getAvailabilityDate($request->validated())
-        ]);
-        dd($booking->getAvailabilityDate($request->validated()));
+        return [
+            'distribution' => $booking->getAvailabilityDate($request->validated()),
+            'settings' => [
+                'currency' => 'MXN',
+                'currency_symbol' => '$',
+                'adults' => $request->adults,
+                'children' => $request->children,
+                'checkin' => $request->checkin,
+                'checkout' => $request->checkout,
+                'nigths' => $booking->getNights($request->checkin, $request->checkout)
+            ]
+        ];
     }
 }
