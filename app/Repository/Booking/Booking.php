@@ -22,14 +22,44 @@ class Booking {
         $distributionResult = [];
 
         $distributionResult = $distribution->groupBy('room_id')->map(function ( $roomDistribution, $roomDistributionKey ) {
-            return $roomDistribution->reduce(function ($acc, $r){
-                $acc['price'] += $r->price;
-                return [
-                    'canBeBooked' => ($r->availability >= 1),
+            $canBeBooked = !$roomDistribution->contains('availability', 0);
+            $roomDistributionResult = [];
+            if($canBeBooked)
+            {
+                $roomDistributionResult = $roomDistribution->reduce(function ($acc, $r){
+                    $acc['price'] += $r->price;
+                    return [
+                        'canBeBooked' => true,
+                        'roomTypeId' => $r->room_id,
+                        'availability' => $r->availability,
+                        'price' => $acc['price'],
+                        'price_string' => $this->formatPrice($acc['price']),
+                        'room' => [
+                            'name' => $r->name,
+                            'type' => $r->type,
+                            'description' => $r->description,
+                            'cover' => $this->getCoverUrl($r->cover),
+                            'baseCapacity' => $r->base_capacity,
+                            'maxCapacity' => $r->max_capacity,
+                        ]
+                    ];
+                }, [
+                    'roomTypeId' => null,
+                    'canBeBooked' => true,
+                    'availability' => 0,
+                    'price' => 0,
+                    'price_string' => 0,
+                    'room'=> [],
+                ]);
+            } else 
+            {
+                $r = $roomDistribution->first();
+                $roomDistributionResult = [
+                    'canBeBooked' => false,
                     'roomTypeId' => $r->room_id,
                     'availability' => $r->availability,
-                    'price' => $acc['price'],
-                    'price_string' => $this->formatPrice($acc['price']),
+                    'price' => $r->price,
+                    'price_string' => $this->formatPrice($r->price),
                     'room' => [
                         'name' => $r->name,
                         'type' => $r->type,
@@ -39,22 +69,16 @@ class Booking {
                         'maxCapacity' => $r->max_capacity,
                     ]
                 ];
-            }, [
-                'roomTypeId' => null,
-                'canBeBooked' => true,
-                'availability' => 0,
-                'price' => 0,
-                'price_string' => 0,
-                'room'=> [],
-            ]);
+            }
 
+            return $roomDistributionResult;
         });
 
         return $distributionResult;
     }
 
     /**
-     * Format price to string "$ 100,00.00"
+     * Format price to string "$ 10,000.00"
      * 
      * @param int $price
      * @return string
