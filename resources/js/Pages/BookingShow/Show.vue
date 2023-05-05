@@ -5,11 +5,15 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { hasDarkMode } from '#utils';
 import { DateTime } from 'luxon';
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 import Counter from '@/Shared/Counter.vue';
+import BookingRoomCard from '@/Shared/BookingRoomCard.vue';
+import axios from 'axios';
 
 const date = ref()
 const showDetails = ref(false);
+const showRooms = ref(false);
+let rooms = null;
 const settings = ref({
     adults: 0,
     children: 0,
@@ -35,7 +39,6 @@ const defTimeSettings = () => {
 }
 const DEF_DATE = defTimeSettings();
 
-console.log(DEF_DATE);
 /**
  * Formats the date to a string like this: Mon ,01 Jan - Wen,03 Jan 
  * @param {[DateStart, DateEnd]} date[] 
@@ -57,10 +60,18 @@ const format = ([DateStart, DateEnd]) => {
 
 }
 
+const loadRooms = async () => {
+    const { data } = await axios.get(route('booking.getAvailabilityDate',{ adults: settings.value.adults, children: settings.value.children, infants: settings.value.infants, rooms: settings.value.rooms, checkin: settings.value.checkin, checkout: settings.value.checkout }));
+    rooms = data;
+    showRooms.value = true;
+    console.log(rooms);
+}
+
 const showSettings = () => {
     console.clear();
 
     showDetails.value = !showDetails.value;
+    loadRooms();
     console.log(settings.value);
 }
 </script>
@@ -128,6 +139,14 @@ const showSettings = () => {
             </div>
 
         </section>
+
+        <template v-if="showRooms">
+            <section >
+
+                <BookingRoomCard v-for="room in rooms.distribution" :room="room" />
+                
+            </section>
+        </template>
 
     </BookingLayout>
 </template>
