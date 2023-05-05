@@ -27,4 +27,9 @@ class BookingController extends Controller
             ]
         ];
     }
+
+    public function show()
+    {
+        return inertia('BookingShow/Show'); 
+    }
 }
