@@ -11,4 +11,9 @@ class User {
         return UserModel::with('roles')->paginate($limit);
     }
 
+    public static function getById($id)
+    {
+        return UserModel::with('roles')->find($id);
+    }
+
 }

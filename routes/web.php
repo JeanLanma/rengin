@@ -60,6 +60,8 @@ Route::get('/users/me/', function(){
 
 Route::get('/users', [App\Http\Controllers\User\UserController::class, 'index'])->name('users.index');
 
+Route::get('/users/{userID}', [App\Http\Controllers\User\UserController::class, 'edit'])->name('users.edit');
+
 });
 
 Route::get('/booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking.getAvailabilityDate');

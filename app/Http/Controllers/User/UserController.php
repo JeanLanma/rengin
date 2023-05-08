@@ -15,4 +15,11 @@ class UserController extends Controller
             'users' => \App\Repository\Users\User::get(10),
         ]);
     }
+
+    public function edit($userID)
+    {
+        return inertia('User/Edit', [
+            'user' => \App\Repository\Users\User::getById($userID),
+        ]);
+    }
 }

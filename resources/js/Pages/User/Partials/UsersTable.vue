@@ -51,7 +51,7 @@ console.log(props.users);
 
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ user.roles[0] ?? 'sin asignar' }}</td>
                             
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><a href="#" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver detalles</a></td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><a :href="route('users.edit', {'userID': user.id})" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver detalles</a></td>
 
                         </tr>
 
@@ -62,13 +62,3 @@ console.log(props.users);
 
     </div>
 </template>
-
-<style>
-
-.right-in-shadow {
-    -webkit-box-shadow: inset -10px 0px 14px -1px rgba(0,0,0,0.5);
-    -moz-box-shadow: inset -10px 0px 14px -1px rgba(0,0,0,0.5);
-    box-shadow: inset -10px 0px 14px -1px rgba(0,0,0,0.5);
-}
-
-</style>
