@@ -8,7 +8,7 @@ class User {
 
     public static function get($limit)
     {
-        return UserModel::paginate($limit);
+        return UserModel::with('roles')->paginate($limit);
     }
 
 }

@@ -12,7 +12,7 @@ console.log(props.users);
 
 <template>
     <div>
-        <div class="p-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
+        <div class="p-3 py-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
 
             <h1 class="text-2xl font-medium text-gray-900 dark:text-white mb-4">
                 Lista de Usuarios
@@ -22,11 +22,11 @@ console.log(props.users);
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 cursor-pointer">
                     <thead>
                         <tr>
-                            <th class="px-4 py-3.5 font-bold text-left text-gray-500 dark:text-gray-400">UserID</th>
-                            <th class="px-4 py-3.5 font-bold text-left text-gray-500 dark:text-gray-400">Nombre</th>
-                            <th class="px-4 py-3.5 font-bold text-left text-gray-500 dark:text-gray-400">Correo</th>
-                            <th class="px-4 py-3.5 font-bold text-left text-gray-500 dark:text-gray-400">Rol</th>
-                            <th class="px-4 py-3.5 font-bold text-right text-gray-500 dark:text-gray-400">			          
+                            <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">UserID</th>
+                            <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Nombre</th>
+                            <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Correo</th>
+                            <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Rol</th>
+                            <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-right text-gray-500 dark:text-gray-400">			          
                                 <svg
                                 class="w-6 text-right fill-current text-grey-dark"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -41,17 +41,17 @@ console.log(props.users);
                     </thead>
                     <tbody class="bg-white divide-y shadow-inner divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
 
-                        <tr class="dark:hover:bg-gray-600 hover:bg-gray-100">
+                        <tr v-for="user in props.users.data" class="dark:hover:bg-gray-600 hover:bg-gray-100">
 
-                            <td class="px-4 py-4 text-base font-bold text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">#1234</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-base font-bold text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"># {{ user.id }}</td>
 
-                            <td class="px-4 py-4 text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">Jhon Doe</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ user.name }}</td>
 
-                            <td class="px-4 py-4 text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">Abril 3, 2023</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ user.email }}</td>
 
-                            <td class="px-4 py-4 text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">Suite</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ user.roles[0] ?? 'sin asignar' }}</td>
                             
-                            <td class="px-4 py-4 text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><a href="#" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver Reserva</a></td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><a href="#" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver detalles</a></td>
 
                         </tr>
 
