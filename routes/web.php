@@ -52,10 +52,13 @@ Route::post('/distribution/update/multiple', [App\Http\Controllers\Distribution\
 
 Route::post('/distribution/update/period/room/{roomId}', [App\Http\Controllers\Distribution\DistributionController::class, 'updatePeriod'])->name('distribution.update.period');
 
+// Users
 Route::get('/users/me/', function(){
     $user = Auth::user();
     return response()->json(['user'=> $user, 'permissions' => $user->getPermissionNames()]);
 })->name('users.me');
+
+Route::get('/users', [App\Http\Controllers\User\UserController::class, 'index'])->name('users.index');
 
 });
 
