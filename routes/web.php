@@ -62,6 +62,11 @@ Route::get('/users', [App\Http\Controllers\User\UserController::class, 'index'])
 
 Route::get('/users/{userID}', [App\Http\Controllers\User\UserController::class, 'edit'])->name('users.edit');
 
+// Roles and Permissions
+
+Route::get('/permissions', [App\Http\Controllers\Permissions\PermissionsController::class, 'index'])->name('permissions.index');
+Route::get('/roles/sync/{user}/{role}', [App\Http\Controllers\Permissions\PermissionsController::class, 'sync'])->name('sync.user.role');
+
 });
 
 Route::get('/booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking.getAvailabilityDate');

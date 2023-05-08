@@ -1,5 +1,7 @@
 <script setup>
 
+import axios from 'axios';
+
 const props = defineProps({
     user: {
         type: Object,
@@ -12,7 +14,16 @@ console.log(props.user);
 // Roles
 
 const hasRole = (role) => {
-    return props.user.roles.includes(role);
+    return props.user.roles.filter((item) => item.name === role).length > 0;
+}
+
+const asignRole = async (userID, roleID) => {
+
+    const reponse = await axios.get(route('sync.user.role', {user: userID, role: roleID}));
+    const data = await reponse.data;
+    props.user.roles.pop();
+    props.user.roles.push(data.role);
+    console.log(data);
 }
 </script>
 
@@ -41,25 +52,28 @@ const hasRole = (role) => {
                     <div class="w-1/2 lg:w-1/3 font-bold text-2xl">Roles</div>
                     <div class="w-1/2 lg:w-2/3">          <div class="flex gap-2">
             <span
+            @click="asignRole(props.user.id, 1)"
             :class="hasRole('admin') 
-                ? 'bg-yellow-cta text-white border border-yellow-cta-acent inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold' 
-                : 'inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600'"
+                ? 'bg-yellow-cta text-white border border-yellow-cta-acent inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold cursor-pointer' 
+                : 'inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600 cursor-pointer'"
               
             >
               Admin
             </span>
             <span
-              :class="hasRole('ventas')
-              ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white'
-              : 'inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600'"
+            @click="asignRole(props.user.id, 2)"
+            :class="hasRole('ventas')
+              ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white cursor-pointer'
+              : 'inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600 cursor-pointer'"
             >
               Ventas
             </span>
             <span
-              :class="
+            @click="asignRole(props.user.id, 3)"
+            :class="
                     hasRole('general')
-               ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white'  
-               : 'inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600'"
+               ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white cursor-pointer'  
+               : 'inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600 cursor-pointer'"
             >
               General
             </span>
