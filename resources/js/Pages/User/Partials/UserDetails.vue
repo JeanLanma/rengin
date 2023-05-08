@@ -8,6 +8,12 @@ const props = defineProps({
 });
 
 console.log(props.user);
+
+// Roles
+
+const hasRole = (role) => {
+    return props.user.roles.includes(role);
+}
 </script>
 
 <template>
@@ -21,7 +27,7 @@ console.log(props.user);
             <div class="dark:text-white text-gray-600 py-6 px-3 lg:px-12 overflow-auto border border-gray-200 dark:border-gray-700 rounded-lg">
                 <div class="flex flex-wrap text-xl">
                     <div class="w-1/2 lg:w-1/3 font-bold text-2xl">ID</div>
-                    <div class="w-1/2 lg:w-2/3">{{ props.user.id }}</div>
+                    <div class="w-1/2 lg:w-2/3">#{{ props.user.id }}</div>
                     <div class="w-full border-b border-b-gray-200 dark:border-gray-700 grow mt-4"></div>
                 </div>
                 <div class="w-full lg:h-4 h-12"></div>
@@ -35,17 +41,25 @@ console.log(props.user);
                     <div class="w-1/2 lg:w-1/3 font-bold text-2xl">Roles</div>
                     <div class="w-1/2 lg:w-2/3">          <div class="flex gap-2">
             <span
-              class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
+            :class="hasRole('admin') 
+                ? 'bg-yellow-cta text-white border border-yellow-cta-acent inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold' 
+                : 'inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600'"
+              
             >
               Admin
             </span>
             <span
-              class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
+              :class="hasRole('ventas')
+              ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white'
+              : 'inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600'"
             >
               Ventas
             </span>
             <span
-              class="inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600"
+              :class="
+                    hasRole('general')
+               ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white'  
+               : 'inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600'"
             >
               General
             </span>
