@@ -15,6 +15,10 @@ module.exports = {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'yellow-cta': '#FFC933',
+                'yellow-cta-acent': '#FFC933DD',
+            },
         },
     },
 

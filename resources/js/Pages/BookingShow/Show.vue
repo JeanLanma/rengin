@@ -9,6 +9,7 @@ import { ref } from 'vue';
 import Counter from '@/Shared/Counter.vue';
 import BookingRoomCard from '@/Shared/BookingRoomCard.vue';
 import axios from 'axios';
+import CTAButton from '@/Shared/CTAButton.vue';
 
 const date = ref()
 const showDetails = ref(false);
@@ -108,9 +109,6 @@ const showSettings = () => {
                 </div>
                 <!-- /Counter rooms -->
                 <div class="">
-                <OutlinedButton @click="showSettings()">
-                    Ver Ajustes
-                </OutlinedButton>
 
                 <ul class="dark:text-white my-3" v-if="showDetails">
                     <li></li>
@@ -134,7 +132,10 @@ const showSettings = () => {
                     :year-range="[DEF_DATE.min_year, DEF_DATE.max_year]"
                     cancelText="cancelar" selectText="Seleccionar"
                 />
-            
+
+                <CTAButton @click="showSettings()">
+                    Buscar
+                </CTAButton>  
                 
             </div>
 
