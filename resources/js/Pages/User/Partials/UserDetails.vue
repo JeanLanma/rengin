@@ -35,19 +35,19 @@ console.log(props.user);
                     <div class="w-1/2 lg:w-1/3 font-bold text-2xl">Roles</div>
                     <div class="w-1/2 lg:w-2/3">          <div class="flex gap-2">
             <span
-              class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
+              class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
             >
-              Design
+              Admin
             </span>
             <span
               class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
             >
-              Product
+              Ventas
             </span>
             <span
-              class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"
+              class="inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600"
             >
-              Develop
+              General
             </span>
           </div></div>
                     <div class="w-full border-b border-b-gray-200 dark:border-gray-700 grow mt-4"></div>
