@@ -58,19 +58,19 @@ const asignRole = async (userID, roleID) => {
 
             <div class="dark:text-white text-gray-600 py-6 px-3 lg:px-12 overflow-auto border border-gray-200 dark:border-gray-700 rounded-lg">
                 <div class="flex flex-wrap text-xl">
-                    <div class="w-1/2 lg:w-1/3 font-bold text-2xl">ID</div>
+                    <div class="w-1/2 lg:w-1/3 font-bold text-xl">ID</div>
                     <div class="w-1/2 lg:w-2/3">#{{ props.user.id }}</div>
                     <div class="w-full border-b border-b-gray-200 dark:border-gray-700 grow mt-4"></div>
                 </div>
                 <div class="w-full lg:h-4 h-12"></div>
                 <div class="flex flex-wrap text-xl">
-                    <div class="w-1/2 lg:w-1/3 font-bold text-2xl">Name</div>
+                    <div class="w-1/2 lg:w-1/3 font-bold text-xl">Nombre</div>
                     <div class="w-1/2 lg:w-2/3">{{ props.user.name }}</div>
                     <div class="w-full border-b border-b-gray-200 dark:border-gray-700 grow mt-4"></div>
                 </div>
                 <div class="w-full lg:h-4 h-12"></div>
                 <div class="flex flex-wrap text-xl">
-                    <div class="w-1/2 lg:w-1/3 font-bold text-2xl">Roles</div>
+                    <div class="w-1/2 lg:w-1/3 font-bold text-xl">Rol</div>
                     <div class="w-1/2 lg:w-2/3">          <div class="flex gap-2">
             <span
             @click="asignRole(props.user.id, 1)"
@@ -103,7 +103,7 @@ const asignRole = async (userID, roleID) => {
                 </div>
                 <div class="w-full lg:h-4 h-12"></div>
                 <div class="flex flex-wrap text-xl">
-                    <div class="w-1/2 lg:w-1/3 font-bold text-2xl">Correo</div>
+                    <div class="w-1/2 lg:w-1/3 font-bold text-xl">Correo</div>
                     <div class="w-1/2 lg:w-2/3">{{ props.user.email }}</div>
                     <div class="w-full border-b border-b-gray-200 dark:border-gray-700 grow mt-4"></div>
                 </div>
