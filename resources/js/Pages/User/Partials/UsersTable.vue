@@ -1,6 +1,7 @@
 <script setup>
 
 import PrimButton from '@/Shared/PrimButton.vue';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     users: {
@@ -22,9 +23,11 @@ console.log(props.users);
                     Lista de Usuarios
                 </h1>
 
-                <PrimButton>
-                    Añadir nuevo
-                </PrimButton>
+                <Link :href="route('users.create')">
+                    <PrimButton>
+                        Añadir nuevo
+                    </PrimButton>
+                </Link>
             </div>
 
             <div class="text-white inner-shadow shadow-xl overflow-auto border border-gray-200 dark:border-gray-700 md:rounded-lg">

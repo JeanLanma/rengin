@@ -60,7 +60,11 @@ Route::get('/users/me/', function(){
 
 Route::get('/users', [App\Http\Controllers\User\UserController::class, 'index'])->name('users.index');
 
+Route::get('/users/create', [App\Http\Controllers\User\UserController::class, 'create'])->name('users.create');
+
 Route::get('/users/{userID}', [App\Http\Controllers\User\UserController::class, 'edit'])->name('users.edit');
+
+Route::post('/users/store', [App\Http\Controllers\User\UserController::class, 'store'])->name('users.store');
 
 // Roles and Permissions
 

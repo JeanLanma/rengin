@@ -22,4 +22,17 @@ class UserController extends Controller
             'user' => \App\Repository\Users\User::getById($userID),
         ]);
     }
+
+    public function create()
+    {
+        return inertia('User/Create', [
+            'user' => \App\Repository\Users\User::getById(auth()->user()->id),
+        ]);
+    }
+
+    public function store()
+    {
+        $user = \App\Repository\Users\User::store(request()->all());
+        return redirect()->route('users.index');
+    }
 }
