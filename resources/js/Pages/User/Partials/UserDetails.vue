@@ -1,6 +1,11 @@
 <script setup>
 
+import OutlinedButton from '@/Shared/OutlinedButton.vue';
+import Modal from '@/Components/DialogModal.vue';
+import { ref } from 'vue';
 import axios from 'axios';
+
+const showModal = ref(false);
 
 const props = defineProps({
     user: {
@@ -23,11 +28,27 @@ const asignRole = async (userID, roleID) => {
     const data = await reponse.data;
     props.user.roles.pop();
     props.user.roles.push(data.role);
+    showModal.value = true;
     console.log(data);
 }
 </script>
 
 <template>
+        <!-- Modal -->
+        <Modal :show="showModal" @close="showModal = false">
+            <template #title>
+                Operación exitosa
+            </template>
+            <template #content>
+                Se ha actulizado el usuario con éxito
+            </template>
+            <template #footer>
+                <OutlinedButton @click.native="showModal = false">
+                    Entendido
+                </OutlinedButton>
+            </template>
+        </Modal>
+    <!-- /Modal -->
     <div>
         <div class="p-3 py-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
 

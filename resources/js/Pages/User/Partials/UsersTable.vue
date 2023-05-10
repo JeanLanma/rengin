@@ -1,5 +1,7 @@
 <script setup>
 
+import PrimButton from '@/Shared/PrimButton.vue';
+
 const props = defineProps({
     users: {
         type: Object,
@@ -14,9 +16,16 @@ console.log(props.users);
     <div>
         <div class="p-3 py-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
 
-            <h1 class="text-2xl font-medium text-gray-900 dark:text-white mb-4">
-                Lista de Usuarios
-            </h1>
+            <div class="flex justify-between items-center mb-8">
+            
+                <h1 class="text-2xl font-medium text-gray-900 dark:text-white mb-4">
+                    Lista de Usuarios
+                </h1>
+
+                <PrimButton>
+                    Añadir nuevo
+                </PrimButton>
+            </div>
 
             <div class="text-white inner-shadow shadow-xl overflow-auto border border-gray-200 dark:border-gray-700 md:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 cursor-pointer">

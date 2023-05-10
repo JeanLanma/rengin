@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import RoomTable from '@/Pages/Rooms/Partials/RoomTable.vue';
-import Button from '../../Components/Button.vue';
+import Button from '@/Components/Button.vue';
 import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
