@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class User {
 
-    public static function get($limit)
+    public static function get($limit = 10)
     {
         return UserModel::with('roles')->paginate($limit);
     }

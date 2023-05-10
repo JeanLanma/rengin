@@ -70,6 +70,72 @@ console.log(props.users);
                     </tbody>
                 </table>    
             </div>
+
+            <!-- Pagination -->
+            <section>
+                <div class="text-slate-50 font-bold text-xl flex flex-col justify-center items-center gap-4 rounded-xl p-2">
+
+                    <span class="text-base">Mostrando {{ users.to }} de {{ users.total }} usarios en total</span>
+                    <div class="flex p-2 w-full max-w-md justify-center space-x-0">
+                        <Link :disabled="users.prev_page_url == null" as="button" :href="users.prev_page_url" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
+                            <button innerText="Previo" ></button>
+                        </Link>
+                        <!-- <Link as="button" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
+                            <button innerText="Today"></button>
+                        </Link> -->
+                        <Link :disabled="users.next_page_url == null" as="button" :href="users.next_page_url" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-r-2 flex justify-center items-center" preserveScroll>
+                            <button innerText="Siguiente"></button>
+                        </Link>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Filters -->
+            <div class="hidden my-2 flex sm:flex-row flex-col">
+                <div class="flex flex-row mb-1 sm:mb-0">
+                    <div class="relative">
+                        <select
+                            class="appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <option>5</option>
+                            <option>10</option>
+                            <option>20</option>
+                        </select>
+                        <div
+                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <select
+                            class="appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
+                            <option>All</option>
+                            <option>Active</option>
+                            <option>Inactive</option>
+                        </select>
+                        <div
+                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="block relative">
+                    <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+                        <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
+                            <path
+                                d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
+                            </path>
+                        </svg>
+                    </span>
+                    <input placeholder="Search"
+                        class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+                </div>
+            </div>
+            <!-- /Filters -->
         </div>
 
     </div>

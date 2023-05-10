@@ -12,7 +12,7 @@ class UserController extends Controller
     public function index()
     {
         return inertia('User/Show', [
-            'users' => \App\Repository\Users\User::get(10),
+            'users' => \App\Repository\Users\User::get(),
         ]);
     }
 
