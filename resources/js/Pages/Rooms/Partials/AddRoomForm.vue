@@ -98,6 +98,7 @@ const clearPhotoFileInput = () => {
                     ref="photoInput"
                     type="file"
                     class="hidden"
+                    id="cover"
                     @change="updatePhotoPreview"
                 >
 
@@ -218,7 +219,7 @@ const clearPhotoFileInput = () => {
                 Saved.
             </ActionMessage>
 
-            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+            <PrimaryButton id="save_room" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                 Save
             </PrimaryButton>
         </template>
