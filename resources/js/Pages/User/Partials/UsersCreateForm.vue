@@ -12,6 +12,7 @@ const form = useForm({
     _method: 'POST',
     name: null,
     email: null,
+    role: null,
     password: null,
     password_confirmation: null,
     terms: true,
@@ -27,8 +28,22 @@ const saveUser = () => {
         onSuccess: () => {
             console.log('saveUser');
         },
+        onError: (errors) => {
+            console.log(errors);
+            alert('Error al guardar el usuario');
+        }
     });
 };
+
+const asignRole = async (roleID) => {
+
+    form.role = roleID;
+    console.log(form.role);
+}
+
+const hasRole = (role) => {
+    return form.role == role;
+}
 </script>
 
 <template>
@@ -112,6 +127,37 @@ const saveUser = () => {
                     autocomplete="new-password"
                 />
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
+            </div>
+            <div class="col-span-6 sm:col-span-4">
+                <div class="flex gap-2">
+                        <span
+                        @click="asignRole(1)"
+                        :class="hasRole(1) 
+                            ? 'bg-yellow-cta text-white border border-yellow-cta-acent inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold cursor-pointer' 
+                            : 'inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600 cursor-pointer'"
+                        
+                        >
+                        Admin
+                        </span>
+                        <span
+                        @click="asignRole(2)"
+                        :class="hasRole(2)
+                        ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white cursor-pointer'
+                        : 'inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600 cursor-pointer'"
+                        >
+                        Ventas
+                        </span>
+                        <span
+                        @click="asignRole(3)"
+                        :class="
+                                hasRole(3)
+                        ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white cursor-pointer'  
+                        : 'inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600 cursor-pointer'"
+                        >
+                        General
+                        </span>
+                    </div>
+
             </div>
         </template>
 

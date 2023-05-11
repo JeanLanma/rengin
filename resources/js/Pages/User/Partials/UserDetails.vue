@@ -71,34 +71,36 @@ const asignRole = async (userID, roleID) => {
                 <div class="w-full lg:h-4 h-12"></div>
                 <div class="flex flex-wrap text-xl">
                     <div class="w-1/2 lg:w-1/3 font-bold text-xl">Rol</div>
-                    <div class="w-1/2 lg:w-2/3">          <div class="flex gap-2">
-            <span
-            @click="asignRole(props.user.id, 1)"
-            :class="hasRole('admin') 
-                ? 'bg-yellow-cta text-white border border-yellow-cta-acent inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold cursor-pointer' 
-                : 'inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600 cursor-pointer'"
-              
-            >
-              Admin
-            </span>
-            <span
-            @click="asignRole(props.user.id, 2)"
-            :class="hasRole('ventas')
-              ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white cursor-pointer'
-              : 'inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600 cursor-pointer'"
-            >
-              Ventas
-            </span>
-            <span
-            @click="asignRole(props.user.id, 3)"
-            :class="
-                    hasRole('general')
-               ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white cursor-pointer'  
-               : 'inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600 cursor-pointer'"
-            >
-              General
-            </span>
-          </div></div>
+                    <div class="w-1/2 lg:w-2/3">          
+                    <div class="flex gap-2">
+                        <span
+                        @click="asignRole(props.user.id, 1)"
+                        :class="hasRole('admin') 
+                            ? 'bg-yellow-cta text-white border border-yellow-cta-acent inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold cursor-pointer' 
+                            : 'inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600 cursor-pointer'"
+                        
+                        >
+                        Admin
+                        </span>
+                        <span
+                        @click="asignRole(props.user.id, 2)"
+                        :class="hasRole('ventas')
+                        ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white cursor-pointer'
+                        : 'inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600 cursor-pointer'"
+                        >
+                        Ventas
+                        </span>
+                        <span
+                        @click="asignRole(props.user.id, 3)"
+                        :class="
+                                hasRole('general')
+                        ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white cursor-pointer'  
+                        : 'inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600 cursor-pointer'"
+                        >
+                        General
+                        </span>
+                </div>
+        </div>
                     <div class="w-full border-b border-b-gray-200 dark:border-gray-700 grow mt-4"></div>
                 </div>
                 <div class="w-full lg:h-4 h-12"></div>

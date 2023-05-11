@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -25,14 +26,12 @@ class UserController extends Controller
 
     public function create()
     {
-        return inertia('User/Create', [
-            'user' => \App\Repository\Users\User::getById(auth()->user()->id),
-        ]);
+        return inertia('User/Create');
     }
 
-    public function store()
+    public function store(StoreUserRequest $request)
     {
-        $user = \App\Repository\Users\User::store(request()->all());
+        $user = \App\Repository\Users\User::store($request->all());
         return redirect()->route('users.index');
     }
 }
