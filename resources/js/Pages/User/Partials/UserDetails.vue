@@ -6,6 +6,10 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 const showModal = ref(false);
+const textModal = ref({
+    title: '',
+    content: '',
+});
 
 const props = defineProps({
     user: {
@@ -23,13 +27,22 @@ const hasRole = (role) => {
 }
 
 const asignRole = async (userID, roleID) => {
-
-    const reponse = await axios.get(route('sync.user.role', {user: userID, role: roleID}));
-    const data = await reponse.data;
-    props.user.roles.pop();
-    props.user.roles.push(data.role);
-    showModal.value = true;
-    console.log(data);
+        const reponse = await axios.get(route('sync.user.role', {user: userID, role: roleID}));
+        const data = await reponse.data;
+        if (data.code === '200') {
+            props.user.roles.pop();
+            props.user.roles.push(data.role);
+            textModal.value.title = 'Operación exitosa';
+            textModal.value.content = 'Se ha asignado el rol con éxito.';
+        } else if(data.code === '403') {
+            textModal.value.title = 'No se pudo asignar el rol';
+            textModal.value.content = 'Ocurrió un error al asignar el rol, Puede que no tengas los permisos necesarios para realizar esta acción.';
+        } else {
+            textModal.value.title = 'Ha ocurrido un error';
+            textModal.value.content = 'Ocurrió un error al asignar el rol, por favor intenta de nuevo. si el error persiste contacta con el administrador.';
+        }
+        console.log(data);
+        showModal.value = true;
 }
 </script>
 
@@ -37,10 +50,10 @@ const asignRole = async (userID, roleID) => {
         <!-- Modal -->
         <Modal :show="showModal" @close="showModal = false">
             <template #title>
-                Operación exitosa
+                {{ textModal.title }}
             </template>
             <template #content>
-                Se ha actulizado el usuario con éxito
+                {{ textModal.content }}
             </template>
             <template #footer>
                 <OutlinedButton @click.native="showModal = false">
