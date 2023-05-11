@@ -32,7 +32,12 @@ const priceCellsModified = ref([]);
 const date = ref([]);
 const showSuccess = ref(false);
 const switchPriceOrAvailability = ref(null);
-const showPeriodDistribution = ref(false);
+
+const updateTypes = {
+    'perDay':'perDay',
+    'perPeriod':'perPeriod',
+}
+const updateType = ref(updateTypes.perDay);
 
 
 const periodDistribution = ref({
@@ -215,6 +220,15 @@ function togglePeriodDistribution(isModfied){
         switchPriceOrAvailability.value.classList.add('right-1')
     }
 }
+
+function setUpdateType (type) {
+    if(type == updateType.value) return null;
+    updateType.value = type;
+}
+
+function isUpdateType (type) {
+    return updateType.value == type;
+}
 </script>
 
 <template>
@@ -245,164 +259,156 @@ function togglePeriodDistribution(isModfied){
             </section>
 
             <section>
+            <!-- Tab Navigation -->
+            <div>
+                <nav class="flex flex-col sm:flex-row text-center">
+                    <span @click="setUpdateType(updateTypes.perDay)" :class="isUpdateType(updateTypes.perDay) ? 'border-b-2 font-bold border-indigo-500 text-indigo-500' : ''" class="cursor-pointer text-gray-600 py-4 px-6 block hover:text-indigo-500 focus:outline-none">
+                        actulalización por dia
+                    </span>
+                    <span @click="setUpdateType(updateTypes.perPeriod)" :class="isUpdateType(updateTypes.perPeriod) ? 'border-b-2 font-bold border-indigo-500 text-indigo-500' : ''" class="cursor-pointer text-gray-600 py-4 px-6 block hover:text-indigo-500 focus:outline-none">
+                        actulalización por periodo
+                    </span>
+                </nav>
+            </div>
+            </section>
+
+            <section>
                 
                 <div v-if="priceCellsModified.length > 0">
-                    <h2 class="text-xl text-gray-900 dark:text-white mb-4"> Se modificaran {{ priceCellsModified.length }} elementos! <Link :href="route('distribution.update.multiple')" :data="{data: priceCellsModified}" method="POST" as="button" class="text-base bg-sky-500 p-2 rounded-lg font-bold hover:bg-sky-600 duration-200 outline-white text-white" >Aceptar</Link></h2>
-                </div>
-                <div v-else>
-                    <h2 class="text-xl text-gray-900 dark:text-white mb-4">Modifica los precios y disponibilidad  en la tabla de abajo o <OutlinedButton @click="showPeriodDistribution = !showPeriodDistribution" class="text-base border-2 border-sky-500 p-1 rounded-lg hover:bg-sky-600 duration-200 outline-white text-sky-400 hover:text-white" >Selecciona un periodo</OutlinedButton></h2>
-                </div>
-
-                <!-- Modify by Date range -->
-                <div v-show="showPeriodDistribution" class="scale-up-center box-shadow my-8 dark:bg-gray-700 bg-gray-200 py-8 px-4 rounded">
-
-                    <h2 class="text-2xl text-gray-900 dark:text-white mb-4 font-bold">Seleccione un rango de fechas para modificar</h2>
-                    <h4 class="text-white font-bold">Tipo de actulalización </h4>
-                    <div class="mx-8 max-w-sm shadow rounded-full h-10 mt-4 flex p-1 relative items-center dark:bg-gray-800 bg-gray-50">
-                        <div class="w-full flex justify-center dark:text-white">
-                            <button @click="togglePeriodDistribution('precio')">Precio</button>
-                        </div>
-                        <div class="w-full flex justify-center dark:text-white">
-                            <button @click="togglePeriodDistribution('disponibilidad')">Disponibilidad</button>
-                        </div>
-                        <span 
-                        ref="switchPriceOrAvailability"
-                        class="elSwitch bg-sky-500 shadow text-white flex items-center justify-center w-1/2 rounded-full h-8 transition-all top-[4px] absolute left-1 ">
-                        {{ periodDistribution.priceOrAvailability }}
-                        </span>
-                    </div>
-
-                    <div class="flex justify-around items-baseline xl:items-center flex-wrap">
-
-                        <div class="w-full md:w-96" >
-
-                            <InputLabel for="datePicker" value="Fechas a modificar"/>
-                            <VueDatePicker class="mt-2" :format="format"  v-model="date" range :dark="hasDarkMode()" multi-calendars placeholder="Seleccione un rango de fechas"/>
-                        
-                        </div>
-
-                        <div class="flex">
-
-                            <div v-if="periodDistribution.priceOrAvailability == 'precio'" class="full">
-                                
-                                <InputLabel for="periodPrice" value="Precio" />
-                                <NumberInput
-                                    type="number"
-                                    id="periodPrice"
-                                    v-model="periodDistribution.price"
-                                    class="mt-1 block w-full"
-                                />
-                                
-                            </div>
-                            <div v-else class="w-full">
-                                
-                                <InputLabel for="PeriodAvailability" value="Disponibilidad" />
-                                <NumberInput
-                                    type="number"
-                                    id="PeriodAvailability"
-                                    v-model="periodDistribution.availability"
-                                    class="mt-1 block w-full"
-                                />
-                                
-                            </div>
-                        
-                        </div>
-
-
-                        <div class="mr-auto xl:mr-0 mt-4">                            
-                                <OutlinedButton @click="updatePeriodDistribution" >Guardar los cambios</OutlinedButton>
-                        </div>
-                    </div>
-
+                    <h2 class="text-xl text-gray-900 dark:text-white mb-4"> Se modificaran {{ priceCellsModified.length }} elementos! <Link :href="route('distribution.update.multiple')" :data="{data: priceCellsModified}" method="POST" as="button" class="text-base bg-sky-500 p-2 rounded-lg font-bold hover:bg-sky-600 duration-200 outline-white text-white" >Guardar {{ priceCellsModified.length }} cambios!</Link></h2>
                 </div>
             
             </section>
-            
-            <!-- Filters -->
-            <section>
-                <div class="text-slate-50 font-bold text-xl flex gap-4 rounded-xl p-2">
+            <div v-if="isUpdateType(updateTypes.perPeriod)" class="px-2 py-8 border border-gray-200 dark:border-gray-700 md:rounded-lg mb-12">
 
-                    <div class="flex p-2 w-full max-w-md justify-center space-x-0">
-                        
-                        <Link as="button" :disabled="isBeforeToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': prevWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
-                            <button innerText="<<" ></button>
-                        </Link>
-                        <Link as="button" :disabled="isToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': thisWeek() })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
-                            <button innerText="Today"></button>
-                        </Link>
-                        <Link :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': nextWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-r-2 flex justify-center items-center" preserveScroll>
-                            <button innerText=">>"></button>
-                        </Link>
+                <h2 class="text-2xl text-gray-900 dark:text-white mb-4 font-bold">Actulalización colectiva</h2>
+                <h4 class="text-white font-bold">Tipo de actulalización </h4>
+                <div class="mb-8 mx-8 max-w-sm shadow rounded-full h-10 mt-4 flex p-1 relative items-center dark:bg-gray-800 bg-gray-50">
+                    <div class="w-full flex justify-center dark:text-white">
+                        <button @click="togglePeriodDistribution('precio')">Precio</button>
+                    </div>
+                    <div class="w-full flex justify-center dark:text-white">
+                        <button @click="togglePeriodDistribution('disponibilidad')">Disponibilidad</button>
+                    </div>
+                    <span 
+                    ref="switchPriceOrAvailability"
+                    class="elSwitch bg-sky-500 shadow text-white flex items-center justify-center w-1/2 rounded-full h-8 transition-all top-[4px] absolute left-1 ">
+                    {{ periodDistribution.priceOrAvailability }}
+                    </span>
+                </div>
+
+                <div class="flex justify-around items-baseline xl:items-center flex-wrap">
+
+                    <div class="w-full md:w-1/3" >
+
+                        <InputLabel for="datePicker" value="Fechas a modificar"/>
+                        <VueDatePicker class="mt-2" :format="format"  v-model="date" range :dark="hasDarkMode()" multi-calendars placeholder="Seleccione un rango de fechas"/>
+                    
                     </div>
 
+                    <div class="flex w-full md:w-1/3">
+
+                        <div v-if="periodDistribution.priceOrAvailability == 'precio'" class="w-full">
+                            
+                            <InputLabel for="periodPrice" value="Precio" />
+                            <NumberInput
+                                type="number"
+                                id="periodPrice"
+                                v-model="periodDistribution.price"
+                                class="mt-1 w-full"
+                            />
+                            
+                        </div>
+                        <div v-else class="w-full">
+                            
+                            <InputLabel for="PeriodAvailability" value="Disponibilidad" />
+                            <NumberInput
+                                type="number"
+                                id="PeriodAvailability"
+                                v-model="periodDistribution.availability"
+                                class="mt-1 block w-full"
+                            />
+                            
+                        </div>
+                    
+                    </div>
+
+                    <div class="mr-auto xl:mr-0 mt-4">                            
+                            <OutlinedButton @click="updatePeriodDistribution" >Guardar los cambios</OutlinedButton>
+                    </div>
                 </div>
-            </section>
 
-            <div class="text-white border border-gray-200 dark:border-gray-700 md:rounded-lg overflow-auto " id="thin-scroll">
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 cursor-pointer box-shadow">
-                    <thead>
-                        <tr>
-                            <th class="px-4 py-1 font-bold text-gray-500 dark:text-gray-400 text-center"><span class="font-bold block text-xl">&nbsp;</span></th>
-                            <th v-for="rate in props.rate" class="px-4 py-1 font-bold text-gray-500 dark:text-gray-400 text-center min-w-[5.5rem]" :class="(rate.day_name == 'Dom' || rate.day_name == 'Sáb') ? 'dark:bg-gray-700 bg-gray-200' : '' "><span>{{ isToday(rate.date) ? 'Hoy' : rate.day_name }}</span><span class="font-bold block text-2xl">{{ rate.day }}</span><span class="text-sm font-normal">{{ rate.month_name }}</span></th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-
-                        <tr class="dark:hover:bg-gray-600 hover:bg-gray-100">
-
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center text-sm whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>Disponibles</span></th>
-
-
-                            <template  v-for="(rate, index) in props.rate" :key="rate.id">
-                                <td :ref="getAvailabilityCells" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span contenteditable @keydown.enter.prevent.stop="updateRoomAvailability(rate, $event.target.textContent, index)" @blur="updateRoomAvailability(rate, $event.target.textContent, index)" >{{ rate.availability }}</span></td>
-                            </template>
-                            
-                        </tr>
-
-                        <tr class="dark:hover:bg-gray-600 hover:bg-gray-100">
-
-                            <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center text-sm whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>Precio</span></th>
-
-                            <template v-for="(rate, index) in props.rate" :key="rate.id">
-
-                                <td :ref="getPriceCells" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700 cursor-text"><span contenteditable @keydown.enter.prevent.stop="updateRoomPrice(rate, $event.target.textContent, index)" @blur="updateRoomPrice(rate, $event.target.textContent, index)">{{ rate.price }}</span></td>
-                            
-                            </template>
-                            
-                        </tr>
-
-                    </tbody>
-                </table>
-
-                
             </div>
+                
+            <div>
+
+                <!-- Filters -->
+                <section>
+                    <div class="text-slate-50 font-bold text-xl flex gap-4 rounded-xl p-2">
+
+                        <div class="flex p-2 w-full max-w-md justify-center space-x-0">
+                            
+                            <Link as="button" :disabled="isBeforeToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': prevWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
+                                <button innerText="<<" ></button>
+                            </Link>
+                            <Link as="button" :disabled="isToday(props.start_date)" :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': thisWeek() })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
+                                <button innerText="Today"></button>
+                            </Link>
+                            <Link :href="route('distribution.getByRoomId', { 'roomId': props.room.id, 'date': nextWeek(props.start_date) })" :only="['rate', 'start_date']" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-r-2 flex justify-center items-center" preserveScroll>
+                                <button innerText=">>"></button>
+                            </Link>
+                        </div>
+
+                    </div>
+                </section>
+
+                <div class="text-white border border-gray-200 dark:border-gray-700 md:rounded-lg overflow-auto " id="thin-scroll">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 cursor-pointer box-shadow">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-1 font-bold text-gray-500 dark:text-gray-400 text-center"><span class="font-bold block text-xl">&nbsp;</span></th>
+                                <th v-for="rate in props.rate" class="px-4 py-1 font-bold text-gray-500 dark:text-gray-400 text-center min-w-[5.5rem]" :class="(rate.day_name == 'Dom' || rate.day_name == 'Sáb') ? 'dark:bg-gray-700 bg-gray-200' : '' "><span>{{ isToday(rate.date) ? 'Hoy' : rate.day_name }}</span><span class="font-bold block text-2xl">{{ rate.day }}</span><span class="text-sm font-normal">{{ rate.month_name }}</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+
+                            <tr class="dark:hover:bg-gray-600 hover:bg-gray-100">
+
+                                <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center text-sm whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>Disponibles</span></th>
+
+
+                                <template  v-for="(rate, index) in props.rate" :key="rate.id">
+                                    <td :ref="getAvailabilityCells" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span contenteditable @keydown.enter.prevent.stop="updateRoomAvailability(rate, $event.target.textContent, index)" @blur="updateRoomAvailability(rate, $event.target.textContent, index)" >{{ rate.availability }}</span></td>
+                                </template>
+                                
+                            </tr>
+
+                            <tr class="dark:hover:bg-gray-600 hover:bg-gray-100">
+
+                                <th class="px-4 py-3.5 font-bold text-gray-500 dark:text-gray-400 text-center text-sm whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><span>Precio</span></th>
+
+                                <template v-for="(rate, index) in props.rate" :key="rate.id">
+
+                                    <td :ref="getPriceCells" class="px-4 py-4 text-sm text-center text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700 cursor-text"><span contenteditable @keydown.enter.prevent.stop="updateRoomPrice(rate, $event.target.textContent, index)" @blur="updateRoomPrice(rate, $event.target.textContent, index)">{{ rate.price }}</span></td>
+                                
+                                </template>
+                                
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    
+                </div>
+
+            </div>
+            
         </div>
 
     </div>
 </template>
 
 <style>
-.dp__theme_dark {
-   --dp-background-color: #212121;
-   --dp-text-color: #ffffff;
-   --dp-hover-color: #484848;
-   --dp-hover-text-color: #ffffff;
-   --dp-hover-icon-color: #959595;
-   --dp-primary-color: #005cb2;
-   --dp-primary-text-color: #ffffff;
-   --dp-secondary-color: #a9a9a9;
-   --dp-border-color: #2d2d2d;
-   --dp-menu-border-color: #2d2d2d;
-   --dp-border-color-hover: #aaaeb7;
-   --dp-disabled-color: #737373;
-   --dp-scroll-bar-background: #212121;
-   --dp-scroll-bar-color: #484848;
-   --dp-success-color: #00701a;
-   --dp-success-color-disabled: #428f59;
-   --dp-icon-color: #959595;
-   --dp-danger-color: #e53935;
-   --dp-highlight-color: rgba(0, 92, 178, 0.2);
-}
 
 /* Distribution Table */
 [contenteditable]:focus {
