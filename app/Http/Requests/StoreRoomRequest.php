@@ -49,6 +49,7 @@ class StoreRoomRequest extends FormRequest
             'type.required' => 'Por favor, ingrese un tipo para la habitación',
             'description.required' => 'Por favor, ingrese una descripción para la habitación',
             'cover.required' => 'Por favor, ingrese una imagen para la habitación',
+            'cover.max' => 'El archivo no debe pesar más de 2MB',
             'base_capacity.required' => 'Debe ingresar una capacidad base para la habitación',
             'max_capacity.required' => 'Debe ingresar una capacidad máxima para la habitación',
             'base_price.required' => 'Ingrese un precio base para la habitación',

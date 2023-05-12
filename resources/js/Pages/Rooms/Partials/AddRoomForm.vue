@@ -39,6 +39,10 @@ const storeRoom = () => {
         errorBag: 'storeRoom',
         preserveScroll: true,
         onSuccess: () => clearPhotoFileInput(),
+        onError: (errors) =>{
+            alert('Error al guardar la habitación');
+            console.log(errors);
+        }
     });
 };
 
@@ -123,7 +127,7 @@ const clearPhotoFileInput = () => {
                     Select A New Photo
                 </SecondaryButton>
 
-                <InputError :message="form.errors.photo" class="mt-2" />
+                <InputError :message="form.errors.cover" class="mt-2" />
             </div>
 
             <!-- Name -->
