@@ -6,6 +6,7 @@ import { Link } from '@inertiajs/vue3';
 import PrimButton from '@/Shared/PrimButton.vue';
 import { ref } from 'vue';
 import axios from 'axios';
+import ActionButton from '../../../Shared/ActionButton.vue';
 
 const showModal = ref(false);
 const textModal = ref({
@@ -73,10 +74,10 @@ const asignRole = async (userID, roleID) => {
                     Detalles del usuario
                 </h1>
 
-                <Link method="DELETE" :href="route('users.delete', {user: props.user.id})">
-                    <PrimButton class="bg-red-500 hover:bg-red-700">
+                <Link method="DELETE" as="button" :href="route('users.delete', {user: props.user.id})">
+                    <ActionButton as="danger">
                         Eliminar usuario
-                    </PrimButton>
+                    </ActionButton>
                 </Link>
             </div>
 
