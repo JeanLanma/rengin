@@ -28,4 +28,9 @@ class User {
         return $user;
     }
 
+    public static function delete($id)
+    {
+        return UserModel::destroy($id);
+    }
+
 }

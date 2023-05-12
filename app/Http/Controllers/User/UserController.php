@@ -34,4 +34,14 @@ class UserController extends Controller
         $user = \App\Repository\Users\User::store($request->all());
         return redirect()->route('users.index');
     }
+
+    public function delete($user)
+    {
+        if(auth()->user()->can('delete.users')){
+            $user = \App\Repository\Users\User::delete($user);
+            return redirect()->route('users.index')->banner('El usuario ha sido eliminado correctamente.');
+        } else {
+            return redirect()->route('users.index')->banner('Lo sentimos, no tienes permisos para realizar esta acción.');
+        }
+    }
 }

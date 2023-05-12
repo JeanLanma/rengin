@@ -66,6 +66,8 @@ Route::get('/users/{userID}', [App\Http\Controllers\User\UserController::class, 
 
 Route::post('/users/store', [App\Http\Controllers\User\UserController::class, 'store'])->name('users.store');
 
+Route::delete('/users/delete/{user}', [App\Http\Controllers\User\UserController::class, 'delete'])->name('users.delete');
+
 // Roles and Permissions
 
 Route::get('/permissions', [App\Http\Controllers\Permissions\PermissionsController::class, 'index'])->name('permissions.index');

@@ -2,6 +2,8 @@
 
 import OutlinedButton from '@/Shared/OutlinedButton.vue';
 import Modal from '@/Components/DialogModal.vue';
+import { Link } from '@inertiajs/vue3';
+import PrimButton from '@/Shared/PrimButton.vue';
 import { ref } from 'vue';
 import axios from 'axios';
 
@@ -65,9 +67,18 @@ const asignRole = async (userID, roleID) => {
     <div>
         <div class="p-3 py-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
 
-            <h1 class="text-2xl font-medium text-gray-900 dark:text-white mb-4">
-                Detalles del usuario
-            </h1>
+            <div class="flex justify-between items-center mb-8">
+            
+                <h1 class="text-2xl font-medium text-gray-900 dark:text-white mb-4">
+                    Detalles del usuario
+                </h1>
+
+                <Link method="DELETE" :href="route('users.delete', {user: props.user.id})">
+                    <PrimButton class="bg-red-500 hover:bg-red-700">
+                        Eliminar usuario
+                    </PrimButton>
+                </Link>
+            </div>
 
             <div class="dark:text-white text-gray-600 py-6 px-3 lg:px-12 overflow-auto border border-gray-200 dark:border-gray-700 rounded-lg">
                 <div class="flex flex-wrap text-xl">
