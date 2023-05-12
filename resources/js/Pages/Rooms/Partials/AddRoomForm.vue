@@ -10,6 +10,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import Dropzone from '@/Pages/Rooms/Partials/Dropzone.vue';
 import Tooltip from '@/Components/Tooltip.vue';
+import FormNumberInput from '@/Shared/FormNumberInput.vue';
 
 const props = defineProps({
     user: Object,
@@ -205,7 +206,7 @@ const clearPhotoFileInput = () => {
             <div class="col-span-6 sm:col-span-4">
                 <div class="flex">
                     <InputLabel for="base_price" value="Precio base" />
-                    <Tooltip text="Este sera el precio minimo en MXN sin impuestos para el tipo de habitación"/>
+                    <Tooltip text="Precio para la distribución en MXN Sin Impuestos para la habitación"/>
                 </div>
                 <TextInput
                     id="base_price"
@@ -215,6 +216,9 @@ const clearPhotoFileInput = () => {
                     autocomplete="base_price"
                 />
                 <InputError :message="form.errors.base_price" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4">
+                <FormNumberInput />
             </div>
         </template>
 
