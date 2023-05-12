@@ -16,7 +16,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
         <!-- /Title -->
 
         <!-- Stats -->
-        <div class="flex justify-center py-8">
+        <div class="flex flex-col lg:flex-row gap-8 justify-center py-8">
             <!-- Cards -->
             <div class="container mx-auto pr-4">
                 <div class="w-72 bg-white dark:bg-gray-900 max-w-xs mx-auto rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
