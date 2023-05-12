@@ -3,10 +3,9 @@
 import OutlinedButton from '@/Shared/OutlinedButton.vue';
 import Modal from '@/Components/DialogModal.vue';
 import { Link } from '@inertiajs/vue3';
-import PrimButton from '@/Shared/PrimButton.vue';
 import { ref } from 'vue';
 import axios from 'axios';
-import ActionButton from '../../../Shared/ActionButton.vue';
+import ActionButton from '@/Shared/ActionButton.vue';
 
 const showModal = ref(false);
 const textModal = ref({

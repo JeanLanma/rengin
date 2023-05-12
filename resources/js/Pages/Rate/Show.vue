@@ -1,6 +1,8 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
+import BreadCrumbArrow from '@/Shared/BreadCrumbArrow.vue';
 import RateTable from '@/Pages/Rate/Partials/RateTable.vue';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     rate: {
@@ -23,7 +25,9 @@ const props = defineProps({
     <AppLayout title="Reservaciones">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Tarifas de {{ props.room.name }}
+                <Link :href="route('distribution.index')" class="hover:underline">Tarifas</Link>
+                <BreadCrumbArrow />
+                {{ props.room.name }}
             </h2>
         </template>
 
