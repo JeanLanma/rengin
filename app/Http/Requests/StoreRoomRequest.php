@@ -29,7 +29,7 @@ class StoreRoomRequest extends FormRequest
             'cover' => [
                 $this->routeIs('rooms.store') ? 'required' : 'nullable',
                 'image',
-                'max:1024',
+                'max:2048',
             ],
             'base_capacity' => ['required', 'numeric'],
             'max_capacity' => ['required', 'numeric'],
