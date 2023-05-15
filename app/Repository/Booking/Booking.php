@@ -21,57 +21,33 @@ class Booking {
         // dd($distribution);
         $distributionResult = [];
 
-        $distributionResult = $distribution->groupBy('room_id')->map(function ( $roomDistribution, $roomDistributionKey ) {
+        $distributionResult = $distribution->groupBy('room_id')->map(function ( $roomDistribution, $roomDistributionKey ) use ($data) {
+            
             $canBeBooked = !$roomDistribution->contains('availability', 0);
-            $roomDistributionResult = [];
-            if($canBeBooked)
-            {
-                $roomDistributionResult = $roomDistribution->reduce(function ($acc, $r){
-                    $acc['price'] += $r->price;
-                    return [
-                        'canBeBooked' => true,
-                        'roomTypeId' => $r->room_id,
-                        'availability' => $r->availability,
-                        'price' => $acc['price'],
-                        'price_string' => $this->formatPrice($acc['price']),
-                        'room' => [
-                            'name' => $r->name,
-                            'type' => $r->type,
-                            'description' => $r->description,
-                            'cover' => $this->getCoverUrl($r->cover),
-                            'baseCapacity' => $r->base_capacity,
-                            'maxCapacity' => $r->max_capacity,
-                        ]
-                    ];
-                }, [
-                    'roomTypeId' => null,
-                    'canBeBooked' => true,
-                    'availability' => 0,
-                    'price' => 0,
-                    'price_string' => 0,
-                    'room'=> [],
-                ]);
-            } else 
-            {
-                $r = $roomDistribution->first();
-                $roomDistributionResult = [
-                    'canBeBooked' => false,
-                    'roomTypeId' => $r->room_id,
-                    'availability' => $r->availability,
-                    'price' => $r->price,
-                    'price_string' => $this->formatPrice($r->price),
-                    'room' => [
-                        'name' => $r->name,
-                        'type' => $r->type,
-                        'description' => $r->description,
-                        'cover' => $this->getCoverUrl($r->cover),
-                        'baseCapacity' => $r->base_capacity,
-                        'maxCapacity' => $r->max_capacity,
-                    ]
-                ];
-            }
+            $nights = $this->getNights($data['checkin'], $data['checkout']);
+            $r = $roomDistribution->first();
 
-            return $roomDistributionResult;
+            $price = $canBeBooked 
+                    ? $this->getComputedPrice($roomDistribution, $nights) 
+                    : $r->price;
+
+            return [
+                'canBeBooked' => $canBeBooked,
+                'roomTypeId' => $r->room_id,
+                'availability' => $r->availability,
+                'price' => $price,
+                'price_string' => $this->formatPrice($price),
+                'nights' => $nights,
+                'room' => [
+                    'name' => $r->name,
+                    'type' => $r->type,
+                    'description' => $r->description,
+                    'cover' => $this->getCoverUrl($r->cover),
+                    'baseCapacity' => $r->base_capacity,
+                    'maxCapacity' => $r->max_capacity,
+                ]
+            ];
+
         });
 
         return $distributionResult;
@@ -86,6 +62,22 @@ class Booking {
     public function formatPrice(int $price)
     {
         return '$ ' . number_format($price, 2, '.', ',');
+    }
+
+    public static function formatPriceStatic(int $price)
+    {
+        return '$ ' . number_format($price, 2, '.', ',');
+    }
+
+    public function getComputedPrice($price, $nights)
+    {
+        $acc = 0;
+        $prices = $price->pluck('price');
+        for($i = 0; $i < $nights; $i++)
+        {
+            $acc += $prices[$i];
+        }
+        return $acc;
     }
 
     /**

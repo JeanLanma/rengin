@@ -30,6 +30,6 @@ class BookingController extends Controller
 
     public function show()
     {
-        return inertia('BookingShow/Show'); 
+        return inertia('Booking/Show');
     }
 }
