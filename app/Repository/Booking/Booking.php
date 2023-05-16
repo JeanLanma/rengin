@@ -18,7 +18,7 @@ class Booking {
             ->where('status', 'available')
             ->leftJoin('rooms as room', 'dis.room_id', '=', 'room.id')
             ->get(['dis.room_id','dis.date', 'dis.availability', 'dis.price', 'dis.status', 'room.name', 'room.type', 'room.description', 'room.cover', 'room.base_capacity', 'room.max_capacity']);
-        // dd($distribution);
+
         $distributionResult = [];
 
         $distributionResult = $distribution->groupBy('room_id')->map(function ( $roomDistribution, $roomDistributionKey ) use ($data) {

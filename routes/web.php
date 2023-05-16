@@ -28,6 +28,8 @@ Route::get('/bookings', [App\Http\Controllers\Booking\BookingController::class, 
 
 Route::get('/bookings/show', [App\Http\Controllers\Booking\BookingController::class, 'show'])->name('bookings.show');
 
+Route::get('/direct-booking', [App\Http\Controllers\Booking\BookingController::class, 'booking'])->name('booking');
+
 // Rooms
 
 Route::get('/rooms', [App\Http\Controllers\Room\RoomController::class, 'index'])->name('rooms.index');

@@ -1,29 +1,24 @@
 <script setup>
 import BookingLayout from '@/Layouts/BookingLayout.vue';
-import OutlinedButton from '@/Shared/OutlinedButton.vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { hasDarkMode } from '#utils';
 import { DateTime } from 'luxon';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import Counter from '@/Shared/Counter.vue';
 import BookingRoomCard from '@/Shared/BookingRoomCard.vue';
 import axios from 'axios';
 import CTAButton from '@/Shared/CTAButton.vue';
 
+const props = defineProps({
+    settings: Object
+})
+
 const date = ref()
 const showDetails = ref(false);
 const showRooms = ref(false);
 let rooms = null;
-const settings = ref({
-    adults: 0,
-    children: 0,
-    infants: 0,
-    rooms: 0,
-    checkin: null,
-    checkout: null,
-    nights: 0
-})
+const settings = ref(props.settings)
 const defTimeSettings = () => {
     const date = DateTime.now();
     const min_year = date.year;
@@ -75,6 +70,12 @@ const showSettings = () => {
     loadRooms();
     console.log(settings.value);
 }
+
+onMounted(() => {
+  const startDate = new Date();
+  const endDate = new Date(new Date().setDate(startDate.getDate() + 1));
+  date.value = [startDate, endDate];
+})
 </script>
 
 <template>
@@ -144,7 +145,7 @@ const showSettings = () => {
         <template v-if="showRooms">
             <section >
 
-                <BookingRoomCard v-for="room in rooms.distribution" :room="room" />
+                <BookingRoomCard v-for="room in rooms.distribution" :settings="settings" :room="room" />
                 
             </section>
         </template>

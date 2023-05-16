@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Booking;
 use App\Http\Requests\GetBookingRequest;
 use App\Http\Controllers\Controller;
 use App\Repository\Booking\Booking;
+use App\Services\BookingService;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -32,4 +33,14 @@ class BookingController extends Controller
     {
         return inertia('Booking/Show');
     }
+
+    public function booking( Booking $booking)
+    {
+        // $defaultSettings = (new BookingService)->getDefaultSettings();
+        // $rooms = $booking->getAvailabilityDate($defaultSettings);
+        // dd($rooms);
+        return inertia('BookingShow/Show', [
+            'settings' => (new BookingService)->getDefaultSettings()]);
+    }
+
 }
