@@ -15,10 +15,10 @@ const incTaxes = (price) => {
 <div class='flex items-center justify-center min-h-screen md:min-h-0 md:py-8 from-[#F9F5F3] via-[#F9F5F3] to-[#F9F5F3] bg-gradient-to-br px-2'>
     <div class='w-full max-w-md md:max-w-5xl xl:max-w-7xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
         <div class='max-w-md md:max-w-5xl xl:max-w-7xl mx-auto md:flex md:flex-row md:justify-between'>
-            <div class='h-[236px] md:h-[391px] md:w-2/5 bg-cover bg-center'>
+            <div class='h-[14.75rem] md:h-[21.25rem] md:w-2/5 bg-cover bg-center'>
                 <img class="w-full h-full object-cover object-center" :src="props.room.room.cover" :alt="props.room.room.name">
             </div>
-            <div class='p-4 sm:p-6 md:w-3/5'>
+            <div class='md:h-[21.25rem] p-4 sm:p-6 md:w-3/5'>
                 <p class='font-bold text-gray-700 text-[22px] leading-7 mb-1'>{{ props.room.room.name }}</p>
                 <div v-if="room.canBeBooked" class='flex flex-row'>
                 <p class='text-[#3C3C4399] text-[17px] mr-2 text-base'>Precio x{{room.nights}} noches</p>

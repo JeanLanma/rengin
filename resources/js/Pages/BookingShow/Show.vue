@@ -1,13 +1,15 @@
 <script setup>
 import BookingLayout from '@/Layouts/BookingLayout.vue';
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
-import { DateTime } from 'luxon';
-import { ref, onMounted } from 'vue';
-import Counter from '@/Shared/Counter.vue';
 import BookingRoomCard from '@/Shared/BookingRoomCard.vue';
-import axios from 'axios';
+import VueDatePicker from '@vuepic/vue-datepicker';
 import CTAButton from '@/Shared/CTAButton.vue';
+import '@vuepic/vue-datepicker/dist/main.css';
+import Counter from '@/Shared/Counter.vue';
+import { ref, onMounted } from 'vue';
+import { DateTime } from 'luxon';
+import axios from 'axios';
+import Booking from '@/utils/booking.js';
+import { displayRoomsAndGuestsAgreement } from '@/utils/index.js';
 
 const props = defineProps({
     settings: Object,
@@ -16,32 +18,21 @@ const props = defineProps({
 
 const date = ref()
 const showDetails = ref(false);
+const showRooms = ref(false);
 const settings = ref(props.settings)
-const roomGuestsInput = ref(null)
 const loadedRooms = ref(false);
 
-const defTimeSettings = () => {
-    const date = DateTime.now();
-    const min_year = date.year;
-    const max_year = date.plus({ years: 2 }).year;
-    const min_date = date;
-    const max_date = date.plus({ years: 2 });
+onMounted(() => {
+    date.value = Booking.getDefaultPeriod();
+})
 
-    return {
-        min_year,
-        max_year,
-        min_date: min_date.toString(),
-        max_date: max_date.toString()
-    }
-}
-const DEF_DATE = defTimeSettings();
+const DEF_DATE = Booking.getMinDateSettings();
 
 /**
  * Formats the date to a string like this: Mon ,01 Jan - Wen,03 Jan 
  * @param {[DateStart, DateEnd]} date[] 
  */
 const format = ([DateStart, DateEnd]) => {
-
     const start = DateTime.fromJSDate(DateStart);
     const end = DateTime.fromJSDate(DateEnd ?? DateStart);
 
@@ -49,19 +40,14 @@ const format = ([DateStart, DateEnd]) => {
     settings.value.checkout = end.toISODate();
     settings.value.nights = end.diff(start, 'days').days;
 
-    const startFormat = start.setLocale('es').toFormat('ccc, dd MMM');
-    const endFormat = end.setLocale('es').toFormat('ccc, dd MMM');
-
-    return `${startFormat} - ${endFormat}`;
-
-
+    return Booking.periodToString([DateStart, DateEnd]);
 }
 
 const loadRooms = async () => {
     const setParams = { adults: settings.value.adults, children: settings.value.children, infants: settings.value.infants, rooms: settings.value.rooms, checkin: settings.value.checkin, checkout: settings.value.checkout }
     const { data } = await axios.get(route('booking.getAvailabilityDate', setParams));
     loadedRooms.value = data.distribution;
-    showDetails.value = !showDetails.value;
+    showRooms.value = !showRooms.value;
 }
 
 const showSettings = () => {
@@ -69,26 +55,6 @@ const showSettings = () => {
     loadRooms();
 }
 
-onMounted(() => {
-  const startDate = new Date();
-  const endDate = new Date(new Date().setDate(startDate.getDate() + 1));
-  date.value = [startDate, endDate];
-})
-
-const showRoomAndGuestNumber = (rooms, guests) =>{
-    const agreementRoom = (rooms == 1) 
-                        ? 'habitación' 
-                        : 'habitaciones';
-    const agreementGuest = (guests == 1)
-                        ? 'huesped' 
-                        : 'huespedes';;
-
-    return `${guests} ${agreementGuest}, ${rooms} ${agreementRoom}`
-}
-
-const toggleClass = (className) => {
-    return roomGuestsInput.value.classList.toggle(className);
-}
 </script>
 
 <template>
@@ -97,38 +63,9 @@ const toggleClass = (className) => {
         <!-- Book Form -->
         <section class="mx-auto w-full max-w-md md:max-w-5xl xl:max-w-7xl">
 
-            <div class="bg-white rounded-[14px] p-4 text-[#3C3C4399] shadow-xl mt-4">
+            <div class="md:grid md:grid-cols-6 md:items-center md:justify-center md:gap-8 bg-white rounded-[14px] p-4 text-[#3C3C4399] shadow-xl mt-4">
 
-                <input @click="toggleClass('h-44')" type="text" readonly class="border border-[#ddd] rounded w-full" :placeholder="showRoomAndGuestNumber(settings.rooms, (settings.adults + settings.children))" inputmode="none" autocomplete="off" @input="() => null" @keypress="() => null">
-
-                <!-- counters -->
-                <section class="flex flex-col items-end gap-2 mt-4 overflow-hidden h-0 transition duration-300 ease-in-out" ref="roomGuestsInput">
-
-                    <!-- Counter Adults -->
-                    <div class="flex justify-end items-center">
-                        <span class="mr-4">Adultos: </span>
-                        <Counter v-model:counter="settings.adults"/>
-                    </div>
-                    <!-- Counter Children -->
-                    <div class="flex justify-end items-center">
-                        <span class="mr-4">Niños: </span>
-                        <Counter v-model:counter="settings.children"/>
-                    </div>
-                    <!-- Counter infanst -->
-                    <div class="flex justify-end items-center">
-                        <span class="mr-4">Infantes: </span>
-                        <Counter v-model:counter="settings.infants"/>
-                    </div>
-                    <!-- Counter rooms -->
-                    <div class="flex justify-end items-center">
-                        <span class="mr-4">Habitaciones: </span>
-                        <Counter v-model:counter="settings.rooms"/>
-                    </div>
-                </section>
-                <!-- /counters -->
-
-                <VueDatePicker
-                    class="mt-2" 
+                <VueDatePicker class="md:col-span-2 mt-2 md:mt-0" 
                     v-model="date" 
                     placeholder="Seleccione un rango de fechas"
                     :enable-time-picker="false"
@@ -141,7 +78,41 @@ const toggleClass = (className) => {
                     cancelText="cancelar" selectText="Seleccionar"
                 />
 
-                <CTAButton class="text-white" @click="showSettings()">
+                <div class="md:col-span-2 relative">
+
+                    <div>
+                        <input @click="showDetails = !showDetails" type="text" readonly class="border border-[#ddd] rounded w-full" :placeholder="displayRoomsAndGuestsAgreement(settings.rooms, (settings.adults + settings.children))" inputmode="none" autocomplete="off">
+                    </div>
+                    <!-- counters -->
+                    <!-- <section class="flex flex-col items-end gap-2 mt-4 overflow-hidden h-0 transition duration-300 ease-in-out" ref="roomGuestsInput"> -->
+                    <section @mouseleave="showDetails = false" class="md:col-span-2 flex flex-col gap-3 w-80 xl:w-64 mt-2 p-4 rounded-md bg-white absolute origin-top-right right-4 ring-1 z-10 ring-black ring-opacity-5 focus:outline-none shadow-2xl" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" v-if="showDetails">
+
+                        <p class="font-bold">Seleccione las habitaciones y los huespedes</p>
+                        <!-- Counter Adults -->
+                        <div class="flex justify-end items-center">
+                            <span class="mr-4">Adultos: </span>
+                            <Counter v-model:counter="settings.adults"/>
+                        </div>
+                        <!-- Counter Children -->
+                        <div class="flex justify-end items-center">
+                            <span class="mr-4">Niños: </span>
+                            <Counter v-model:counter="settings.children"/>
+                        </div>
+                        <!-- Counter infanst -->
+                        <div class="flex justify-end items-center">
+                            <span class="mr-4">Infantes: </span>
+                            <Counter v-model:counter="settings.infants"/>
+                        </div>
+                        <!-- Counter rooms -->
+                        <div class="flex justify-end items-center">
+                            <span class="mr-4">Habitaciones: </span>
+                            <Counter v-model:counter="settings.rooms"/>
+                        </div>
+                    </section>
+                    <!-- /counters -->
+                </div>
+
+                <CTAButton class="md:col-span-2 md:mt-0 text-white" @click="showSettings()">
                     Buscar
                 </CTAButton>  
                 
@@ -149,7 +120,7 @@ const toggleClass = (className) => {
 
         </section>
 
-        <section v-if="!showDetails">
+        <section v-if="!showRooms">
             <article v-for="room in props.distribution">
 
                 <BookingRoomCard :settings="settings" :room="room" />
