@@ -25,11 +25,11 @@ defineEmits(['update:counter'])
 </script>
 
 <template>
-    <div class="flex align-baseline text-center dark:text-white">
-        <OutlinedButton @click="counter > minCount ? $emit('update:counter',counter -= step) : null" class="px-3 py-1 border dark:border-gray-400 rounded">
-            <span class="dark:text-white">-</span>
+    <div class="flex text-center items-center">
+        <OutlinedButton @click="counter > minCount ? $emit('update:counter',counter -= step) : null" class="px-3 py-1 border rounded">
+            <span>-</span>
         </OutlinedButton >
-        <div class="px-3 py-1 align-middle">
+        <div class="pl-3 pr-3 py-1 w-10">
             <span class="my-auto font-bold">{{ counter }}</span>
             <input
             hidden
@@ -39,8 +39,8 @@ defineEmits(['update:counter'])
             @input="$emit('update:counter', $event.target.value)"
             >
         </div>
-        <OutlinedButton @click="counter < maxCount ? $emit('update:counter',counter += step) : null" class="px-3 py-1 border dark:border-gray-400 rounded">
-            <span class="dark:text-white">+</span>
+        <OutlinedButton @click="counter < maxCount ? $emit('update:counter',counter += step) : null" class="px-3 py-1 border rounded">
+            <span>+</span>
         </OutlinedButton >
     </div>
 </template>

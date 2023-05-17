@@ -2,7 +2,6 @@
 import BookingLayout from '@/Layouts/BookingLayout.vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-import { hasDarkMode } from '#utils';
 import { DateTime } from 'luxon';
 import { ref, onMounted } from 'vue';
 import Counter from '@/Shared/Counter.vue';
@@ -11,14 +10,16 @@ import axios from 'axios';
 import CTAButton from '@/Shared/CTAButton.vue';
 
 const props = defineProps({
-    settings: Object
+    settings: Object,
+    distribution: Object
 })
 
 const date = ref()
 const showDetails = ref(false);
-const showRooms = ref(false);
-let rooms = null;
 const settings = ref(props.settings)
+const roomGuestsInput = ref(null)
+const loadedRooms = ref(false);
+
 const defTimeSettings = () => {
     const date = DateTime.now();
     const min_year = date.year;
@@ -57,18 +58,15 @@ const format = ([DateStart, DateEnd]) => {
 }
 
 const loadRooms = async () => {
-    const { data } = await axios.get(route('booking.getAvailabilityDate',{ adults: settings.value.adults, children: settings.value.children, infants: settings.value.infants, rooms: settings.value.rooms, checkin: settings.value.checkin, checkout: settings.value.checkout }));
-    rooms = data;
-    showRooms.value = true;
-    console.log(rooms);
+    const setParams = { adults: settings.value.adults, children: settings.value.children, infants: settings.value.infants, rooms: settings.value.rooms, checkin: settings.value.checkin, checkout: settings.value.checkout }
+    const { data } = await axios.get(route('booking.getAvailabilityDate', setParams));
+    loadedRooms.value = data.distribution;
+    showDetails.value = !showDetails.value;
 }
 
 const showSettings = () => {
     console.clear();
-
-    showDetails.value = !showDetails.value;
     loadRooms();
-    console.log(settings.value);
 }
 
 onMounted(() => {
@@ -76,54 +74,63 @@ onMounted(() => {
   const endDate = new Date(new Date().setDate(startDate.getDate() + 1));
   date.value = [startDate, endDate];
 })
+
+const showRoomAndGuestNumber = (rooms, guests) =>{
+    const agreementRoom = (rooms == 1) 
+                        ? 'habitación' 
+                        : 'habitaciones';
+    const agreementGuest = (guests == 1)
+                        ? 'huesped' 
+                        : 'huespedes';;
+
+    return `${guests} ${agreementGuest}, ${rooms} ${agreementRoom}`
+}
+
+const toggleClass = (className) => {
+    return roomGuestsInput.value.classList.toggle(className);
+}
 </script>
 
 <template>
     <BookingLayout title="Hotel Casino Plaza">
 
         <!-- Book Form -->
-        <section class="mx-auto w-full p-2 max-w-7xl">
+        <section class="mx-auto w-full max-w-md md:max-w-5xl xl:max-w-7xl">
 
-            <div class="dark:bg-gray-800 p-4 rounded">
-                <!-- Counter Adults -->
+            <div class="bg-white rounded-[14px] p-4 text-[#3C3C4399] shadow-xl mt-4">
+
+                <input @click="toggleClass('h-44')" type="text" readonly class="border border-[#ddd] rounded w-full" :placeholder="showRoomAndGuestNumber(settings.rooms, (settings.adults + settings.children))" inputmode="none" autocomplete="off" @input="() => null" @keypress="() => null">
+
+                <!-- counters -->
+                <section class="flex flex-col items-end gap-2 mt-4 overflow-hidden h-0 transition duration-300 ease-in-out" ref="roomGuestsInput">
+
+                    <!-- Counter Adults -->
                     <div class="flex justify-end items-center">
-                        <span class="dark:text-white mr-4">Adultos: </span>
+                        <span class="mr-4">Adultos: </span>
                         <Counter v-model:counter="settings.adults"/>
                     </div>
-                <!-- Counter Adults -->
-                <!-- Counter Children -->
-                <div class="flex justify-end items-center">
-                    <span class="dark:text-white mr-4">Niños: </span>
-                    <Counter v-model:counter="settings.children"/>
-                </div>
-                <!-- /Counter Children -->
-                <!-- Counter infanst -->
-                <div class="flex justify-end items-center">
-                    <span class="dark:text-white mr-4">Infantes: </span>
-                    <Counter v-model:counter="settings.infants"/>
-                </div>
-                <!-- /Counter infanst -->
-                <!-- Counter rooms -->
-                <div class="flex justify-end items-center">
-                    <span class="dark:text-white mr-4">Habitaciones: </span>
-                    <Counter v-model:counter="settings.rooms"/>
-                </div>
-                <!-- /Counter rooms -->
-                <div class="">
+                    <!-- Counter Children -->
+                    <div class="flex justify-end items-center">
+                        <span class="mr-4">Niños: </span>
+                        <Counter v-model:counter="settings.children"/>
+                    </div>
+                    <!-- Counter infanst -->
+                    <div class="flex justify-end items-center">
+                        <span class="mr-4">Infantes: </span>
+                        <Counter v-model:counter="settings.infants"/>
+                    </div>
+                    <!-- Counter rooms -->
+                    <div class="flex justify-end items-center">
+                        <span class="mr-4">Habitaciones: </span>
+                        <Counter v-model:counter="settings.rooms"/>
+                    </div>
+                </section>
+                <!-- /counters -->
 
-                <ul class="dark:text-white my-3" v-if="showDetails">
-                    <li></li>
-                    <li v-for="(value, key) in settings" :key="key">
-                        {{ key }}: {{ value }}
-                    </li>
-                </ul>
-                </div>
-                
                 <VueDatePicker
                     class="mt-2" 
                     v-model="date" 
                     placeholder="Seleccione un rango de fechas"
-                    :dark="hasDarkMode()" 
                     :enable-time-picker="false"
                     locale="es" 
                     :format="format" 
@@ -134,7 +141,7 @@ onMounted(() => {
                     cancelText="cancelar" selectText="Seleccionar"
                 />
 
-                <CTAButton @click="showSettings()">
+                <CTAButton class="text-white" @click="showSettings()">
                     Buscar
                 </CTAButton>  
                 
@@ -142,13 +149,21 @@ onMounted(() => {
 
         </section>
 
-        <template v-if="showRooms">
-            <section >
+        <section v-if="!showDetails">
+            <article v-for="room in props.distribution">
 
-                <BookingRoomCard v-for="room in rooms.distribution" :settings="settings" :room="room" />
-                
-            </section>
-        </template>
+                <BookingRoomCard :settings="settings" :room="room" />
+            
+            </article>
+        </section>
+
+        <section v-else>
+            <article v-for="room in loadedRooms">
+
+                <BookingRoomCard :settings="settings" :room="room" />
+            
+            </article>
+        </section>
 
     </BookingLayout>
 </template>

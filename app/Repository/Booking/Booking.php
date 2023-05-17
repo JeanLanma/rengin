@@ -2,8 +2,11 @@
 
 namespace App\Repository\Booking;
 
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\GetBookingRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
+use Illuminate\Http\Request;
 
 class Booking {
 
@@ -107,4 +110,21 @@ class Booking {
         return $interval->format('%a');
     }
 
+
+    public function isValidRequest($data)
+    {
+        return !Validator::make($data, $this->getBookingRules())->fails();
+    }
+
+    public function getBookingRules()
+    {
+        $today = Carbon::today()->format('Y-m-d');
+        $tomorrow = Carbon::tomorrow()->format('Y-m-d');
+        return [
+            'adults' => ['required', 'integer', 'min:1'],
+            'children' => ['required', 'integer', 'min:0'],
+            'checkin' => ['required', 'date', 'after_or_equal:' . $today],
+            'checkout' => ['required', 'date', 'after_or_equal:' . $tomorrow],
+        ];   
+    }
 }
