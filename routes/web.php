@@ -28,7 +28,7 @@ Route::get('/bookings', [App\Http\Controllers\Booking\BookingController::class, 
 
 Route::get('/bookings/show', [App\Http\Controllers\Booking\BookingController::class, 'show'])->name('bookings.show');
 
-Route::get('/direct-booking', [App\Http\Controllers\Booking\BookingController::class, 'booking'])->name('booking');
+Route::get('/direct-booking', [App\Http\Controllers\Booking\BookingController::class, 'booking'])->middleware('direct-booking.request')->name('booking');
 
 // Rooms
 

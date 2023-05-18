@@ -13,8 +13,8 @@ const incTaxes = (price) => {
     <!-- component -->
 <!-- This is an example component -->
 <div class='flex items-center justify-center min-h-screen md:min-h-0 md:py-8 from-[#F9F5F3] via-[#F9F5F3] to-[#F9F5F3] bg-gradient-to-br px-2'>
-    <div class='w-full max-w-md md:max-w-5xl xl:max-w-7xl mx-auto bg-white rounded-3xl shadow-xl transition-all duration-300 hover:shadow-yellow-cta/25 hover:shadow-xl  overflow-hidden'>
-        <div class='max-w-md md:max-w-5xl xl:max-w-7xl mx-auto md:flex md:flex-row md:justify-between'>
+    <div class='w-full max-w-md md:max-w-5xl xl:max-w-6xl mx-auto bg-white rounded-3xl shadow-xl transition-all duration-300 overflow-hidden' :class="room.canBeBooked ? ' hover:shadow-yellow-cta/25 ' : ''">
+        <div class='max-w-md md:max-w-5xl xl:max-w-6xl mx-auto md:flex md:flex-row md:justify-between'>
             <div class='h-[14.75rem] md:h-[21.25rem] md:w-2/5 bg-cover bg-center overflow-hidden'>
                 <img class="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-110" :src="props.room.room.cover" :alt="props.room.room.name">
             </div>

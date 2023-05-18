@@ -36,17 +36,14 @@ class BookingController extends Controller
 
     public function booking( Booking $booking )
     {
-        // $defaultSettings = (new BookingService)->getDefaultSettings();
-        // $rooms = $booking->getAvailabilityDate($defaultSettings);
-        // dd($rooms);
-        // dd(request()->all(),$booking->isValidRequest(request()->all()));
+        // dd(request()->all());
         if($booking->isValidRequest(request()->all())){
             $rooms = $booking->getAvailabilityDate(request()->all());
         } else {
             $rooms = $booking->getAvailabilityDate((new BookingService)->getDefaultSettings());
         }
         return inertia('BookingShow/Show', [
-            'settings' => $this->bookingService()->getDefaultSettings(),
+            'settings' => request()->all(),
             'distribution' => $rooms
         ]);
     }

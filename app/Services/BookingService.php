@@ -5,6 +5,10 @@ namespace App\Services;
 class BookingService {
 
 
+    /**
+     * Default Settings to booking a room
+     * @return Array
+     */
     public function getDefaultSettings()
     {
         return [
@@ -18,6 +22,11 @@ class BookingService {
             'nights' => 1,
             'rooms' => 1,
         ];
+    }
+
+    public static function DefaultSettings() 
+    {
+        return  (new static)->getDefaultSettings();
     }
 
     public function hasBookingParams($params)

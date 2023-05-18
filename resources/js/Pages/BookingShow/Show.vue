@@ -5,25 +5,38 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import CTAButton from '@/Shared/CTAButton.vue';
 import '@vuepic/vue-datepicker/dist/main.css';
 import Counter from '@/Shared/Counter.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { DateTime } from 'luxon';
 import axios from 'axios';
 import Booking from '@/utils/booking.js';
 import { displayRoomsAndGuestsAgreement } from '@/utils/index.js';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     settings: Object,
     distribution: Object
 })
 
+watch(() => props.settings, (newVal, oldVal) => {
+    return console.log(oldVal);
+    settings.value = newVal;
+})
+
 const date = ref()
 const showDetails = ref(false);
 const showRooms = ref(false);
-const settings = ref(props.settings)
+const settings = ref(null)
 const loadedRooms = ref(false);
 
 onMounted(() => {
-    date.value = Booking.getDefaultPeriod();
+    date.value = props.settings.checkin 
+                ? [DateTime.fromISO(props.settings.checkin).toJSDate(), DateTime.fromISO(props.settings.checkout).toJSDate()] 
+                : Booking.getDefaultDateSettings();
+    settings.value = props.settings;
+    settings.value.adults = Number(settings.value.adults);
+    settings.value.children = Number(settings.value.children);
+    settings.value.infants = Number(settings.value.infants);
+    settings.value.rooms = Number(settings.value.rooms);
 })
 
 const DEF_DATE = Booking.getMinDateSettings();
@@ -48,11 +61,6 @@ const loadRooms = async () => {
     const { data } = await axios.get(route('booking.getAvailabilityDate', setParams));
     loadedRooms.value = data.distribution;
     showRooms.value = !showRooms.value;
-}
-
-const showSettings = () => {
-    console.clear();
-    loadRooms();
 }
 
 </script>
@@ -85,7 +93,7 @@ const showSettings = () => {
 
                     <div class="relative">
                         <label for="dates" class="absolute text-sm z-10 -top-3 left-4 bg-white">Seleccione las fechas</label>
-                        <input @click="showDetails = !showDetails" type="text" readonly class="border border-[#ddd] rounded w-full" :placeholder="displayRoomsAndGuestsAgreement(settings.rooms, (settings.adults + settings.children))" inputmode="none" autocomplete="off">
+                        <input @click="showDetails = !showDetails" type="text" readonly class="border border-[#ddd] rounded w-full" :placeholder="displayRoomsAndGuestsAgreement(props.settings.rooms, (Number(props.settings.adults) + Number(props.settings.children)))" inputmode="none" autocomplete="off">
                     </div>
                     <!-- counters -->
                     <!-- <section class="flex flex-col items-end gap-2 mt-4 overflow-hidden h-0 transition duration-300 ease-in-out" ref="roomGuestsInput"> -->
@@ -116,9 +124,12 @@ const showSettings = () => {
                     <!-- /counters -->
                 </div>
 
-                <CTAButton class="md:col-span-2 mt-8 md:mt-0 text-white" @click="showSettings()">
-                    Buscar
-                </CTAButton>  
+                <!-- <Link :href="route('booking.getAvailabilityDate', { adults: props.settings.adults, children: props.settings.children, infants: props.settings.infants, rooms: props.settings.rooms, checkin: props.settings.checkin, checkout: props.settings.checkout })"> -->
+                <Link :href="route('booking', props.settings)">
+                    <CTAButton class="md:col-span-2 mt-8 md:mt-0 text-white">
+                        Buscar
+                    </CTAButton>  
+                </Link>
                 
             </div>
 
