@@ -56,13 +56,6 @@ const format = ([DateStart, DateEnd]) => {
     return Booking.periodToString([DateStart, DateEnd]);
 }
 
-const loadRooms = async () => {
-    const setParams = { adults: settings.value.adults, children: settings.value.children, infants: settings.value.infants, rooms: settings.value.rooms, checkin: settings.value.checkin, checkout: settings.value.checkout }
-    const { data } = await axios.get(route('booking.getAvailabilityDate', setParams));
-    loadedRooms.value = data.distribution;
-    showRooms.value = !showRooms.value;
-}
-
 </script>
 
 <template>

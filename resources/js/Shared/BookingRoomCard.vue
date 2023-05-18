@@ -3,6 +3,7 @@ import { Taxes } from '@/utils';
 
 const props = defineProps({
     room: Object,
+    settings: Object
 })
 
 const incTaxes = (price) => {
@@ -37,7 +38,7 @@ const incTaxes = (price) => {
                 <p class='text-[#7C7C80] font-[15px] mt-6'>{{ props.room.room.description }}</p>
 
 
-                <a v-if="room.canBeBooked" href='#' class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
+                <a v-if="room.canBeBooked" :href="route('quote.booking', props.settings)" class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
                     Reservar ahora
                 </a>
                 <a v-else href='#' class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform rounded-[14px] border border-[#FFC933]  focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>

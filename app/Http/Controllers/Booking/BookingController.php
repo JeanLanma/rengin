@@ -48,6 +48,11 @@ class BookingController extends Controller
         ]);
     }
 
+    public function QuoteBooking()
+    {
+        return dd(request()->all());
+    }
+
     public function bookingService()
     {
         return new BookingService;

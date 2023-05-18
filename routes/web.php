@@ -30,6 +30,8 @@ Route::get('/bookings/show', [App\Http\Controllers\Booking\BookingController::cl
 
 Route::get('/direct-booking', [App\Http\Controllers\Booking\BookingController::class, 'booking'])->middleware('direct-booking.request')->name('booking');
 
+Route::get('/quote-booking', [App\Http\Controllers\Booking\BookingController::class, 'QuoteBooking'])->name('quote.booking');
+
 // Rooms
 
 Route::get('/rooms', [App\Http\Controllers\Room\RoomController::class, 'index'])->name('rooms.index');

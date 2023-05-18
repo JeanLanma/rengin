@@ -72,6 +72,11 @@ class Booking {
         return '$ ' . number_format($price, 2, '.', ',');
     }
 
+    public function getItemizedPrice()
+    {
+
+    }
+
     public function getComputedPrice($price, $nights)
     {
         $acc = 0;
