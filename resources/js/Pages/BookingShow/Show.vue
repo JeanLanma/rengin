@@ -63,24 +63,28 @@ const showSettings = () => {
         <!-- Book Form -->
         <section class="mx-auto w-full max-w-md md:max-w-5xl xl:max-w-7xl">
 
-            <div class="md:grid md:grid-cols-6 md:items-center md:justify-center md:gap-8 bg-white rounded-[14px] p-4 text-[#3C3C4399] shadow-xl mt-4">
+            <div class="md:grid md:grid-cols-6 md:items-center md:justify-center md:gap-8 bg-white rounded-[14px] p-4 text-[#3C3C4399] mt-4 border border-yellow-cta">
 
-                <VueDatePicker class="md:col-span-2 mt-2 md:mt-0" 
-                    v-model="date" 
-                    placeholder="Seleccione un rango de fechas"
-                    :enable-time-picker="false"
-                    locale="es" 
-                    :format="format" 
-                    range
-                    :min-date="DEF_DATE.min_date"
-                    :max-date="DEF_DATE.max_date"
-                    :year-range="[DEF_DATE.min_year, DEF_DATE.max_year]"
-                    cancelText="cancelar" selectText="Seleccionar"
-                />
+                <div class="md:col-span-2 mt-4 md:mt-0 relative">
+                    <label for="dates" class="absolute text-sm z-10 -top-3 left-4 bg-white">Seleccione las fechas</label>
+                    <VueDatePicker  
+                        v-model="date" 
+                        placeholder="Seleccione un rango de fechas"
+                        :enable-time-picker="false"
+                        locale="es" 
+                        :format="format" 
+                        range
+                        :min-date="DEF_DATE.min_date"
+                        :max-date="DEF_DATE.max_date"
+                        :year-range="[DEF_DATE.min_year, DEF_DATE.max_year]"
+                        cancelText="cancelar" selectText="Seleccionar"
+                    />
+                </div>
 
-                <div class="md:col-span-2 relative">
+                <div class="md:col-span-2 mt-8 md:mt-0 relative">
 
-                    <div>
+                    <div class="relative">
+                        <label for="dates" class="absolute text-sm z-10 -top-3 left-4 bg-white">Seleccione las fechas</label>
                         <input @click="showDetails = !showDetails" type="text" readonly class="border border-[#ddd] rounded w-full" :placeholder="displayRoomsAndGuestsAgreement(settings.rooms, (settings.adults + settings.children))" inputmode="none" autocomplete="off">
                     </div>
                     <!-- counters -->
@@ -112,7 +116,7 @@ const showSettings = () => {
                     <!-- /counters -->
                 </div>
 
-                <CTAButton class="md:col-span-2 md:mt-0 text-white" @click="showSettings()">
+                <CTAButton class="md:col-span-2 mt-8 md:mt-0 text-white" @click="showSettings()">
                     Buscar
                 </CTAButton>  
                 
@@ -138,3 +142,11 @@ const showSettings = () => {
 
     </BookingLayout>
 </template>
+
+<style>
+
+.acent-shadow {
+    border-color: #a3d7fc;
+    box-shadow: 0 0 8px #a3d7fc;
+}
+</style>
