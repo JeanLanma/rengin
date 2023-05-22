@@ -26,13 +26,18 @@ class Booking {
 
         $distributionResult = $distribution->groupBy('room_id')->map(function ( $roomDistribution, $roomDistributionKey ) use ($data) {
             
-            $canBeBooked = !$roomDistribution->contains('availability', 0);
+            $canBeBooked = $this->canBeBook($roomDistribution);
             $nights = $this->getNights($data['checkin'], $data['checkout']);
             $r = $roomDistribution->first();
-
-            $price = $canBeBooked 
-                    ? $this->getComputedPrice($roomDistribution, $nights) 
-                    : $r->price;
+            $price = 0;
+            $itemizedPrice = [];
+            if($canBeBooked){
+                $items = $this->getComputedPriceItemized($roomDistribution, $nights);
+                $price = $items['total'];
+                $itemizedPrice = $items['items'];
+            } else {
+                $price = $r->price;
+            }
 
             return [
                 'canBeBooked' => $canBeBooked,
@@ -41,6 +46,7 @@ class Booking {
                 'price' => $price,
                 'price_string' => $this->formatPrice($price),
                 'nights' => $nights,
+                'itemized_price' => $itemizedPrice,
                 'room' => [
                     'name' => $r->name,
                     'type' => $r->type,
@@ -72,11 +78,6 @@ class Booking {
         return '$ ' . number_format($price, 2, '.', ',');
     }
 
-    public function getItemizedPrice()
-    {
-
-    }
-
     public function getComputedPrice($price, $nights)
     {
         $acc = 0;
@@ -87,6 +88,31 @@ class Booking {
         }
         return $acc;
     }
+    public function getComputedPriceItemized($price, $nights)
+    {
+        $acc = 0;
+        $items = [];
+        $prices = $price->pluck('price');
+        for($i = 0; $i < $nights; $i++)
+        {
+            $acc += $prices[$i];
+            $items[] = ['night' => $i + 1, 'price' => $prices[$i], 'string' => 'noche x'. $i + 1 .' costo $ ' . number_format($prices[$i], 2, '.', ',')];
+        }
+        return ['total' => $acc, 'items' => $items];
+    }
+
+    /**
+     * A room can be book when all days except last day are available
+     * 
+     * @param Collection $roomDistribution
+     * @return bool
+     */
+    public function canBeBook($roomDistribution)
+    {
+        // Exept last day
+        $roomDistribution->pop();
+        return !$roomDistribution->contains('availability', 0);
+    } 
 
     /**
      * Get URL image from cover room

@@ -1,5 +1,6 @@
 <script setup>
 import { Taxes } from '@/utils';
+import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
     room: Object,
@@ -8,6 +9,17 @@ const props = defineProps({
 
 const incTaxes = (price) => {
     return Taxes(price).getOnlyTaxes
+}
+
+const parseItemezidPrice = (price) => {
+    return price.map( (item) =>  item.string).join(' + ');
+}
+
+const BookRoom = (RoomTypeId) => {
+    console.log(props.room.itemized_price);
+    props.settings.room_type = props.room;
+    console.log(props.settings);
+    router.visit( route('direct-booking.checkout'), { method: 'get', data: props.settings });
 }
 </script>
 <template>
@@ -23,7 +35,7 @@ const incTaxes = (price) => {
                 <p class='font-bold text-gray-700 text-[22px] leading-7 mb-1'>{{ props.room.room.name }}</p>
                 <div v-if="room.canBeBooked" class='flex flex-row'>
                 <p class='text-[#3C3C4399] text-[17px] mr-2 text-base'>Precio x{{room.nights}} noches</p>
-                <p class='text-[17px] font-bold text-[#0FB478]'>{{room.price_string}} <span class="text-xs text-[#3C3C4399]"> +(MXN ${{incTaxes(room.price)}})</span></p>
+                <p class='text-[17px] font-bold text-[#0FB478]' :title="parseItemezidPrice(room.itemized_price)">{{room.price_string}} <span class="text-xs text-[#3C3C4399]"> +(MXN ${{incTaxes(room.price)}})</span></p>
                 </div>
                 <div v-else class='flex flex-row'>
                     <p class='text-[#3C3C4399] text-[17px] mr-2 text-base'>Precio x{{room.nights}} noches</p>
@@ -38,9 +50,9 @@ const incTaxes = (price) => {
                 <p class='text-[#7C7C80] font-[15px] mt-6 min-h-[9rem] md:min-h-min md:h-24 md:max-h-24 md:line-clamp-3'>{{ props.room.room.description }}</p>
 
 
-                <a v-if="room.canBeBooked" :href="route('quote.booking', props.settings)" class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
+                <button v-if="room.canBeBooked" @click="BookRoom(room.room.id)" class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
                     Reservar ahora
-                </a>
+                </button>
                 <a v-else href='#' class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform rounded-[14px] border border-[#FFC933]  focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
                     No Disponible
                 </a>

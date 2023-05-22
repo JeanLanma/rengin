@@ -17,11 +17,6 @@ const props = defineProps({
     distribution: Object
 })
 
-watch(() => props.settings, (newVal, oldVal) => {
-    return console.log(oldVal);
-    settings.value = newVal;
-})
-
 const date = ref()
 const showDetails = ref(false);
 const showRooms = ref(false);
