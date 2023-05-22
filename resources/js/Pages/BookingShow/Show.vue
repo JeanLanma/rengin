@@ -62,9 +62,9 @@ const format = ([DateStart, DateEnd]) => {
     <BookingLayout title="Hotel Casino Plaza">
 
         <!-- Book Form -->
-        <section class="mx-auto w-full max-w-md md:max-w-5xl xl:max-w-7xl">
+        <section class="mx-auto w-full max-w-md md:max-w-5xl xl:max-w-6xl">
 
-            <div class="md:grid md:grid-cols-6 md:items-center md:justify-center md:gap-8 bg-white rounded-[14px] p-4 text-[#3C3C4399] mt-4 border border-yellow-cta">
+            <div class="md:grid md:grid-cols-6 md:items-center md:justify-center md:gap-6 bg-white rounded-[14px] px-4 py-6 text-[#3C3C4399] mt-4 border border-yellow-cta">
 
                 <div class="md:col-span-2 mt-4 md:mt-0 relative">
                     <label for="dates" class="absolute text-sm z-10 -top-3 left-4 bg-white">Seleccione las fechas</label>
@@ -85,8 +85,8 @@ const format = ([DateStart, DateEnd]) => {
                 <div class="md:col-span-2 mt-8 md:mt-0 relative">
 
                     <div class="relative">
-                        <label for="dates" class="absolute text-sm z-10 -top-3 left-4 bg-white">Seleccione las fechas</label>
-                        <input @click="showDetails = !showDetails" type="text" readonly class="border border-[#ddd] rounded w-full" :placeholder="displayRoomsAndGuestsAgreement(props.settings.rooms, (Number(props.settings.adults) + Number(props.settings.children)))" inputmode="none" autocomplete="off">
+                        <label for="pax" class="cursor-pointer absolute text-sm z-10 -top-3 left-4 bg-white">Seleccione las habitaciones y los huéspedes</label>
+                        <input id="pax" @click="showDetails = !showDetails" type="text" readonly class="cursor-pointer border border-[#ddd] rounded w-full" :placeholder="displayRoomsAndGuestsAgreement(props.settings.rooms, (Number(props.settings.adults) + Number(props.settings.children)))" inputmode="none" autocomplete="off">
                     </div>
                     <!-- counters -->
                     <!-- <section class="flex flex-col items-end gap-2 mt-4 overflow-hidden h-0 transition duration-300 ease-in-out" ref="roomGuestsInput"> -->

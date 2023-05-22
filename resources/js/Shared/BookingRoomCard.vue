@@ -35,7 +35,7 @@ const incTaxes = (price) => {
                     <p>capacidad maxima: {{props.room.room.maxCapacity}}</p>
                 </div>
 
-                <p class='text-[#7C7C80] font-[15px] mt-6'>{{ props.room.room.description }}</p>
+                <p class='text-[#7C7C80] font-[15px] mt-6 min-h-[9rem] md:min-h-min md:h-24 md:max-h-24 md:line-clamp-3'>{{ props.room.room.description }}</p>
 
 
                 <a v-if="room.canBeBooked" :href="route('quote.booking', props.settings)" class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
