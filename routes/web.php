@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 Route::get('/direct-booking', [App\Http\Controllers\Booking\BookingController::class, 'booking'])->middleware('direct-booking.request')->name('booking');
 
-Route::get('/direct-booking/checkout', [App\Http\Controllers\Booking\BookingController::class, 'checkout'])->name('direct-booking.checkout');
+Route::post('/direct-booking/checkout', [App\Http\Controllers\Booking\BookingController::class, 'checkout'])->name('direct-booking.checkout');
 
 Route::middleware([
     'auth:sanctum',

@@ -1,9 +1,6 @@
 <script setup>
 import { Taxes } from '@/utils';
-import { Link } from '@inertiajs/vue3';
-import { ref, onMounted } from 'vue';
-
-const data = ref(null);
+import { useForm, router } from '@inertiajs/vue3';
 
 const props = defineProps({
     room: Object,
@@ -18,6 +15,17 @@ const parseItemezidPrice = (price) => {
     return price.map( (item) =>  item.string).join(' + ');
 }
 
+const form = useForm({
+    settigns: null,
+    room_type: null
+})
+
+const BookRoom = () => {
+    router.visit(route('direct-booking.checkout', props.settings),{
+        method: 'post',
+        data: {settings: props.settings, room_type: props.room}
+    })
+}
 </script>
 <template>
     <!-- component -->
@@ -47,9 +55,9 @@ const parseItemezidPrice = (price) => {
                 <p class='text-[#7C7C80] font-[15px] mt-6 min-h-[9rem] md:min-h-min md:h-24 md:max-h-24 md:line-clamp-3'>{{ props.room.room.description }}</p>
 
 
-                <Link v-if="room.canBeBooked"  method="get" :href="route('direct-booking.checkout', {settings: props.settings})" :data="props.room"  as="button" type="button"  class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
+                <button v-if="room.canBeBooked" @click="BookRoom()" type="button" class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
                     Reservar ahora
-                </Link>
+                </button>
                 <button v-else disabled class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform rounded-[14px] border border-[#FFC933]  focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
                     No Disponible
                 </button>

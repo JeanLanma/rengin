@@ -45,6 +45,7 @@ class BookingController extends Controller
 
     public function checkout(Booking $booking)
     {
+        // dd(request()->all());
         return inertia('Checkout/Show', [
             'booking' => $booking::BookingRoomAdapter(request()->settings, request()->room_type)
         ]);
