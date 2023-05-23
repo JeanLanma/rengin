@@ -15,11 +15,9 @@ const parseItemezidPrice = (price) => {
     return price.map( (item) =>  item.string).join(' + ');
 }
 
-const BookRoom = (RoomTypeId) => {
-    console.log(props.room.itemized_price);
-    props.settings.room_type = props.room;
-    console.log(props.settings);
-    router.visit( route('direct-booking.checkout'), { method: 'get', data: props.settings });
+const BookRoom = () => {
+  props.settings.room_type = props.room;
+  router.get(route('direct-booking.checkout'), props.settings);
 }
 </script>
 <template>
@@ -50,7 +48,7 @@ const BookRoom = (RoomTypeId) => {
                 <p class='text-[#7C7C80] font-[15px] mt-6 min-h-[9rem] md:min-h-min md:h-24 md:max-h-24 md:line-clamp-3'>{{ props.room.room.description }}</p>
 
 
-                <button v-if="room.canBeBooked" @click="BookRoom(room.room.id)" class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
+                <button v-if="room.canBeBooked" @click="BookRoom()" class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
                     Reservar ahora
                 </button>
                 <a v-else href='#' class='block mt-10 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform rounded-[14px] border border-[#FFC933]  focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80'>
