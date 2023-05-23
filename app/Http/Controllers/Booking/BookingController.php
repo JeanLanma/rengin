@@ -47,8 +47,6 @@ class BookingController extends Controller
 
     public function checkout()
     {
-        dd(request()->all());
-
         return inertia('Checkout/Show', [
             'booking' => request()->all()
         ]);

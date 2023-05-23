@@ -1,6 +1,7 @@
 <script setup>
 import { Taxes } from '@/utils';
 import { Link } from '@inertiajs/vue3';
+import { defineProps, onMounted } from 'vue';
 
 const props = defineProps({
     room: Object,
@@ -15,6 +16,10 @@ const parseItemezidPrice = (price) => {
     return price.map( (item) =>  item.string).join(' + ');
 }
 
+onMounted(() => {
+    data = props.settings;
+    data.room_type = props.room;
+})
 
 </script>
 <template>
