@@ -27,20 +27,23 @@ onMounted(() => {
         <!-- Booking Item -->
         <section class="mx-auto w-full max-w-md md:max-w-5xl xl:max-w-6xl">
 
-            <article class="flex gap-4 bg-white rounded-[14px] px-4 py-6 text-[#3C3C4399] mt-4 border border-yellow-cta">
+            <article class="bg-white rounded-[14px] px-4 py-6 text-[#3C3C4399] mt-4 border border-yellow-cta">
 
-                <div class="overflow-hidden rounded-lg w-24 h-w-24 bg-gray-50 border border-gray-200">
-                    <img class="h-full object-cover" :src="props.booking.room_type.room.cover" :alt="props.booking.room_type.room.name">
-                </div>
-                <div class="flex">
-                    <div class="flex flex-col justify-between">
-                        <h1>{{ props.booking.room_type.room.name }}</h1>
+                <div class="flex gap-4">
+
+                    <div class="flex-shrink-0 overflow-hidden rounded-lg w-24 h-w-24 bg-gray-50 border border-gray-200">
+                        <img class="h-full object-cover" :src="props.booking.room_type.room.cover" :alt="props.booking.room_type.room.name">
+                    </div>
+                    <div class="">
+                        <h1 class="font-bold text-xl flex items-baseline">{{ props.booking.room_type.room.name }} <span class="text-sm font-normal">(x{{ props.booking.rooms }})</span> </h1>
+
                         <p class="">Noches x{{ props.booking.nights }}</p>
                     </div>
-
+                    
                     <div class="self-end">
-                        <p class="font-bold">{{ props.booking.room_type.price_string }}</p>
+                        <p class="font-bold">{{ props.booking.room_type.price_string.split(' ').join('') }}</p>
                     </div>
+
                 </div>
 
             </article>

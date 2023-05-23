@@ -1,6 +1,9 @@
 <script setup>
 import { Taxes } from '@/utils';
 import { useForm, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
+
+const _settings = ref(null);
 
 const props = defineProps({
     room: Object,
@@ -15,15 +18,12 @@ const parseItemezidPrice = (price) => {
     return price.map( (item) =>  item.string).join(' + ');
 }
 
-const form = useForm({
-    settigns: null,
-    room_type: null
-})
-
 const BookRoom = () => {
-    router.visit(route('direct-booking.checkout', props.settings),{
-        method: 'post',
-        data: {settings: props.settings, room_type: props.room}
+    _settings.value = props.settings;
+    _settings.value.room_type_id = props.room.roomTypeId;
+    router.visit(route('direct-booking.checkout', _settings.value),{
+        method: 'get',
+        data: {settings: props.settings},
     })
 }
 </script>

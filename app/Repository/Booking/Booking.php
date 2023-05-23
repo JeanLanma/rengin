@@ -48,6 +48,7 @@ class Booking {
                 'nights' => $nights,
                 'itemized_price' => $itemizedPrice,
                 'room' => [
+                    // 'id' => $r->room_id,
                     'name' => $r->name,
                     'type' => $r->type,
                     'description' => $r->description,
@@ -60,6 +61,49 @@ class Booking {
         });
 
         return $distributionResult;
+    }
+
+    public function getBookingRoomCheckout($data)
+    {
+        $dates = [$data['checkin'], $data['checkout']];
+        $roomDistribution = DB::table('distribution as dis')
+            ->whereBetween('date', $dates)
+            ->where('status', 'available')
+            ->where('room_id', $data['room_type_id'])
+            ->leftJoin('rooms as room', 'dis.room_id', '=', 'room.id')
+            ->get(['dis.room_id','dis.date', 'dis.availability', 'dis.price', 'dis.status', 'room.name', 'room.type', 'room.description', 'room.cover', 'room.base_capacity', 'room.max_capacity']);
+            
+        $canBeBooked = $this->canBeBook($roomDistribution);
+        $nights = $this->getNights($data['checkin'], $data['checkout']);
+        $r = $roomDistribution->first();
+        $price = 0;
+        $itemizedPrice = [];
+        if($canBeBooked){
+            $items = $this->getComputedPriceItemized($roomDistribution, $nights);
+            $price = $items['total'];
+            $itemizedPrice = $items['items'];
+        } else {
+            $price = $r->price;
+        }
+
+        return [
+            'canBeBooked' => $canBeBooked,
+            'roomTypeId' => $r->room_id,
+            'availability' => $r->availability,
+            'price' => $price,
+            'price_string' => $this->formatPrice($price),
+            'nights' => $nights,
+            'itemized_price' => $itemizedPrice,
+            'room' => [
+                'name' => $r->name,
+                'type' => $r->type,
+                'description' => $r->description,
+                'cover' => $this->getCoverUrl($r->cover),
+                'baseCapacity' => $r->base_capacity,
+                'maxCapacity' => $r->max_capacity,
+            ]
+        ];
+
     }
 
     /**
