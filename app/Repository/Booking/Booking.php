@@ -158,4 +158,17 @@ class Booking {
             'checkout' => ['required', 'date', 'after_or_equal:' . $tomorrow],
         ];   
     }
+
+
+    /**
+     * Get booking data
+     * Merge booking data with room data
+     * 
+     * @param GetBookingRequest $request
+     * @return array
+     */
+    public static function BookingRoomAdapter($settings, $room_type){
+        $settings['room_type'] = $room_type;
+        return $settings;
+    }
 }
