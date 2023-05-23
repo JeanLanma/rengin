@@ -13,6 +13,13 @@ Route::get('/', function () {
     ]);
 });
 
+// Direct booking
+
+
+Route::get('/direct-booking', [App\Http\Controllers\Booking\BookingController::class, 'booking'])->middleware('direct-booking.request')->name('booking');
+
+Route::get('/direct-booking/checkout', [App\Http\Controllers\Booking\BookingController::class, 'checkout'])->name('direct-booking.checkout');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -27,10 +34,6 @@ Route::middleware([
 Route::get('/bookings', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('bookings.index');
 
 Route::get('/bookings/show', [App\Http\Controllers\Booking\BookingController::class, 'show'])->name('bookings.show');
-
-Route::get('/direct-booking', [App\Http\Controllers\Booking\BookingController::class, 'booking'])->middleware('direct-booking.request')->name('booking');
-
-Route::get('/direct-booking/checkout', [App\Http\Controllers\Booking\BookingController::class, 'checkout'])->name('direct-booking.checkout');
 
 // Rooms
 
