@@ -1,16 +1,15 @@
 <script setup>
-import BookingLayout from '@/Layouts/BookingLayout.vue';
+import { displayRoomsAndGuestsAgreement } from '@/utils/index.js';
 import BookingRoomCard from '@/Shared/BookingRoomCard.vue';
+import BookingLayout from '@/Layouts/BookingLayout.vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import CTAButton from '@/Shared/CTAButton.vue';
 import '@vuepic/vue-datepicker/dist/main.css';
 import Counter from '@/Shared/Counter.vue';
-import { ref, onMounted, watch } from 'vue';
-import { DateTime } from 'luxon';
-import axios from 'axios';
 import Booking from '@/utils/booking.js';
-import { displayRoomsAndGuestsAgreement } from '@/utils/index.js';
 import { Link } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
+import { DateTime } from 'luxon';
 
 const props = defineProps({
     settings: Object,
