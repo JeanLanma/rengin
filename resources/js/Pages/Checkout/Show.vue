@@ -14,6 +14,7 @@ import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     booking: Object,
+    summary: Object
 })
 
 onMounted(() => {
@@ -56,7 +57,7 @@ onMounted(() => {
             <div class="bg-white rounded-[14px] px-4 py-6 text-[#3C3C4399] mt-4 border border-yellow-cta">
                 
                 <details open class="mb-3">
-                    <summary>Detalles de la reserva...</summary>
+                    <summary class="font-bold text-lg">Detalles de la reserva...</summary>
                     
                     <div class="mt-3">
                         
@@ -99,18 +100,18 @@ onMounted(() => {
         </section>
 
         <!-- Payment -->
-        <section class="mx-auto w-full max-w-7xl sm:px-8">
+        <section class="mx-auto w-full max-w-7xl sm:px-8 mb-12">
 
             <div class="bg-white rounded-[14px] px-4 py-6 text-[#3C3C4399] mt-4 border border-yellow-cta">
 
-                <h2 class="font-bold text-xl flex items-baseline">Información de pago</h2>
+                <h2 class="font-bold text-xl">Información de pago</h2>
 
                 <form>
 
                     <!-- Guest Form -->
                     <div class="mt-3 mb-3">
 
-                        <p class="font-bold text-center">Sus datos</p>
+                        <p class="font-bold text-center">Datos de contacto</p>
 
                         <div class="relative mb-2">
                             <label for="guest_name" class="font-bold text-sm">Nombre</label>
@@ -139,7 +140,7 @@ onMounted(() => {
                     <!-- Payment Form -->
                     <div class="mt-3">
 
-                        <p class="font-bold mb-2 text-center">Datos de pago</p>
+                        <p class="font-bold text-center">Datos de pago</p>
 
                         <div class="relative mb-2">
                             <label for="card_name" class="font-bold text-sm">Titular de la tarjeta</label>

@@ -46,6 +46,16 @@ class BookingController extends Controller
     public function checkout(Booking $booking)
     {        
         $room_type = $booking->getBookingRoomCheckout(request()->all());
+        dd($room_type);
+        $summary = [
+            'has_enough_rooms' => ($room_type['room']->availability >= request()->rooms),
+            'total_rooms_needed_by_pax' => 0,
+            'total_rooms_available' => 0,
+            'total_pax' => ($room->availability + $room_type->children),
+            'subtotal_price' => 0,
+            'total_price' => 0,
+        ];
+        dd($summary);
         return inertia('Checkout/Show', [
             'booking' => $booking::BookingRoomAdapter(request()->settings, $room_type),
             'summary' => $booking->getBookingRoomCheckout(request()->all())
