@@ -56,7 +56,7 @@ onMounted(() => {
             <div class="bg-white rounded-[14px] px-4 py-6 text-[#3C3C4399] mt-4 border border-yellow-cta">
                 
                 <details open class="mb-3">
-                    <summary>Detalles de la reserva</summary>
+                    <summary>Detalles de la reserva...</summary>
                     
                     <div class="mt-3">
                         
@@ -108,9 +108,9 @@ onMounted(() => {
                 <form>
 
                     <!-- Guest Form -->
-                    <div class="mt-3">
+                    <div class="mt-3 mb-3">
 
-                        <p class="font-bold mb-2 text-center">Sus datos</p>
+                        <p class="font-bold text-center">Sus datos</p>
 
                         <div class="relative mb-2">
                             <label for="guest_name" class="font-bold text-sm">Nombre</label>
@@ -134,8 +134,10 @@ onMounted(() => {
 
                     </div>
 
+                    <div class="border-b border-[#3C3C4399] opacity-50 my-12"></div>
+
                     <!-- Payment Form -->
-                    <div class="mt-6">
+                    <div class="mt-3">
 
                         <p class="font-bold mb-2 text-center">Datos de pago</p>
 
@@ -186,10 +188,14 @@ onMounted(() => {
                         </div>
 
                         <div class="relative mb-2">
-                            <label for="guest_email" class="font-bold text-sm">CVC</label>
-                            <input id="guest_email" type="email" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="Correo electronico" autocomplete="off">
+                            <label for="card_cvc" class="font-bold text-sm">CVC</label>
+                            <input id="card_cvc" type="number" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="cvc" autocomplete="off">
                         </div>
 
+                    </div>
+
+                    <div>
+                        <CTAButton class="w-full font-bold bg-yellow-cta hover:bg-yellow-cta-acent text-white" type="submit">Reservar ahora</CTAButton>
                     </div>
 
                 </form>
