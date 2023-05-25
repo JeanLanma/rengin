@@ -103,7 +103,6 @@ class Booking {
                 'maxCapacity' => $r->max_capacity,
             ]
         ];
-
     }
 
     /**

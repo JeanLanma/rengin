@@ -19,6 +19,7 @@ const props = defineProps({
 
 onMounted(() => {
     console.log(props.booking);
+    console.log(props.summary);
 })
 </script>
 
@@ -63,11 +64,11 @@ onMounted(() => {
                         
                         <p class="flex justify-between mb-2">
                             <span>Llegada:</span>
-                            <span class="font-bold">Vier, 28 de Mayo, 2023</span>
+                            <span class="font-bold first-letter:capitalize">{{ props.summary.checkin }}</span>
                         </p>
                         <p class="flex justify-between">
                             <span>Salida:</span>
-                            <span class="font-bold">Dom, 30 de Mayo, 2023</span>
+                            <span class="font-bold first-letter:capitalize">{{ props.summary.checkout }}</span>
                         </p>
                         
                     </div>
@@ -81,15 +82,15 @@ onMounted(() => {
                         
                         <p class="flex justify-between mb-2">
                             <span>Subtotal:</span>
-                            <span class="font-bold">$3900.00</span>
+                            <span class="font-bold">{{ props.summary.subtotal_price_string }}</span>
                         </p>
                         <p class="flex justify-between mb-2">
                             <span>Impuestos:</span>
-                            <span class="font-bold">$390.00</span>
+                            <span class="font-bold">{{ props.summary.taxed_price_string }}</span>
                         </p>
                         <p class="flex justify-between">
                             <span>Total:</span>
-                            <span class="font-bold">$4290.00</span>
+                            <span class="font-bold">{{ props.summary.total_price_string }}</span>
                         </p>
                         
                     </div>

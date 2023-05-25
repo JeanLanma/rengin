@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Booking;
 use App\Http\Requests\GetBookingRequest;
 use App\Http\Controllers\Controller;
 use App\Repository\Booking\Booking;
+use App\Repository\Booking\BookingSummary;
 use App\Services\BookingService;
 use Illuminate\Http\Request;
 
@@ -46,19 +47,11 @@ class BookingController extends Controller
     public function checkout(Booking $booking)
     {        
         $room_type = $booking->getBookingRoomCheckout(request()->all());
-        dd($room_type);
-        $summary = [
-            'has_enough_rooms' => ($room_type['room']->availability >= request()->rooms),
-            'total_rooms_needed_by_pax' => 0,
-            'total_rooms_available' => 0,
-            'total_pax' => ($room->availability + $room_type->children),
-            'subtotal_price' => 0,
-            'total_price' => 0,
-        ];
-        dd($summary);
+        $summary = new BookingSummary($room_type, request()->all());
+        // dd($summary->getDistribution());
         return inertia('Checkout/Show', [
             'booking' => $booking::BookingRoomAdapter(request()->settings, $room_type),
-            'summary' => $booking->getBookingRoomCheckout(request()->all())
+            'summary' => $summary->getSummary()
         ]);
     }
 
