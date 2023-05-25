@@ -25,7 +25,7 @@ class StoreRoomRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'type' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:510'],
             'cover' => [
                 $this->routeIs('rooms.store') ? 'required' : 'nullable',
                 'image',
