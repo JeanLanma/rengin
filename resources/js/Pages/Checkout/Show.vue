@@ -41,7 +41,6 @@ onMounted(() => {
                             <h1 class="font-bold text-xl flex items-baseline">{{ props.booking.room_type.room.name }} <span class="text-sm font-normal hidden">(x{{ props.booking.rooms }})</span> </h1>
                             <p class="md:hidden">{{ props.booking.room_type.room.description.substring(0, 45) }}...</p>
                             <p class="hidden md:block">{{ props.booking.room_type.room.description.substring(0, 355) }}....</p>
-                            <!-- <p class="">Noches x{{ props.booking.nights }}</p> -->
                         </div>
                         
                         <div class="self-end hidden">
@@ -78,7 +77,7 @@ onMounted(() => {
                             </p>
                             <p class="flex justify-between mb-2">
                                 <span>Habitaciones:</span>
-                                <span class="font-bold first-letter:capitalize">{{ props.summary.total_rooms_needed_by_pax }}</span>
+                                <span class="font-bold first-letter:capitalize">{{ props.summary.total_rooms_needed }}</span>
                             </p>
                             
                         </div>

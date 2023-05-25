@@ -23,7 +23,6 @@ const BookRoom = () => {
     _settings.value.room_type_id = props.room.roomTypeId;
     router.visit(route('direct-booking.checkout', _settings.value),{
         method: 'get',
-        data: {settings: props.settings},
     })
 }
 </script>

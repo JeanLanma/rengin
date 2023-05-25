@@ -18,6 +18,7 @@ class BookingSummary {
     private $totalPax;
     private $totalRoomsNeededByPax;
     private $totalRoomsAvailable;
+    private $totalRoomsNeeded;
 
     /**
      * Get Distribution collection and return a quote
@@ -35,8 +36,9 @@ class BookingSummary {
     public function summarize()
     {
         $this->totalPax = $this->getTotalPax();
-        $this->totalRoomsNeededByPax = $this->getRoomsNeededByPax();
         $this->totalRoomsAvailable = $this->distribution['availability'];
+        $this->totalRoomsNeededByPax = $this->getRoomsNeededByPax();
+        $this->totalRoomsNeeded = $this->calculateNecessaryRooms();
 
     }
 
@@ -49,6 +51,7 @@ class BookingSummary {
         return [
             'has_enough_rooms' => $this->hasEnoghRooms(),
             'total_rooms_needed_by_pax' => $this->totalRoomsNeededByPax,
+            'total_rooms_needed' => $this->totalRoomsNeeded,
             'total_rooms_available' => $this->distribution['availability'],
             'itemized' => [
 
@@ -56,8 +59,8 @@ class BookingSummary {
             'total_price_string' => $this->formatPrice($this->totalPrice),
             'subtotal_price_string' => $this->formatPrice($this->subtotalPrice),
             'total_pax' => $this->totalPax,
-            'subtotal_price' => $this->subtotalPrice,
             'total_price' => $this->totalPrice,
+            'subtotal_price' => $this->subtotalPrice,
             'taxed_price_string' => $this->formatPrice($this->calculateTaxPrice()),
             'taxes' => [
                 'iva' => $this->iva,
@@ -132,9 +135,16 @@ class BookingSummary {
 
     //  Calculations
 
+    public function calculateNecessaryRooms()
+    {
+        return ($this->totalRoomsNeededByPax > $this->request['rooms'])
+                                ? $this->totalRoomsNeededByPax
+                                : $this->request['rooms'];
+    }
+
     public function calculateSubtotalPrice()
     {
-        return $this->distribution['price'] * $this->totalRoomsNeededByPax;
+        return $this->distribution['price'] * $this->totalRoomsNeeded;
     }
 
     public function calculateTotalPrice()
