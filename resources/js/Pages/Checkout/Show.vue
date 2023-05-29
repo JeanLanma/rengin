@@ -38,7 +38,7 @@ onMounted(() => {
                             <img class="h-full object-cover" :src="props.booking.room_type.room.cover" :alt="props.booking.room_type.room.name">
                         </div>
                         <div class="">
-                            <h1 class="font-bold text-xl flex items-baseline">{{ props.booking.room_type.room.name }} <span class="text-sm font-normal hidden">(x{{ props.booking.rooms }})</span> </h1>
+                            <h1 class="font-bold text-xl flex items-baseline"><span class="text-sm font-normal">(x{{ props.summary.total_rooms_needed }})</span>&nbsp;{{ props.booking.room_type.room.name }}</h1>
                             <p class="md:hidden">{{ props.booking.room_type.room.description.substring(0, 45) }}...</p>
                             <p class="hidden md:block">{{ props.booking.room_type.room.description.substring(0, 355) }}....</p>
                         </div>
@@ -73,7 +73,7 @@ onMounted(() => {
                             </p>
                             <p class="flex justify-between mb-2">
                                 <span>Noches:</span>
-                                <span class="font-bold first-letter:capitalize">{{ props.booking.nights }}</span>
+                                <span class="font-bold first-letter:capitalize">{{ props.booking.room_type.nights }}</span>
                             </p>
                             <p class="flex justify-between mb-2">
                                 <span>Habitaciones:</span>
@@ -127,12 +127,12 @@ onMounted(() => {
 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_name" class="font-bold text-sm">Nombre</label>
-                                    <input id="guest_name" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="Nombre" autocomplete="off">
+                                    <input id="guest_name" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="nombre" autocomplete="off">
                                 </div>
                                 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_lastname" class="font-bold text-sm">Apellidos</label>
-                                    <input id="guest_lastname" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="Apellidos" autocomplete="off">
+                                    <input id="guest_lastname" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="apellidos" autocomplete="off">
                                 </div>
                             
                             </div>
@@ -141,12 +141,12 @@ onMounted(() => {
 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_phone" class="font-bold text-sm">Telefono</label>
-                                    <input id="guest_phone" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="Telefono" autocomplete="off">
+                                    <input id="guest_phone" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="telefono" autocomplete="off">
                                 </div>
                                 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_email" class="font-bold text-sm">Correo electronico</label>
-                                    <input id="guest_email" type="email" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="Correo electronico" autocomplete="off">
+                                    <input id="guest_email" type="email" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="correo electronico" autocomplete="off">
                                 </div>
                             
                             </div>
