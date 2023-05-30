@@ -49,20 +49,27 @@ class BookingController extends Controller
     {        
         $room_type = $booking->getBookingRoomCheckout(request()->all());
         $summary = new BookingSummary($room_type, request()->all());
-        // dd($summary->getDistribution());
         return inertia('Checkout/Show', [
             'booking' => $booking::BookingRoomAdapter(request()->settings, $room_type),
             'summary' => $summary->getSummary()
         ]);
     }
 
+    public function ndstore()
+    {
+        return response()->json(['data' => request()->all() ]);
+    }
+
     public function store()
     {
+        // return response()->json(['data' => request()->all() ]);
+
         $booking = new BookingStore();
         $booking = $booking->storeBooking(request()->all());
         return response()->json([
             'message' => 'Booking created successfully',
-            'booking' => $booking
+            'booking' => request()->all(),
+            'booked' => $booking
         ], 201);
     }
 

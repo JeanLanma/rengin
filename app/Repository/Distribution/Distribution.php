@@ -168,6 +168,15 @@ class Distribution {
         return DB::table('distribution')->where('room_id', $roomId)->where('date', '>=', $data['start_date'])->where('date', '<=', $data['end_date'])->update(['availability' => $data['availability']]);
     }
 
+    public function decrementAvailability($roomId, $data)
+    {
+        DB::table('distribution')
+            ->where('room_id', $roomId)
+            ->where('date', '>=', $data['start_date'])
+            ->where('date', '<=', $data['end_date'])
+            ->decrement('availability', $data['availability']);
+    }
+
 
     # Utils
 

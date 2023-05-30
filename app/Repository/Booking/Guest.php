@@ -16,7 +16,7 @@ class Guest {
      * 
      * @return GuestModel
      */
-    public function storeGuest($data)
+    public function insertOrGet($data)
     {
         $guest = $this->getGuest($data);
 
@@ -25,7 +25,22 @@ class Guest {
         } else {
             return GuestModel::create([
                 'name' => $data['name'],
-                'lastname' => $data['lastname'],
+                'lastname' => $data['last_name'],
+                'email' => $data['email'],
+                'phone' => $data['phone']
+            ]);
+        }
+    }
+    public function insertOrUpdate($data)
+    {
+        $guest = $this->getGuest($data);
+
+        if($guest){
+            return $guest;
+        } else {
+            return GuestModel::create([
+                'name' => $data['name'],
+                'lastname' => $data['last_name'],
                 'email' => $data['email'],
                 'phone' => $data['phone']
             ]);
@@ -42,5 +57,21 @@ class Guest {
     public function getGuest($data)
     {
         return GuestModel::where('email', $data['email'])->first();
+    }
+
+    public function updateGuest($data)
+    {
+        $guest = $this->getGuest($data);
+
+        if($guest){
+            $guest->update([
+                'name' => $data['name'],
+                'lastname' => $data['last_name'],
+                'email' => $data['email'],
+                'phone' => $data['phone']
+            ]);
+        } else {
+            return false;
+        }
     }
 }

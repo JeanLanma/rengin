@@ -67,8 +67,16 @@ class BookingSummary {
                 'municipal' => $this->municipal,
                 'total' => $this->getTax(),
             ],
-            'checkin' => $this->formatCheckoutDate($this->request['checkin']),
-            'checkout' => $this->formatCheckoutDate($this->request['checkout']),
+            'checkin_string' => $this->formatCheckoutDate($this->request['checkin']),
+            'checkout_string' => $this->formatCheckoutDate($this->request['checkout']),
+            'checkin' => $this->request['checkin'],
+            'checkout' => $this->request['checkout'],
+            'nights' => $this->request['nights'],
+            'currency' => 'MXN',
+            'adults' => $this->request['adults'],
+            'children' => $this->request['children'],
+            'infants' => $this->request['infants'],
+            'rooms' => $this->request['rooms'],
         ];
     }
 

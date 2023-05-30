@@ -19,22 +19,38 @@ const props = defineProps({
 
 
 const form = useForm({
-    'name': '',
-    'last_name': '',
-    'email': '',
-    'phone': '',
-    'card_name': '',
-    'card_number': '',
-    'card_expiration_year': '',
-    'card_expiration_month': '',
-    'card_cvc': '',
-    'hotel_requests': '',
+    "summary":{
+        "total": 3000.30
+    },
+    "booking": {
+        "room_type_id": null,
+        "adults":null,
+        "children":null,
+        "infants":null,
+        "checkin": null,
+        "checkout": null,
+        "rooms":null,
+        "hotel_requests":null
+    },
+    "card":{
+        "card_name": null,
+        "card_number": null,
+        "card_expiration_year": null,
+        "card_expiration_month": null,
+        "card_cvc": null
+    },
+    "guest":{
+        "name": null,
+        "last_name": null,
+        "email": null,
+        "phone": null
+    }
 })
 
 const makeBooking = () => {
 
-    console.log(form);
-    return;
+
+
     form.post(route('direct-booking.store'), {
         preserveScroll: true,
         onSuccess: () => {
@@ -47,6 +63,20 @@ const makeBooking = () => {
         }
     });
 }
+
+onMounted(() => {
+    form.summary.total = props.summary.total_price;
+    form.booking.adults = props.summary.adults;
+    form.booking.children = props.summary.children;
+    form.booking.infants = props.summary.infants;
+    form.booking.checkin = props.summary.checkin;
+    form.booking.checkout = props.summary.checkout;
+    form.booking.rooms = props.summary.rooms;
+    form.booking.room_type_id = props.booking.room_type.roomTypeId;
+
+    console.log(props.booking);
+    console.log(props.summary);
+})
 </script>
 
 <template>
@@ -143,6 +173,10 @@ const makeBooking = () => {
                     <h2 class="font-bold text-xl">Información de pago</h2>
 
                     <form @submit.prevent="makeBooking">
+                        <input type="hidden" name="room_type_id" :value="props.booking.room_type.roomTypeId">
+                        <input type="hidden" name="checkin" :value="props.summary.checkin">
+                        <input type="hidden" name="checkout" :value="props.summary.checkout">
+                        <input type="hidden" name="checkout" :value="props.summary.checkout">
 
                         <!-- Guest Form -->
                         <div class="mt-3 mb-3">
@@ -153,12 +187,12 @@ const makeBooking = () => {
 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_name" class="font-bold text-sm">Nombre</label>
-                                    <input v-model="form.name" id="guest_name" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="nombre" autocomplete="off">
+                                    <input v-model="form.guest.name" id="guest_name" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="nombre" autocomplete="off">
                                 </div>
                                 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_lastname" class="font-bold text-sm">Apellidos</label>
-                                    <input v-model="form.last_name" id="guest_lastname" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="apellidos" autocomplete="off">
+                                    <input v-model="form.guest.last_name" id="guest_lastname" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="apellidos" autocomplete="off">
                                 </div>
                             
                             </div>
@@ -167,12 +201,12 @@ const makeBooking = () => {
 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_phone" class="font-bold text-sm">Telefono</label>
-                                    <input v-model="form.phone" id="guest_phone" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="telefono" autocomplete="off">
+                                    <input v-model="form.guest.phone" id="guest_phone" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="telefono" autocomplete="off">
                                 </div>
                                 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_email" class="font-bold text-sm">Correo electronico</label>
-                                    <input v-model="form.email" id="guest_email" type="email" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="correo electronico" autocomplete="off">
+                                    <input v-model="form.guest.email" id="guest_email" type="email" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="correo electronico" autocomplete="off">
                                 </div>
                             
                             </div>
@@ -193,19 +227,19 @@ const makeBooking = () => {
 
                             <div class="relative mb-2">
                                 <label for="card_name" class="font-bold text-sm">Titular de la tarjeta</label>
-                                <input v-model="form.card_name" id="card_name" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="Titular de la tarjeta" autocomplete="off">
+                                <input v-model="form.card.card_name" id="card_name" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="Titular de la tarjeta" autocomplete="off">
                             </div>
     
                             <div class="relative mb-2">
                                 <label for="card_number" class="font-bold text-sm">Numero de tarjeta</label>
-                                <input v-model="form.card_number" id="card_number" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="Numero de tarjeta" autocomplete="off">
+                                <input v-model="form.card.card_number" id="card_number" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="Numero de tarjeta" autocomplete="off">
                             </div>
 
                             <div class="relative mb-2">
                                 <label for="card_expiration_date" class="font-bold text-sm">Fecha de experación</label>
                                 <div class="flex gap-3">
-                                    <select v-model="form.card_expiration_month" name="card_expiration_date" id="card_expiration_date" class="cursor-pointer border border-[#ddd] rounded w-full">
-                                        <option value="null" selected>--- Mes ---</option>
+                                    <select v-model="form.card.card_expiration_month" name="card_expiration_date" id="card_expiration_date" class="cursor-pointer border border-[#ddd] rounded w-full">
+                                        <option value="null" selected aria-selected="true" disabled aria-disabled="true">--- Mes ---</option>
                                         <option value="01">01 - Enero</option>
                                         <option value="02">02 - Febrero</option>
                                         <option value="03">03 - Marzo</option>
@@ -219,8 +253,8 @@ const makeBooking = () => {
                                         <option value="11">11 - Nomviembre</option>
                                         <option value="12">12 - Diciembre</option>
                                     </select>
-                                    <select v-model="form.card_expiration_year" name="card_expiration_year" id="card_expiration_year" class="cursor-pointer border border-[#ddd] rounded w-full">
-                                        <option value="null" selected>--- Año ---</option>
+                                    <select v-model="form.card.card_expiration_year" name="card_expiration_year" id="card_expiration_year" class="cursor-pointer border border-[#ddd] rounded w-full">
+                                        <option value="null" selected aria-selected="true" disabled aria-disabled="true">--- Año ---</option>
                                         <option value="2023">2023</option>
                                         <option value="2024">2024</option>
                                         <option value="2025">2025</option>
@@ -239,7 +273,7 @@ const makeBooking = () => {
 
                             <div class="relative mb-2">
                                 <label for="card_cvc" class="font-bold text-sm">CVC</label>
-                                <input v-model="form.card_cvc" id="card_cvc" type="number" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="cvc" autocomplete="off">
+                                <input v-model="form.card.card_cvc" id="card_cvc" type="number" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="cvc" autocomplete="off">
                             </div>
 
                         </div>
