@@ -20,6 +20,8 @@ Route::get('/direct-booking', [App\Http\Controllers\Booking\BookingController::c
 
 Route::get('/direct-booking/checkout', [App\Http\Controllers\Booking\BookingController::class, 'checkout'])->name('direct-booking.checkout');
 
+Route::post('/direct-booking/checkout', [App\Http\Controllers\Booking\BookingController::class, 'store'])->name('direct-booking.store');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

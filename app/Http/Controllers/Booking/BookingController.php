@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Booking;
 use App\Http\Requests\GetBookingRequest;
 use App\Http\Controllers\Controller;
 use App\Repository\Booking\Booking;
+use App\Repository\Booking\BookingStore;
 use App\Repository\Booking\BookingSummary;
 use App\Services\BookingService;
 use Illuminate\Http\Request;
@@ -53,6 +54,16 @@ class BookingController extends Controller
             'booking' => $booking::BookingRoomAdapter(request()->settings, $room_type),
             'summary' => $summary->getSummary()
         ]);
+    }
+
+    public function store()
+    {
+        $booking = new BookingStore();
+        $booking = $booking->storeBooking(request()->all());
+        return response()->json([
+            'message' => 'Booking created successfully',
+            'booking' => $booking
+        ], 201);
     }
 
     public function bookingService()
