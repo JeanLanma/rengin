@@ -38,13 +38,16 @@ class BookingStore {
             'folio' => $folio,
             'internal_reference' => '',
             'adults' => $data['adults'],
-            'minors' => $data['children'],
+            'children' => $data['children'],
+            'infants' => $data['children'] ?? 0,
             'status' => 'pending',
-            'number_of_rooms' => $data['rooms'] ?? 1,
+            'guest_hotel_requests' => $data['guest_hotel_requests'] ?? '',
+            'number_of_rooms' => $data['rooms'],
             'check_in' => date('Y-m-d', strtotime($data['checkin'])) ?? date('Y-m-d'),
             'check_out' => date('Y-m-d', strtotime($data['checkout'])) ??  date('Y-m-d'),
-            'subtotal_price' => $summary['total'],
+            'nights' => $data['nights'],
             'total_price' => $summary['total'],
+            'subtotal_price' => $summary['subtotal'],
         ]);
     }
 

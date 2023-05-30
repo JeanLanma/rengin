@@ -17,15 +17,18 @@ return new class extends Migration
             $table->foreignId('room_id')->constrained();
             $table->foreignId('guest_id')->constrained();
             $table->string('folio');
-            $table->string('internal_reference');
+            $table->string('internal_reference')->nullable();
             $table->integer('adults');
-            $table->integer('minors')->default(0);
+            $table->integer('children')->default(0);
+            $table->integer('infants')->default(0);
             $table->integer('number_of_rooms');
             $table->date('check_in');
             $table->date('check_out');
+            $table->integer('nights')->nullable();
             $table->integer('total_price');
             $table->integer('subtotal_price');
             $table->string('status')->default('pending');
+            $table->text('guest_hotel_requests')->nullable();
 
             $table->timestamps();
         });

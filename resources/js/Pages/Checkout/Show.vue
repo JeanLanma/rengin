@@ -20,7 +20,8 @@ const props = defineProps({
 
 const form = useForm({
     "summary":{
-        "total": 3000.30
+        "total": 0,
+        "subtotal": 0,
     },
     "booking": {
         "room_type_id": null,
@@ -30,7 +31,7 @@ const form = useForm({
         "checkin": null,
         "checkout": null,
         "rooms":null,
-        "hotel_requests":null
+        "guest_hotel_requests":null
     },
     "card":{
         "card_name": null,
@@ -66,16 +67,19 @@ const makeBooking = () => {
 
 onMounted(() => {
     form.summary.total = props.summary.total_price;
+    form.summary.subtotal = props.summary.subtotal_price;
     form.booking.adults = props.summary.adults;
     form.booking.children = props.summary.children;
     form.booking.infants = props.summary.infants;
     form.booking.checkin = props.summary.checkin;
     form.booking.checkout = props.summary.checkout;
-    form.booking.rooms = props.summary.rooms;
+    form.booking.nights = props.summary.nights;
+    form.booking.rooms = props.summary.total_rooms_needed;
     form.booking.room_type_id = props.booking.room_type.roomTypeId;
 
     console.log(props.booking);
     console.log(props.summary);
+    console.log(form);
 })
 </script>
 
@@ -121,11 +125,11 @@ onMounted(() => {
                             
                             <p class="flex justify-between mb-2">
                                 <span>Llegada:</span>
-                                <span class="font-bold first-letter:capitalize">{{ props.summary.checkin }}</span>
+                                <span class="font-bold first-letter:capitalize">{{ props.summary.checkin_string }}</span>
                             </p>
                             <p class="flex justify-between mb-2">
                                 <span>Salida:</span>
-                                <span class="font-bold first-letter:capitalize">{{ props.summary.checkout }}</span>
+                                <span class="font-bold first-letter:capitalize">{{ props.summary.checkout_string }}</span>
                             </p>
                             <p class="flex justify-between mb-2">
                                 <span>Noches:</span>
@@ -213,7 +217,7 @@ onMounted(() => {
 
                             <div class="relative mb-2">
                                 <label for="guest_request" class="font-bold text-sm">¿Tiene alguna petición para el hotel?</label>
-                                <textarea v-model="form.hotel_requests" name="guest_request" id="guest_request" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="..." autocomplete="off"></textarea>
+                                <textarea v-model="form.booking.guest_hotel_requests" name="guest_request" id="guest_request" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="..." autocomplete="off"></textarea>
                             </div>
 
                         </div>

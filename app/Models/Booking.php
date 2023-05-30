@@ -14,14 +14,16 @@ class Booking extends Model
         'guest_id',
         'folio',
         'adults',
+        'children',
         'minors',
         'internal_reference',
         'check_in',
         'check_out',
-        'currency',
+        'nights',
         'number_of_rooms',
         'total_price',
         'subtotal_price',
         'status',
+        'guest_hotel_requests',
     ];
 }
