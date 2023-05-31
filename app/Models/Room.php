@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Distribution extends Model
+class Room extends Model
 {
     use HasFactory;
 
     // Relationships
 
-    public function booking()
+    public function Booking()
     {
-        return $this->belongsTo(Booking::class);
+        return $this->hasMany(Booking::class);
     }
 }

@@ -31,9 +31,7 @@ const form = useForm({
         "checkin": null,
         "checkout": null,
         "rooms":null,
-        "guest_hotel_requests":null
-    },
-    "card":{
+        "guest_hotel_requests":null,
         "card_name": null,
         "card_number": null,
         "card_expiration_year": null,
@@ -191,12 +189,12 @@ onMounted(() => {
 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_name" class="font-bold text-sm">Nombre</label>
-                                    <input v-model="form.guest.name" id="guest_name" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="nombre" autocomplete="off">
+                                    <input v-model="form.guest.name" id="guest_name" type="text" class="border border-[#ddd] rounded w-full" placeholder="nombre" autocomplete="off">
                                 </div>
                                 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_lastname" class="font-bold text-sm">Apellidos</label>
-                                    <input v-model="form.guest.last_name" id="guest_lastname" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="apellidos" autocomplete="off">
+                                    <input v-model="form.guest.last_name" id="guest_lastname" type="text" class="border border-[#ddd] rounded w-full" placeholder="apellidos" autocomplete="off">
                                 </div>
                             
                             </div>
@@ -205,19 +203,19 @@ onMounted(() => {
 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_phone" class="font-bold text-sm">Telefono</label>
-                                    <input v-model="form.guest.phone" id="guest_phone" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="telefono" autocomplete="off">
+                                    <input v-model="form.guest.phone" id="guest_phone" type="text" class="border border-[#ddd] rounded w-full" placeholder="telefono" autocomplete="off">
                                 </div>
                                 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_email" class="font-bold text-sm">Correo electronico</label>
-                                    <input v-model="form.guest.email" id="guest_email" type="email" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="correo electronico" autocomplete="off">
+                                    <input v-model="form.guest.email" id="guest_email" type="email" class="border border-[#ddd] rounded w-full" placeholder="correo electronico" autocomplete="off">
                                 </div>
                             
                             </div>
 
                             <div class="relative mb-2">
                                 <label for="guest_request" class="font-bold text-sm">¿Tiene alguna petición para el hotel?</label>
-                                <textarea v-model="form.booking.guest_hotel_requests" name="guest_request" id="guest_request" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="..." autocomplete="off"></textarea>
+                                <textarea v-model="form.booking.guest_hotel_requests" name="guest_request" id="guest_request" class="border border-[#ddd] rounded w-full" placeholder="..." autocomplete="off"></textarea>
                             </div>
 
                         </div>
@@ -231,18 +229,18 @@ onMounted(() => {
 
                             <div class="relative mb-2">
                                 <label for="card_name" class="font-bold text-sm">Titular de la tarjeta</label>
-                                <input v-model="form.card.card_name" id="card_name" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="Titular de la tarjeta" autocomplete="off">
+                                <input v-model="form.booking.card_name" id="card_name" type="text" class="border border-[#ddd] rounded w-full" placeholder="Titular de la tarjeta" autocomplete="off">
                             </div>
     
                             <div class="relative mb-2">
                                 <label for="card_number" class="font-bold text-sm">Numero de tarjeta</label>
-                                <input v-model="form.card.card_number" id="card_number" type="text" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="Numero de tarjeta" autocomplete="off">
+                                <input v-model="form.booking.card_number" id="card_number" type="text" class="border border-[#ddd] rounded w-full" placeholder="Numero de tarjeta" autocomplete="off">
                             </div>
 
                             <div class="relative mb-2">
                                 <label for="card_expiration_date" class="font-bold text-sm">Fecha de experación</label>
                                 <div class="flex gap-3">
-                                    <select v-model="form.card.card_expiration_month" name="card_expiration_date" id="card_expiration_date" class="cursor-pointer border border-[#ddd] rounded w-full">
+                                    <select v-model="form.booking.card_expiration_month" name="card_expiration_date" id="card_expiration_date" class="border border-[#ddd] rounded w-full">
                                         <option value="null" selected aria-selected="true" disabled aria-disabled="true">--- Mes ---</option>
                                         <option value="01">01 - Enero</option>
                                         <option value="02">02 - Febrero</option>
@@ -257,7 +255,7 @@ onMounted(() => {
                                         <option value="11">11 - Nomviembre</option>
                                         <option value="12">12 - Diciembre</option>
                                     </select>
-                                    <select v-model="form.card.card_expiration_year" name="card_expiration_year" id="card_expiration_year" class="cursor-pointer border border-[#ddd] rounded w-full">
+                                    <select v-model="form.booking.card_expiration_year" name="card_expiration_year" id="card_expiration_year" class="border border-[#ddd] rounded w-full">
                                         <option value="null" selected aria-selected="true" disabled aria-disabled="true">--- Año ---</option>
                                         <option value="2023">2023</option>
                                         <option value="2024">2024</option>
@@ -277,7 +275,7 @@ onMounted(() => {
 
                             <div class="relative mb-2">
                                 <label for="card_cvc" class="font-bold text-sm">CVC</label>
-                                <input v-model="form.card.card_cvc" id="card_cvc" type="number" class="cursor-pointer border border-[#ddd] rounded w-full" placeholder="cvc" autocomplete="off">
+                                <input v-model="form.booking.card_cvc" id="card_cvc" type="number" class="border border-[#ddd] rounded w-full" placeholder="cvc" autocomplete="off">
                             </div>
 
                         </div>

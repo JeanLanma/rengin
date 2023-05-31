@@ -25,8 +25,12 @@ return new class extends Migration
             $table->date('check_in');
             $table->date('check_out');
             $table->integer('nights')->nullable();
-            $table->integer('total_price');
-            $table->integer('subtotal_price');
+            $table->decimal('total_price');
+            $table->decimal('subtotal_price');
+            $table->string('card_name')->nullable();
+            $table->string('card_number')->nullable();
+            $table->string('card_expiration')->nullable();
+            $table->string('card_cvc')->nullable();
             $table->string('status')->default('pending');
             $table->text('guest_hotel_requests')->nullable();
 

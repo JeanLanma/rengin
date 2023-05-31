@@ -1,8 +1,7 @@
 <script setup>
-
-import PrimButton from '@/Shared/PrimButton.vue';
-import Dropdown from '@/Shared/Dropdown.vue';
 import { Link } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
+import swall from 'sweetalert2';
 
 const props = defineProps({
     bookings: {
@@ -11,6 +10,11 @@ const props = defineProps({
     },
 });
 
+
+onMounted(() => {
+    console.log(props.bookings);
+    console.log(swall)
+});
 </script>
 
 <template>
@@ -23,18 +27,13 @@ const props = defineProps({
                     Ultimas reservaciones
                 </h1>
 
-                <Link :href="route('users.create')">
-                    <PrimButton>
-                        Añadir nuevo
-                    </PrimButton>
-                </Link>
             </div>
 
             <div class="text-white inner-shadow shadow-xl overflow-auto border border-gray-200 dark:border-gray-700 md:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 cursor-pointer">
                     <thead>
                         <tr>
-                            <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Ref</th>
+                            <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">ID</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Huesped</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Check-In</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Check-Out</th>
@@ -55,11 +54,29 @@ const props = defineProps({
                     </thead>
                     <tbody class="bg-white divide-y shadow-inner divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
 
-                        <tr class="dark:hover:bg-gray-600 hover:bg-gray-100">
+                        <tr v-if="props.bookings.data" v-for="booking in props.bookings.data" class="dark:hover:bg-gray-600 hover:bg-gray-100">
 
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-base font-bold text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"># F234</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-base font-bold text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"># {{ booking.id }}</td>
 
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"> Juan Manuel</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.guest.full_name }}</td>
+
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.check_in_formatted }}</td>
+
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.check_out_formatted }}</td>
+
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.room.type }}<br>{{ booking.room.name }}</td>
+
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.total_price_formatted }}</td>
+                            
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><a href="#" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver detalles</a></td>
+
+                        </tr>
+
+                        <tr v-else class="dark:hover:bg-gray-600 hover:bg-gray-100">
+
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-base font-bold text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"># 1234</td>
+
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"> Jhon Doe</td>
 
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"> Vie, 19/05/23</td>
 
@@ -86,9 +103,7 @@ const props = defineProps({
                         <Link :disabled="users.prev_page_url == null" as="button" :href="users.prev_page_url ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
                             <button innerText="Previo" ></button>
                         </Link>
-                        <!-- <Link as="button" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
-                            <button innerText="Today"></button>
-                        </Link> -->
+
                         <Link :disabled="users.next_page_url == null" as="button" :href="users.next_page_url ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-r-2 flex justify-center items-center" preserveScroll>
                             <button innerText="Siguiente"></button>
                         </Link>

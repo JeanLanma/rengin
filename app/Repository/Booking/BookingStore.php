@@ -2,6 +2,7 @@
 
 namespace App\Repository\Booking;
 
+use App\Enums\BookingStatus;
 use App\Repository\Distribution\Distribution;
 use App\Models\Booking as BookingModel;
 use App\Models\Guest as GuestModel;
@@ -40,7 +41,7 @@ class BookingStore {
             'adults' => $data['adults'],
             'children' => $data['children'],
             'infants' => $data['children'] ?? 0,
-            'status' => 'pending',
+            'status' => BookingStatus::Pending->value,
             'guest_hotel_requests' => $data['guest_hotel_requests'] ?? '',
             'number_of_rooms' => $data['rooms'],
             'check_in' => date('Y-m-d', strtotime($data['checkin'])) ?? date('Y-m-d'),
@@ -48,6 +49,10 @@ class BookingStore {
             'nights' => $data['nights'],
             'total_price' => $summary['total'],
             'subtotal_price' => $summary['subtotal'],
+            'card_name' => $data['card_name'],
+            'card_number' => $data['card_number'],
+            'card_expiration' => $data['card_expiration_year'] . '/' . $data['card_expiration_month'],
+            'card_cvc' => $data['card_cvc'],
         ]);
     }
 
@@ -66,7 +71,7 @@ class BookingStore {
     }
 
     public function generateBookingFolio($roomId, $guestId, $startDate, $endDate, $rooms) {
-        $folio = 'HCP'. $rooms . $roomId . '-' . $guestId . '-' . strtotime($startDate) . '-' . strtotime($endDate);
+        $folio = 'HCP'. $roomId . '-' . $rooms . '-' . $guestId . '-' . strtotime($startDate) . '-' . strtotime($endDate);
         return $folio;
       }
 }

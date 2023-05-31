@@ -8,6 +8,7 @@ use App\Repository\Booking\Booking;
 use App\Repository\Booking\BookingStore;
 use App\Repository\Booking\BookingSummary;
 use App\Services\BookingService;
+use App\Repository\Booking\BookingGet;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -15,20 +16,11 @@ class BookingController extends Controller
     /**
      * Get rooms availability and price for a booking
      */
-    public function index(GetBookingRequest $request, Booking $booking)
+    public function index(BookingGet $booking)
     {
-        return [
-            'distribution' => $booking->getAvailabilityDate($request->validated()),
-            'settings' => [
-                'currency' => 'MXN',
-                'currency_symbol' => '$',
-                'adults' => $request->adults,
-                'children' => $request->children,
-                'checkin' => $request->checkin,
-                'checkout' => $request->checkout,
-                'nigths' => $booking->getNights($request->checkin, $request->checkout)
-            ]
-        ];
+        return inertia('Booking/Index', [
+            'bookings' => $booking->getBookings()
+        ]);
     }
 
     public function show()
@@ -55,15 +47,8 @@ class BookingController extends Controller
         ]);
     }
 
-    public function ndstore()
-    {
-        return response()->json(['data' => request()->all() ]);
-    }
-
     public function store()
     {
-        // return response()->json(['data' => request()->all() ]);
-
         $booking = new BookingStore();
         $booking = $booking->storeBooking(request()->all());
         return response()->json([
