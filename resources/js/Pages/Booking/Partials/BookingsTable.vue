@@ -1,7 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
-import swall from 'sweetalert2';
 
 const props = defineProps({
     bookings: {
@@ -13,7 +12,6 @@ const props = defineProps({
 
 onMounted(() => {
     console.log(props.bookings);
-    console.log(swall)
 });
 </script>
 
