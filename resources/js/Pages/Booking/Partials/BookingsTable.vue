@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const props = defineProps({
     bookings: {
@@ -9,10 +9,45 @@ const props = defineProps({
     },
 });
 
+const paginationData = ref({
+    links: [],
+    previusLinks: [],
+    nextLinks: [],
+});
+
 
 onMounted(() => {
+    paginationData.value = handlePagination(props.bookings);
+    console.clear();
+    console.log(paginationData.value);
     console.log(props.bookings);
 });
+
+const handlePagination = (PaginationAware) => {
+    if(PaginationAware.last_page <= 1) {
+        return {
+            links: [],
+            previusLinks: [],
+            nextLinks: [],
+        };
+    }
+    const links = [...PaginationAware.links];
+    links.unshift();
+    links.pop();
+    const limit = 3;
+    let previusLinks = [];
+    if(PaginationAware.current_page >= PaginationAware.last_page) {
+        previusLinks = links.slice(PaginationAware.current_page -limit, PaginationAware.current_page);
+    } else {
+        previusLinks = links.slice(PaginationAware.current_page, PaginationAware.current_page + limit);
+    }
+    const nextLinks = links.slice(-1);
+    return {
+        links,
+        previusLinks,
+        nextLinks,
+    };
+}
 </script>
 
 <template>
@@ -93,16 +128,26 @@ onMounted(() => {
             </div>
 
             <!-- Pagination -->
-            <section v-if="false">
+            <section v-if="props.bookings.links">
                 <div class="text-slate-50 font-bold text-xl flex flex-col justify-center items-center gap-4 rounded-xl p-2">
 
-                    <span class="text-base dark:text-slate-50 text-slate-600">Mostrando {{ users.to }} de {{ users.total }} usarios en total</span>
+                    <span class="text-base dark:text-slate-50 text-slate-600">Mostrando {{ props.bookings.per_page }} de {{ props.bookings.total }} Reservaciones</span>
                     <div class="flex p-2 w-full max-w-md justify-center space-x-0">
-                        <Link :disabled="users.prev_page_url == null" as="button" :href="users.prev_page_url ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
+                        <Link :disabled="props.bookings.prev_page_url == null" as="button" :href="props.bookings.prev_page_url ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 dark:bg-sky-500/50 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  transition-all duration-200 ease-in-out border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
                             <button innerText="Previo" ></button>
                         </Link>
+                        
+                        <Link v-if="paginationData.previusLinks" v-for="link in paginationData.previusLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
+                            <button :innerText="link.label"></button>
+                        </Link>
+                        <Link aria-disabled="true" disabled href="#" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 text-center flex justify-center items-center" preserveScroll>
+                            <button innerText="..."></button>
+                        </Link>
+                        <Link v-if="paginationData.nextLinks" v-for="link in paginationData.nextLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
+                            <button :innerText="link.label"></button>
+                        </Link>
 
-                        <Link :disabled="users.next_page_url == null" as="button" :href="users.next_page_url ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold hover:flex-grow transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-r-2 flex justify-center items-center" preserveScroll>
+                        <Link :disabled="props.bookings.next_page_url == null" as="button" :href="props.bookings.next_page_url ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 dark:bg-sky-500/50 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-r-2 flex justify-center items-center" preserveScroll>
                             <button innerText="Siguiente"></button>
                         </Link>
                     </div>

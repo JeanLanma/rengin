@@ -19,7 +19,7 @@ class BookingController extends Controller
     public function index(BookingGet $booking)
     {
         return inertia('Booking/Index', [
-            'bookings' => $booking->getBookings()
+            'bookings' => $booking->getBookings(10)
         ]);
     }
 
