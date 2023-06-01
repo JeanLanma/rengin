@@ -51,11 +51,20 @@ class BookingController extends Controller
     {
         $booking = new BookingStore();
         $booking = $booking->storeBooking(request()->all());
-        return response()->json([
+        return redirect()->back()->with('booking',[
             'message' => 'Booking created successfully',
             'booking' => request()->all(),
-            'booked' => $booking
+            'booked' => $booking,
+            'successContent' => [
+                'title' => 'Reservación Realizada',
+                'description' => $this->setBookingSuccessMessage($booking['guest']['email'])
+            ]
         ], 201);
+    }
+
+    public function setBookingSuccessMessage($BookingEmail)
+    {
+        return 'Muchas gracias su reservación ha sido realizada con éxito. En breve enviaremos un correo electrónico a ' . $BookingEmail . ' con los detalles.';
     }
 
     public function bookingService()

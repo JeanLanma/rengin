@@ -20,7 +20,8 @@
     },
     "dependencies": {
         "@vuepic/vue-datepicker": "^4.4.0",
-        "luxon": "^3.3.0"
+        "luxon": "^3.3.0",
+        "sweetalert2": "^11.7.10"
     },
     "imports": {
         "#utils": "./resources/js/utils"

@@ -1,22 +1,15 @@
 <script setup>
 import BookingLayout from '@/Layouts/BookingLayout.vue';
-import BookingRoomCard from '@/Shared/BookingRoomCard.vue';
-import VueDatePicker from '@vuepic/vue-datepicker';
 import CTAButton from '@/Shared/CTAButton.vue';
 import '@vuepic/vue-datepicker/dist/main.css';
-import Counter from '@/Shared/Counter.vue';
-import { ref, onMounted, watch } from 'vue';
-import { DateTime } from 'luxon';
-import axios from 'axios';
-import Booking from '@/utils/booking.js';
-import { displayRoomsAndGuestsAgreement } from '@/utils/index.js';
-import { Link, useForm } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
+import { usePage, useForm } from '@inertiajs/vue3';
+import Swal from 'sweetalert2';
 
 const props = defineProps({
     booking: Object,
     summary: Object
 })
-
 
 const form = useForm({
     "summary":{
@@ -48,14 +41,29 @@ const form = useForm({
 
 const makeBooking = () => {
 
-
-
     form.post(route('direct-booking.store'), {
         preserveScroll: true,
-        onSuccess: () => {
-            form.clear();
-            window.location.href = route('booking.success');
-            alert
+        onSuccess: (response) => {
+            console.clear();
+            console.log(usePage());
+            if(usePage().props.flash.booking != null){
+                const success = usePage().props.flash.booking;
+                const defaultContent = {
+                    title: '¡Reservación exitosa!',
+                    text: 'La reserva se ha realizado con éxito, en breve recibirá un correo electrónico con los detalles de la misma. Este es su folio ' + success.booked.folio,
+                    imageUrl: '/assets/logo.png',
+                    imageWidth: 240,
+                    imageHeight: 146,
+                    imageAlt: 'Hotel Casino Plaza',
+                    confirmButtonText: '¡Entendido!',
+                    confirmButtonColor: '#0ea5e9',
+                }
+                successAlert(defaultContent).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = route('booking');
+                    }
+                });
+            }
         },
         onError: () => {
             alert('Error al procesar la reserva, por favor intente de nuevo.');
@@ -75,10 +83,58 @@ onMounted(() => {
     form.booking.rooms = props.summary.total_rooms_needed;
     form.booking.room_type_id = props.booking.room_type.roomTypeId;
 
+    if(!props.summary.has_enough_rooms){
+        errorAlert().then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = route('booking');
+            }
+        });
+    }
+
     console.log(props.booking);
     console.log(props.summary);
-    console.log(form);
 })
+
+/**
+ *
+ * @param {*} SuccessConent 
+ * 
+ * @returns Swal.fire
+ * 
+ * @example successAlert({title: 'Sweet!', text: 'Modal with a custom image.', imageUrl: 'https://unsplash.it/400/200', imageWidth: 400, imageHeight: 200, imageAlt: 'Custom image'})
+ */
+
+const successAlert = (SuccessConent = null) => {
+    const defaultContent = {
+        title: '¡Reservación exitosa!',
+        text: 'La reserva se ha realizado con éxito, en breve recibirá un correo electrónico con los detalles de la misma.',
+        imageUrl: '/assets/logo.png',
+        imageWidth: 240,
+        imageHeight: 146,
+        imageAlt: 'Hotel Casino Plaza',
+        confirmButtonText: '¡Entendido!',
+        confirmButtonColor: '#0ea5e9',
+    }
+
+    const content = SuccessConent ? SuccessConent : defaultContent;
+    return Swal.fire(content);
+};
+const errorAlert = (errorContent = null) => {
+    const defaultContent = {
+        title: '¡Ups tenemos un inconveniente!',
+        text: 'Hemos encontrado un incoveniente al procesar su reserva, por favor intente de nuevo.',
+        imageUrl: '/assets/logo.png',
+        imageWidth: 240,
+        imageHeight: 146,
+        imageAlt: 'Hotel Casino Plaza',
+        confirmButtonText: '¡Seleccionar otra habitación!',
+        confirmButtonColor: '#0ea5e9',
+    }
+
+    const content = errorContent ? errorContent : defaultContent;
+    return Swal.fire(content);
+};
+
 </script>
 
 <template>
@@ -293,3 +349,10 @@ onMounted(() => {
 
     </BookingLayout>
 </template>
+
+<style>
+body.swal2-shown > [aria-hidden="true"] {
+  transition: 0.1s filter;
+  filter: blur(10px);
+}
+</style>

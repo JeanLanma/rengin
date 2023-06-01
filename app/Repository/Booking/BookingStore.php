@@ -27,7 +27,7 @@ class BookingStore {
         $booking = $this->insertBooking($data['booking'], $guest, $data['summary']);
         $distribution = $this->updateDistribution($data['booking']['room_type_id'], $data['booking']['checkin'], $data['booking']['checkout'], $data['booking']['rooms']);
 
-        return true;
+        return $booking;
     }
 
     public function insertBooking($data,GuestModel $guest, $summary)
