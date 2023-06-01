@@ -154,7 +154,7 @@ class Booking {
     {
         // Exept last day
         $roomDistribution->pop();
-        return !$roomDistribution->contains('availability', 0);
+        return !$roomDistribution->contains('availability', '<=', 0);
     } 
 
     /**
