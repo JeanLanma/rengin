@@ -7,6 +7,7 @@ use App\Repository\Distribution\Distribution;
 use App\Models\Booking as BookingModel;
 use App\Models\Guest as GuestModel;
 use App\Repository\Booking\Guest;
+use Carbon\Carbon;
 
 class BookingStore {
 
@@ -64,7 +65,7 @@ class BookingStore {
     public function updateDistribution($roomId, $start_date, $end_date, $rooms_to_reserve)
     {
         $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
+        $data['end_date'] = $this->subtractOneDay($end_date);
         $data['availability'] = $rooms_to_reserve;
 
         return $this->distribution->decrementAvailability($roomId, $data);
@@ -73,5 +74,12 @@ class BookingStore {
     public function generateBookingFolio($roomId, $guestId, $startDate, $endDate, $rooms) {
         $folio = 'HCP'. $roomId . '-' . $rooms . '-' . $guestId . '-' . strtotime($startDate) . '-' . strtotime($endDate);
         return $folio;
-      }
+    }
+
+    public function subtractOneDay($dateString)
+    {
+        $date = Carbon::parse($dateString);
+        $previousDay = $date->subDay()->format('Y-m-d');
+        return $previousDay;
+    }
 }
