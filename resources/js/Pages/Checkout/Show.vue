@@ -60,7 +60,7 @@ const makeBooking = () => {
                 }
                 successAlert(defaultContent).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = route('booking');
+                        window.location.replace(route('booking'));
                     }
                 });
             }
