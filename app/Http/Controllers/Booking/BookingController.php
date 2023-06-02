@@ -9,6 +9,7 @@ use App\Repository\Booking\BookingStore;
 use App\Repository\Booking\BookingSummary;
 use App\Services\BookingService;
 use App\Repository\Booking\BookingGet;
+use App\Services\SendEmailService;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -51,6 +52,7 @@ class BookingController extends Controller
     {
         $booking = new BookingStore();
         $booking = $booking->storeBooking(request()->all());
+        SendEmailService::sendGuestBooking($booking);
         return redirect()->back()->with('booking',[
             'message' => 'Booking created successfully',
             'booking' => request()->all(),

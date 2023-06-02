@@ -73,7 +73,7 @@ class BookingStore {
     }
 
     public function generateBookingFolio($roomId, $guestId, $startDate, $endDate, $rooms) {
-        $folio = 'HCP'. $roomId . '-' . $rooms . '-' . $guestId . '-' . strtotime($startDate) . '-' . strtotime($endDate);
+        $folio = 'HCP'. $roomId . '-' . $guestId . '-' . $rooms . '-' . strtotime($startDate) . '-' . strtotime($endDate) . '-' . rand(1000, 9999);
         return $folio;
     }
 
