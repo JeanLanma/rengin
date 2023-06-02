@@ -139,9 +139,9 @@
                 <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:14px; color:#767676; font-weight:normal; line-height:28px;" mc:edit="bm12-06">
                 <multiline>
                   Llegada: {{ $data['check_in'] }}
-                  </<br />
+                  <br />
                   Salida: {{ $data['check_out'] }}
-                  </<br />
+                  <br />
                 </multiline></td>
               </tr>
             </table>
@@ -217,39 +217,7 @@
       </tr>
     </table></td>
   </tr>
-</table>
-
-<table style="display: none;" width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr>
-    <td align="center" valign="middle"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
-      <tr>
-        <td align="center" valign="top" bgcolor="#FFFFFF" style="border-bottom:#e2e3e3 solid 1px;"><table width="485" border="0" cellspacing="0" cellpadding="0" class="two-left-inner">
-          <tr>
-            <td height="35" align="left" valign="top" style="font-size:35px; line-height:35px;">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="left" valign="top"><table width="250" border="0" align="left" cellpadding="0" cellspacing="0" class="two-left-inner">
-              <tr>
-                <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:18px; color:#000000; font-weight:normal; line-height:34px;" mc:edit="bm12-11"><multiline>Product 2 Description</multiline></td>
-              </tr>
-              <tr>
-                <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:16px; color:#839226; font-weight:normal; line-height:28px;" mc:edit="bm12-12"><multiline>Quantity : 4x $ 30</multiline></td>
-              </tr>
-
-            </table>
-            
-            
-            
-            <table width="100" border="0" align="right" cellpadding="0" cellspacing="0" class="full">
-  <tr>
-    <td height="30" align="left" valign="top" style="font-size:30px; line-height:30px;">&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:24px; color:#000000; font-weight:bold; line-height:28px;" mc:edit="bm12-13"><multiline>$120.00</multiline></td>
-  </tr>
-</table>
-
-            
+</table>    
             
             
             </td>
