@@ -357,7 +357,7 @@
   },
   "resources/js/Pages/Booking/Partials/UserDetails.css": {
     "file": "assets/UserDetails-81e48e16.css",
-    "src": "resources/js/Pages/Booking/Partials/UserDetails.css"
+    "src": "resources/js/Pages/User/Partials/UserDetails.css"
   },
   "resources/js/Pages/Booking/Partials/UserDetails.vue": {
     "css": [
@@ -794,7 +794,7 @@
   },
   "resources/js/Pages/User/Partials/UserDetails.css": {
     "file": "assets/UserDetails-81e48e16.css",
-    "src": "resources/js/Pages/Booking/Partials/UserDetails.css"
+    "src": "resources/js/Pages/User/Partials/UserDetails.css"
   },
   "resources/js/Pages/User/Partials/UserDetails.vue": {
     "css": [
