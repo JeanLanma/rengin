@@ -43,6 +43,7 @@ class BookingStore {
             'children' => $data['children'],
             'infants' => $data['children'] ?? 0,
             'status' => BookingStatus::Pending->value,
+            'items' => $data['items'],
             'guest_hotel_requests' => $data['guest_hotel_requests'] ?? '',
             'number_of_rooms' => $data['rooms'],
             'check_in' => date('Y-m-d', strtotime($data['checkin'])) ?? date('Y-m-d'),
@@ -81,5 +82,10 @@ class BookingStore {
         $date = Carbon::parse($dateString);
         $previousDay = $date->subDay()->format('Y-m-d');
         return $previousDay;
+    }
+
+    public function saveItemized($itemized)
+    {
+
     }
 }

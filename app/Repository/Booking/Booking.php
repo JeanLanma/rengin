@@ -139,7 +139,7 @@ class Booking {
         for($i = 0; $i < $nights; $i++)
         {
             $acc += $prices[$i];
-            $items[] = ['night' => $i + 1, 'price' => $prices[$i], 'string' => 'noche x'. $i + 1 .' costo $ ' . number_format($prices[$i], 2, '.', ',')];
+            $items[] = ['night' => $i + 1, 'price' => $prices[$i], 'string' => 'noche x'. $i + 1 .' costo $' . number_format($prices[$i], 2, '.', ','), 'price_string' => '$'.number_format($prices[$i], 2, '.', ','), 'accumulated' => '$'.number_format($acc, 2, '.', ',')];
         }
         return ['total' => $acc, 'items' => $items];
     }

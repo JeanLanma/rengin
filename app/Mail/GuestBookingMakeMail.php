@@ -13,6 +13,8 @@ class GuestBookingMakeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $subject;
+
     public $data;
 
     /**
@@ -21,6 +23,7 @@ class GuestBookingMakeMail extends Mailable
     public function __construct($data)
     {
         $this->data = $data;
+        $this->subject = 'Confirmación de reserva';
     }
 
 
@@ -29,6 +32,6 @@ class GuestBookingMakeMail extends Mailable
      */
     public function build()
     {
-        return null;
+        return $this->view('emails.guest-booking');
     }
 }

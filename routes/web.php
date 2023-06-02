@@ -86,6 +86,10 @@ Route::delete('/users/delete/{user}', [App\Http\Controllers\User\UserController:
 Route::get('/permissions', [App\Http\Controllers\Permissions\PermissionsController::class, 'index'])->name('permissions.index');
 Route::get('/roles/sync/{user}/{role}', [App\Http\Controllers\Permissions\PermissionsController::class, 'sync'])->name('sync.user.role');
 
+
+// EMail Previews
+
+Route::get('/email/booking/{booking?}', [App\Http\Controllers\Email\EmailController::class, 'guestBooking'])->name('email.booking');
 });
 
 Route::get('/booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking.getAvailabilityDate');

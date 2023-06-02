@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('card_expiration')->nullable();
             $table->string('card_cvc')->nullable();
             $table->string('status')->default('pending');
+            $table->text('items')->nullable();
             $table->text('guest_hotel_requests')->nullable();
 
             $table->timestamps();

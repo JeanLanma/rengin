@@ -13,10 +13,16 @@ class Booking extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'items' => 'array',
+    ];
+
     protected $appends = [
         'check_in_formatted',
         'check_out_formatted',
         'total_price_formatted',
+        'subtotal_price_formatted',
+        'calculated_tax',
     ];
 
     protected $fillable = [
@@ -38,6 +44,7 @@ class Booking extends Model
         'card_expiration',
         'card_cvc',
         'status',
+        'items',
         'guest_hotel_requests',
     ];
 
@@ -69,6 +76,19 @@ class Booking extends Model
         );
     }
 
+    protected function subtotalPriceFormatted(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => '$' . number_format($this->subtotal_price, 2)
+        );
+    }
+
+    protected function calculatedTax(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => '$' . number_format($this->total_price - $this->subtotal_price, 2)
+        );
+    }
     // Relatonships
 
     public function room()

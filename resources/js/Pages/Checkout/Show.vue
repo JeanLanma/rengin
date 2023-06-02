@@ -29,7 +29,8 @@ const form = useForm({
         "card_number": null,
         "card_expiration_year": null,
         "card_expiration_month": null,
-        "card_cvc": null
+        "card_cvc": null,
+    "items": null,
     },
     "guest":{
         "name": null,
@@ -82,6 +83,8 @@ onMounted(() => {
     form.booking.nights = props.summary.nights;
     form.booking.rooms = props.summary.total_rooms_needed;
     form.booking.room_type_id = props.booking.room_type.roomTypeId;
+    // form.booking.itemized = props.booking.room_type.itemized_price;
+    form.booking.items = JSON.stringify(props.booking.room_type.itemized_price);
 
     if(!props.summary.has_enough_rooms){
         errorAlert().then((result) => {
@@ -91,8 +94,7 @@ onMounted(() => {
         });
     }
 
-    console.log(props.booking);
-    console.log(props.summary);
+    console.log(form);
 })
 
 /**
@@ -270,7 +272,7 @@ const errorAlert = (errorContent = null) => {
                             </div>
 
                             <div class="relative mb-2">
-                                <label for="guest_request" class="font-bold text-sm">¿Tiene alguna petición para el hotel?</label>
+                                <label for="guest_request" class="font-bold text-sm">¿Tiene alguna petición para el hotel? <span class="text-xs">(Opcional)</span></label>
                                 <textarea v-model="form.booking.guest_hotel_requests" name="guest_request" id="guest_request" class="border border-[#ddd] rounded w-full" placeholder="..." autocomplete="off"></textarea>
                             </div>
 
@@ -294,7 +296,7 @@ const errorAlert = (errorContent = null) => {
                             </div>
 
                             <div class="relative mb-2">
-                                <label for="card_expiration_date" class="font-bold text-sm">Fecha de experación</label>
+                                <label for="card_expiration_date" class="font-bold text-sm">Fecha de expiración</label>
                                 <div class="flex gap-3">
                                     <select v-model="form.booking.card_expiration_month" name="card_expiration_date" id="card_expiration_date" class="border border-[#ddd] rounded w-full">
                                         <option value="null" selected aria-selected="true" disabled aria-disabled="true">--- Mes ---</option>
