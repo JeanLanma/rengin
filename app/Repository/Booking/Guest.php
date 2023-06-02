@@ -6,6 +6,16 @@ use \App\Models\Guest as GuestModel;
 
 class Guest {
 
+    public function insertGuest($data)
+    {
+        return GuestModel::create([
+            'name' => $data['name'],
+            'lastname' => $data['last_name'],
+            'email' => $data['email'],
+            'phone' => $data['phone']
+        ]);
+    }
+
     /**
      * Store a guest
      * 

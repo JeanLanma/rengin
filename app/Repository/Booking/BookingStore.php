@@ -60,7 +60,7 @@ class BookingStore {
 
     public function saveGuest($data)
     {
-        return $this->guest->insertOrGet($data);
+        return $this->guest->insertGuest($data);
     }
 
     public function updateDistribution($roomId, $start_date, $end_date, $rooms_to_reserve)
