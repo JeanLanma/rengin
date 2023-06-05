@@ -69,11 +69,11 @@ class StoreBookingRequest extends FormRequest
             'guest.last_name.min' => 'El apellido debe tener al menos 3 caracteres', 
             'guest.phone.required' => 'Ingrese un número de teléfono válido',
             // Card Object
-            'bookig.card_name.required' => 'El campo nombre del titular es requerido',
-            'bookig.card_number.required' => 'El campo número de tarjeta es requerido',
-            'bookig.card_expiration_month.required' => 'El campo mes de expiración es requerido',
-            'bookig.card_expiration_year.required' => 'El campo año de expiración es requerido',
-            'bookig.card_cvc.required' => 'El campo CVC es requerido',
+            'booking.card_name.required' => 'El campo nombre del titular es requerido',
+            'booking.card_number.required' => 'El campo número de tarjeta es requerido',
+            'booking.card_expiration_month.required' => 'El campo mes de expiración es requerido',
+            'booking.card_expiration_year.required' => 'El campo año de expiración es requerido',
+            'booking.card_cvc.required' => 'El campo CVC es requerido',
 
         ];
     }

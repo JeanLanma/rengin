@@ -4,6 +4,7 @@ import CTAButton from '@/Shared/CTAButton.vue';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { onMounted } from 'vue';
 import { usePage, useForm } from '@inertiajs/vue3';
+import ErrorForm from '@/Shared/ErrorForm.vue';
 import Swal from 'sweetalert2';
 
 const props = defineProps({
@@ -69,6 +70,9 @@ const makeBooking = () => {
         onError: (error) => {
             console.log(error);
             alert('Error al procesar la reserva, por favor intente de nuevo.');
+            setTimeout(() => {
+                form.clearErrors();
+            }, 9000)
         }
     });
 }
@@ -249,11 +253,13 @@ const errorAlert = (errorContent = null) => {
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_name" class="font-bold text-sm">Nombre</label>
                                     <input v-model="form.guest.name" id="guest_name" type="text" class="border border-[#ddd] rounded w-full" placeholder="nombre" autocomplete="off">
+                                    <ErrorForm :error="form.errors['guest.name']" />
                                 </div>
                                 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_lastname" class="font-bold text-sm">Apellidos</label>
                                     <input v-model="form.guest.last_name" id="guest_lastname" type="text" class="border border-[#ddd] rounded w-full" placeholder="apellidos" autocomplete="off">
+                                    <ErrorForm :error="form.errors['guest.last_name']" />
                                 </div>
                             
                             </div>
@@ -263,11 +269,13 @@ const errorAlert = (errorContent = null) => {
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_phone" class="font-bold text-sm">Telefono</label>
                                     <input v-model="form.guest.phone" id="guest_phone" type="text" class="border border-[#ddd] rounded w-full" placeholder="telefono" autocomplete="off">
+                                    <ErrorForm :error="form.errors['guest.phone']" />
                                 </div>
                                 
                                 <div class="lg:w-1/2 relative mb-2">
                                     <label for="guest_email" class="font-bold text-sm">Correo electronico</label>
                                     <input v-model="form.guest.email" id="guest_email" type="email" class="border border-[#ddd] rounded w-full" placeholder="correo electronico" autocomplete="off">
+                                    <ErrorForm :error="form.errors['guest.email']" />
                                 </div>
                             
                             </div>
@@ -289,11 +297,13 @@ const errorAlert = (errorContent = null) => {
                             <div class="relative mb-2">
                                 <label for="card_name" class="font-bold text-sm">Titular de la tarjeta</label>
                                 <input v-model="form.booking.card_name" id="card_name" type="text" class="border border-[#ddd] rounded w-full" placeholder="Titular de la tarjeta" autocomplete="off">
+                                <ErrorForm :error="form.errors['booking.card_name']" />
                             </div>
     
                             <div class="relative mb-2">
                                 <label for="card_number" class="font-bold text-sm">Numero de tarjeta</label>
                                 <input v-model="form.booking.card_number" id="card_number" type="text" class="border border-[#ddd] rounded w-full" placeholder="Numero de tarjeta" autocomplete="off">
+                                <ErrorForm :error="form.errors['booking.card_number']" />
                             </div>
 
                             <div class="relative mb-2">
@@ -328,13 +338,17 @@ const errorAlert = (errorContent = null) => {
                                         <option value="2032">2032</option>
                                         <option value="2033">2033</option>
                                     </select>
-
+                                    
                                 </div>
+                                <ErrorForm :error="form.errors['booking.card_expiration_month']" />
+                                <ErrorForm :error="form.errors['booking.card_expiration_year']" />
+
                             </div>
 
                             <div class="relative mb-2">
                                 <label for="card_cvc" class="font-bold text-sm">CVC</label>
                                 <input v-model="form.booking.card_cvc" id="card_cvc" type="number" class="border border-[#ddd] rounded w-full" placeholder="cvc" autocomplete="off">
+                                <ErrorForm :error="form.errors['booking.card_cvc']" />
                             </div>
 
                         </div>
