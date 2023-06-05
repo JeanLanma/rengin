@@ -16,4 +16,11 @@ class EmailController extends Controller
         ]);
         // return Mail::to('desarrollo.software@pcbtroniks.com')->send(new \App\Mail\GuestBookingMakeMail($booking));
     }
+
+    public function getAdministrativeEmails()
+    {
+        return [
+            ''
+        ];
+    }
 }

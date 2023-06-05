@@ -72,6 +72,7 @@ const handlePagination = (PaginationAware) => {
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Check-Out</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Habitación</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Precio</th>
+                            <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Creada el</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-right text-gray-500 dark:text-gray-400">			          
                                 <svg
                                 class="w-6 text-right fill-current text-grey-dark"
@@ -97,9 +98,11 @@ const handlePagination = (PaginationAware) => {
 
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.check_out_formatted }}</td>
 
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.room.type }}<br>{{ booking.room.name }}</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.room.type }}<span class="text-xs text-gray-500/40 dark:text-gray-300/25"> x{{booking.number_of_rooms}}</span><br>{{ booking.room.name }}</td>
 
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.total_price_formatted }}</td>
+
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.created_at.split('T')[0] }}</td>
                             
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><a href="#" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver detalles</a></td>
 
@@ -131,7 +134,7 @@ const handlePagination = (PaginationAware) => {
             <section v-if="props.bookings.links">
                 <div class="text-slate-50 font-bold text-xl flex flex-col justify-center items-center gap-4 rounded-xl p-2">
 
-                    <span class="text-base dark:text-slate-50 text-slate-600">Mostrando {{ props.bookings.per_page }} de {{ props.bookings.total }} Reservaciones</span>
+                    <span class="text-base dark:text-slate-50 text-slate-600">Mostrando {{ props.bookings.per_page }} por pagina de {{ props.bookings.total }} en total</span>
                     <div class="flex p-2 w-full max-w-md justify-center space-x-0">
                         <Link :disabled="props.bookings.prev_page_url == null" as="button" :href="props.bookings.prev_page_url ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 dark:bg-sky-500/50 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  transition-all duration-200 ease-in-out border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
                             <button innerText="Previo" ></button>

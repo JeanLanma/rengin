@@ -21,7 +21,7 @@ class BookingController extends Controller
     public function index(BookingGet $booking)
     {
         return inertia('Booking/Index', [
-            'bookings' => $booking->getBookings(10)
+            'bookings' => $booking->getBookingsFromMostRecent(10)
         ]);
     }
 
