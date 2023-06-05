@@ -137,13 +137,13 @@ const handlePagination = (PaginationAware) => {
                             <button innerText="Previo" ></button>
                         </Link>
                         
-                        <Link v-if="paginationData.previusLinks" v-for="link in paginationData.previusLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
+                        <Link v-if="false" v-for="link in paginationData.previusLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
                             <button :innerText="link.label"></button>
                         </Link>
                         <Link aria-disabled="true" disabled href="#" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 text-center flex justify-center items-center" preserveScroll>
-                            <button innerText="..."></button>
+                            <button :innerText="`pag. ${props.bookings.current_page}`"></button>
                         </Link>
-                        <Link v-if="paginationData.nextLinks" v-for="link in paginationData.nextLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
+                        <Link v-if="false" v-for="link in paginationData.nextLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
                             <button :innerText="link.label"></button>
                         </Link>
 

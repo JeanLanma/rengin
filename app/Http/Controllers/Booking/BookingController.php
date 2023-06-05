@@ -10,6 +10,7 @@ use App\Repository\Booking\BookingSummary;
 use App\Services\BookingService;
 use App\Repository\Booking\BookingGet;
 use App\Services\SendEmailService;
+use App\Http\Requests\Booking\StoreBookingRequest;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -48,7 +49,7 @@ class BookingController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(StoreBookingRequest $request)
     {
         $booking = new BookingStore();
         $booking = $booking->storeBooking(request()->all());

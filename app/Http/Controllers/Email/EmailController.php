@@ -14,6 +14,6 @@ class EmailController extends Controller
         return view('emails.guest-booking', [
             'data' => $booking,
         ]);
-        return Mail::to('desarrollo.software@pcbtroniks.com')->send(new \App\Mail\GuestBookingMakeMail($booking));
+        // return Mail::to('desarrollo.software@pcbtroniks.com')->send(new \App\Mail\GuestBookingMakeMail($booking));
     }
 }

@@ -66,13 +66,23 @@ const makeBooking = () => {
                 });
             }
         },
-        onError: () => {
+        onError: (error) => {
+            console.log(error);
             alert('Error al procesar la reserva, por favor intente de nuevo.');
         }
     });
 }
 
 onMounted(() => {
+    
+    if(!props.summary.has_enough_rooms){
+        errorAlert().then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = route('booking');
+            }
+        });
+    }
+
     form.summary.total = props.summary.total_price;
     form.summary.subtotal = props.summary.subtotal_price;
     form.booking.adults = props.summary.adults;
@@ -83,16 +93,7 @@ onMounted(() => {
     form.booking.nights = props.summary.nights;
     form.booking.rooms = props.summary.total_rooms_needed;
     form.booking.room_type_id = props.booking.room_type.roomTypeId;
-    // form.booking.itemized = props.booking.room_type.itemized_price;
     form.booking.items = JSON.stringify(props.booking.room_type.itemized_price);
-
-    if(!props.summary.has_enough_rooms){
-        errorAlert().then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = route('booking');
-            }
-        });
-    }
 
     console.log(form);
 })
