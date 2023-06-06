@@ -8,10 +8,12 @@ class SendEmailService {
 
     public static function sendGuestBooking($booking)
     {
+        dd($booking['guest']['email']);
         self::sendNewBooking($booking);
         try {
             return Mail::to($booking['guest']['email'])->send(new \App\Mail\GuestBookingMakeMail($booking));
         } catch (\Throwable $th) {
+            return;
             dd($th);
         }
     }
@@ -26,6 +28,7 @@ class SendEmailService {
             $success = true;
         } catch (\Throwable $th) {
             $success = false;
+            return;
             dd($th);
         }
         return $success;
