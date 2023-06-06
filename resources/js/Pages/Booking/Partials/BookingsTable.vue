@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
+import Swal from 'sweetalert2';
 
 const props = defineProps({
     bookings: {
@@ -48,6 +49,48 @@ const handlePagination = (PaginationAware) => {
         nextLinks,
     };
 }
+
+// Add internal reference
+
+const AddInternalReferenceBooking = (data) => {
+
+    Swal.fire({
+    title: 'Agregar referencia interna para la reservación #' + data.id,
+    input: 'text',
+    inputAttributes: {
+        autocapitalize: 'off'
+    },
+    showCancelButton: true,
+    confirmButtonText: 'Confirmar',
+    showLoaderOnConfirm: true,
+    preConfirm: async (reference) => {
+        // return console.log(route('bookings.reference',{ booking: data.id , reference: reference}));
+        return fetch(route('bookings.reference',{ booking: data.id , reference: reference}))
+        .then(response => {
+            if (!response.ok) {
+            throw new Error(response.statusText)
+            }
+            
+            return response.json();
+        })
+        .catch(error => {
+            console.log(error);
+            Swal.showValidationMessage(
+            `Request failed: ${error}`
+            )
+        })
+    },
+    allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+    if (result.isConfirmed) {
+        console.log(result.value);
+        Swal.fire({
+        title: `La referencia ha sido agregada correctamente`,
+        })
+    }
+    })
+}
+
 </script>
 
 <template>
@@ -104,7 +147,7 @@ const handlePagination = (PaginationAware) => {
 
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.created_at.split('T')[0] }}</td>
                             
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><a href="#" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver detalles</a></td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><p @click="AddInternalReferenceBooking({id: booking.id})" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver detalles</p></td>
 
                         </tr>
 

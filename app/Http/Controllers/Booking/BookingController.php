@@ -11,6 +11,7 @@ use App\Services\BookingService;
 use App\Repository\Booking\BookingGet;
 use App\Services\SendEmailService;
 use App\Http\Requests\Booking\StoreBookingRequest;
+use App\Models\Booking as ModelsBooking;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -73,5 +74,11 @@ class BookingController extends Controller
     public function bookingService()
     {
         return new BookingService;
+    }
+
+    public function reference($booking, $reference, Booking $bookingRepository)
+    {
+        $response = $bookingRepository->setBookingReference($booking, $reference);
+        return response()->json($response, 200);
     }
 }

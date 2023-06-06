@@ -9,23 +9,33 @@ class SendEmailService {
     public static function sendGuestBooking($booking)
     {
         self::sendNewBooking($booking);
-        return Mail::to($booking['guest']['email'])->send(new \App\Mail\GuestBookingMakeMail($booking));
+        try {
+            return Mail::to($booking['guest']['email'])->send(new \App\Mail\GuestBookingMakeMail($booking));
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 
     public static function sendNewBooking($booking)
     {
-        $administrativeEmails = self::getAdministrativeEmails();
-        foreach ($administrativeEmails as $email) {
-            Mail::to($email)->send(new \App\Mail\NewBookingMakeMail($booking));
+        $success = null;
+        try {
+            $administrativeEmails = self::getAdministrativeEmails();
+            Mail::to($administrativeEmails)
+                ->send(new \App\Mail\NewBookingMakeMail($booking));
+            $success = true;
+        } catch (\Throwable $th) {
+            $success = false;
+            dd($th);
         }
-        return;
+        return $success;
     }
 
     public static function getAdministrativeEmails(): array
     {
         return [
+            'reservas-gdl@hotelcasinoplaza.mx',
             'jean.langarica@pcbtroniks.com'
-            //'reservas-gdl@hotelcasinoplaza.mx'
         ];
     }
 }

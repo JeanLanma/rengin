@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class Booking {
 
+    public function setBookingReference($id, $reference)
+    {
+        return DB::table('bookings')->where('id', $id)->update(['internal_reference' => $reference]);
+    }
+
     /**
      * Get rooms availability and price for a booking
      */

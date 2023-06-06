@@ -39,6 +39,8 @@ Route::get('/bookings', [App\Http\Controllers\Booking\BookingController::class, 
 
 Route::get('/bookings/show', [App\Http\Controllers\Booking\BookingController::class, 'show'])->name('bookings.show');
 
+Route::get('/bookings/reference/{booking}/{reference}', [App\Http\Controllers\Booking\BookingController::class, 'reference'])->name('bookings.reference');
+
 // Rooms
 
 Route::get('/rooms', [App\Http\Controllers\Room\RoomController::class, 'index'])->name('rooms.index');
