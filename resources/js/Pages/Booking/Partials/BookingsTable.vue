@@ -86,6 +86,8 @@ const AddInternalReferenceBooking = (data) => {
         console.log(result.value);
         Swal.fire({
         title: `La referencia ha sido agregada correctamente`,
+        icon: 'success',
+        confirmButtonColor: '#3085d6',
         })
     }
     })

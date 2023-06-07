@@ -8,7 +8,6 @@ class SendEmailService {
 
     public static function sendGuestBooking($booking)
     {
-        dd($booking['guest']['email']);
         self::sendNewBooking($booking);
         try {
             return Mail::to($booking['guest']['email'])->send(new \App\Mail\GuestBookingMakeMail($booking));

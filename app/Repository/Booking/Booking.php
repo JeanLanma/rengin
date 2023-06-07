@@ -2,6 +2,7 @@
 
 namespace App\Repository\Booking;
 
+use App\Enums\BookingStatus;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\GetBookingRequest;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,7 @@ class Booking {
 
     public function setBookingReference($id, $reference)
     {
-        return DB::table('bookings')->where('id', $id)->update(['internal_reference' => $reference]);
+        return DB::table('bookings')->where('id', $id)->update(['internal_reference' => $reference, 'status' => BookingStatus::Confirmed->value]);
     }
 
     /**
