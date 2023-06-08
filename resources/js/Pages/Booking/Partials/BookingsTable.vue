@@ -2,9 +2,15 @@
 import { Link } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
 import Swal from 'sweetalert2';
+import Dropdown from '@/Shared/Dropdown.vue';
+import DropdownItem from '@/Shared/DropdownItem.vue';
 
 const props = defineProps({
     bookings: {
+        type: Object,
+        required: false,
+    },
+    queryFilters: {
         type: Object,
         required: false,
     },
@@ -14,14 +20,6 @@ const paginationData = ref({
     links: [],
     previusLinks: [],
     nextLinks: [],
-});
-
-
-onMounted(() => {
-    paginationData.value = handlePagination(props.bookings);
-    console.clear();
-    console.log(paginationData.value);
-    console.log(props.bookings);
 });
 
 const handlePagination = (PaginationAware) => {
@@ -52,19 +50,24 @@ const handlePagination = (PaginationAware) => {
 
 // Add internal reference
 
-const AddInternalReferenceBooking = (data) => {
-
+const AddInternalReferenceBooking = (data, booking) => {
+    console.log(booking);
     Swal.fire({
     title: 'Agregar referencia interna para la reservación #' + data.id,
     input: 'text',
     inputAttributes: {
-        autocapitalize: 'off'
+        autocapitalize: 'off',
+        placeholder: 'Referencia interna',
     },
+    inputValue: booking.internal_reference ?? '',
     showCancelButton: true,
     confirmButtonText: 'Confirmar',
     showLoaderOnConfirm: true,
+    inputValidator: (value) => {
+    if (!value) {
+      return 'Necesita agregar una referencia interna'
+    }},
     preConfirm: async (reference) => {
-        // return console.log(route('bookings.reference',{ booking: data.id , reference: reference}));
         return fetch(route('bookings.reference',{ booking: data.id , reference: reference}))
         .then(response => {
             if (!response.ok) {
@@ -76,7 +79,7 @@ const AddInternalReferenceBooking = (data) => {
         .catch(error => {
             console.log(error);
             Swal.showValidationMessage(
-            `Request failed: ${error}`
+            `La solicitud ha fallado: ${error}`
             )
         })
     },
@@ -93,6 +96,55 @@ const AddInternalReferenceBooking = (data) => {
     })
 }
 
+const useFilters = (filter, allFilters) => {
+
+    // Merge filters
+    const filters = mergeFilters(filter, allFilters);
+    return route('bookings.index', filters);
+}
+
+const mergeFilters = (filter, allFilters) => {
+    return {
+        ...allFilters,
+        ...filter,
+    };;
+}
+
+const convertFiltersToQueryString = (filters) => {
+    const filtersCopy = {...filters};
+    // Remove page Filter
+    delete filtersCopy.page;
+    const query = Object.keys(filtersCopy)
+        .map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(filtersCopy[key]);
+        })
+        .join('&');
+    return query ? query : '';
+}
+
+const translateFilter = (filter) => {
+    switch(filter) {
+        case 'pending':
+            return 'Pendientes';
+        case 'confirmed':
+            return 'Confirmadas';
+        case 'canceled':
+            return 'Canceladas';
+        default:
+            return 'Pendientes';
+    }
+}
+
+onMounted(() => {
+    paginationData.value = handlePagination(props.bookings);
+    // console.clear();
+    // Pagination
+    // console.log(paginationData.value);
+    // console.log(props.bookings);
+    // Query Params
+    // console.log(props.queryFilters);
+});
+
 </script>
 
 <template>
@@ -105,7 +157,21 @@ const AddInternalReferenceBooking = (data) => {
                     Ultimas reservaciones
                 </h1>
 
+
             </div>
+            <Dropdown :title="translateFilter(props.queryFilters.status) ?? 'Pendientes'">
+                <DropdownItem>
+                    <Link :href="useFilters({status: 'pending'}, props.queryFilters)" :only="['bookings', 'queryFilters']">Pendientes</Link>
+                </DropdownItem>
+                <hr>
+                <DropdownItem>
+                    <a :href="useFilters({status: 'confirmed'}, props.queryFilters)"  :only="['bookings', 'queryFilters']">Confirmadas</a>
+                </DropdownItem>
+                <hr>
+                <DropdownItem>
+                    <a :href="useFilters({status: 'canceled'}, props.queryFilters)"  :only="['bookings', 'queryFilters']">Canceladas</a>
+                </DropdownItem>
+            </Dropdown>
 
             <div class="text-white inner-shadow shadow-xl overflow-auto border border-gray-200 dark:border-gray-700 md:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 cursor-pointer">
@@ -133,7 +199,7 @@ const AddInternalReferenceBooking = (data) => {
                     </thead>
                     <tbody class="bg-white divide-y shadow-inner divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
 
-                        <tr v-if="props.bookings.data" v-for="booking in props.bookings.data" class="dark:hover:bg-gray-600 hover:bg-gray-100">
+                        <tr v-if="props.bookings.data.length > 1" v-for="booking in props.bookings.data" class="dark:hover:bg-gray-600 hover:bg-gray-100">
 
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-base font-bold text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"># {{ booking.id }}</td>
 
@@ -149,23 +215,25 @@ const AddInternalReferenceBooking = (data) => {
 
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.created_at.split('T')[0] }}</td>
                             
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><p @click="AddInternalReferenceBooking({id: booking.id})" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver detalles</p></td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><p @click="AddInternalReferenceBooking({id: booking.id}, booking)" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Acciones</p></td>
 
                         </tr>
 
                         <tr v-else class="dark:hover:bg-gray-600 hover:bg-gray-100">
 
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-base font-bold text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"># 1234</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-base font-bold text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
 
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"> Jhon Doe</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
 
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"> Vie, 19/05/23</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
 
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"> Lun, 22/05/23</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
 
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">STD, Sencilla</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
 
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"> $ 3,000.00</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
+
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
                             
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><a href="#" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver detalles</a></td>
 
@@ -181,21 +249,21 @@ const AddInternalReferenceBooking = (data) => {
 
                     <span class="text-base dark:text-slate-50 text-slate-600">Mostrando {{ props.bookings.per_page }} por pagina de {{ props.bookings.total }} en total</span>
                     <div class="flex p-2 w-full max-w-md justify-center space-x-0">
-                        <Link :disabled="props.bookings.prev_page_url == null" as="button" :href="props.bookings.prev_page_url ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 dark:bg-sky-500/50 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  transition-all duration-200 ease-in-out border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
+                        <Link :disabled="props.bookings.prev_page_url == null" as="button" :href="props.bookings.prev_page_url + '&' + convertFiltersToQueryString(props.queryFilters) ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 dark:bg-sky-500/50 p-2 rounded-l-xl hover:bg-sky-700  text-white font-semibold  transition-all duration-200 ease-in-out border-y-2 border-l-2 flex justify-center items-center" preserveScroll>
                             <button innerText="Previo" ></button>
                         </Link>
                         
-                        <Link v-if="false" v-for="link in paginationData.previusLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
+                        <!-- <Link v-if="false" v-for="link in paginationData.previusLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
                             <button :innerText="link.label"></button>
-                        </Link>
+                        </Link> -->
                         <Link aria-disabled="true" disabled href="#" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 text-center flex justify-center items-center" preserveScroll>
                             <button :innerText="`pag. ${props.bookings.current_page}`"></button>
                         </Link>
-                        <Link v-if="false" v-for="link in paginationData.nextLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
+                        <!-- <Link v-if="false" v-for="link in paginationData.nextLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
                             <button :innerText="link.label"></button>
-                        </Link>
+                        </Link> -->
 
-                        <Link :disabled="props.bookings.next_page_url == null" as="button" :href="props.bookings.next_page_url ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 dark:bg-sky-500/50 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-r-2 flex justify-center items-center" preserveScroll>
+                        <Link :disabled="props.bookings.next_page_url == null" as="button" :href="props.bookings.next_page_url + '&' + convertFiltersToQueryString(props.queryFilters) ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 dark:bg-sky-500/50 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-r-2 flex justify-center items-center" preserveScroll>
                             <button innerText="Siguiente"></button>
                         </Link>
                     </div>

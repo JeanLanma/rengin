@@ -21,8 +21,10 @@ class BookingController extends Controller
      */
     public function index(BookingGet $booking)
     {
+        //get query params
         return inertia('Booking/Index', [
-            'bookings' => $booking->getBookingsFromMostRecent(10)
+            'bookings' => $booking->getBookingsFromMostRecentWithFilters(10, request()),
+            'queryFilters' => request()->query() ?? $booking->getDefaultQueryFilters()
         ]);
     }
 

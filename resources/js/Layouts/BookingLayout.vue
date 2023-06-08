@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Banner from '@/Components/Banner.vue';
-import NavLink from '@/Components/NavLink.vue';
+import NavLink from '@/Shared/NavLinkBooking.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 
 defineProps({
@@ -29,24 +29,15 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('booking')">
                                     <ApplicationMark class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </NavLink>
-                                <NavLink :href="route('bookings.index')" :active="route().current('bookings.*')">
-                                    Reservaciones
-                                </NavLink>
-                                <NavLink :href="route('rooms.index')" :active="route().current('rooms.*')">
-                                    Habitaciones
-                                </NavLink>
-                                <NavLink :href="route('distribution.index')" :active="route().current('distribution.*')">
-                                    Distribución
+                                <NavLink :href="route('booking')" :active="route().current('booking')">
+                                    Reservar
                                 </NavLink>
                             </div>
                         </div>
@@ -83,17 +74,8 @@ const showingNavigationDropdown = ref(false);
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('bookings.index')" :active="route().current('bookings.*')">
-                            Reservaciones
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('rooms.index')" :active="route().current('rooms.*')">
-                            Habitaciones
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('distribution.index')" :active="route().current('distribution.*')">
-                            Distribución
+                        <ResponsiveNavLink :href="route('booking')" :active="route().current('booking')">
+                            Reservar
                         </ResponsiveNavLink>
                     </div>
 

@@ -7,6 +7,10 @@ const props = defineProps({
         type: Object,
         required: false,
     },
+    queryFilters: {
+        type: Object,
+        required: false,
+    },
 });
 </script>
 
@@ -21,7 +25,7 @@ const props = defineProps({
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                    <BookingsTable :bookings="props.bookings" />
+                    <BookingsTable :bookings="props.bookings" :queryFilters="props.queryFilters" />
                 </div>
             </div>
         </div>
