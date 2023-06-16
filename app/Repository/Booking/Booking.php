@@ -26,7 +26,7 @@ class Booking {
             ->whereBetween('date', $dates)
             ->where('status', 'available')
             ->leftJoin('rooms as room', 'dis.room_id', '=', 'room.id')
-            ->get(['dis.room_id','dis.date', 'dis.availability', 'dis.price', 'dis.status', 'room.name', 'room.type', 'room.description', 'room.cover', 'room.base_capacity', 'room.max_capacity']);
+            ->get(['dis.room_id','dis.date', 'dis.availability', 'dis.price', 'dis.status', 'room.name', 'room.type', 'room.description', 'room.cover', 'room.base_capacity', 'room.max_capacity', 'room.extra_person_price']);
 
         $distributionResult = [];
 
@@ -61,6 +61,7 @@ class Booking {
                     'cover' => $this->getCoverUrl($r->cover),
                     'baseCapacity' => $r->base_capacity,
                     'maxCapacity' => $r->max_capacity,
+                    'extra_person_price' => $r->extra_person_price,
                 ]
             ];
 
@@ -76,7 +77,7 @@ class Booking {
             ->where('status', 'available')
             ->where('room_id', $data['room_type_id'])
             ->leftJoin('rooms as room', 'dis.room_id', '=', 'room.id')
-            ->get(['dis.room_id','dis.date', 'dis.availability', 'dis.price', 'dis.status', 'room.name', 'room.type', 'room.description', 'room.cover', 'room.base_capacity', 'room.max_capacity']);
+            ->get(['dis.room_id','dis.date', 'dis.availability', 'dis.price', 'dis.status', 'room.name', 'room.type', 'room.description', 'room.cover', 'room.base_capacity', 'room.max_capacity', 'room.extra_person_price']);
             
         $canBeBooked = $this->canBeBook($roomDistribution);
         $nights = $this->getNights($data['checkin'], $data['checkout']);
@@ -107,6 +108,7 @@ class Booking {
                 'cover' => $this->getCoverUrl($r->cover),
                 'baseCapacity' => $r->base_capacity,
                 'maxCapacity' => $r->max_capacity,
+                'extra_person_price' => $r->extra_person_price,
             ]
         ];
     }

@@ -214,6 +214,10 @@ const errorAlert = (errorContent = null) => {
                                 <span class="font-bold">{{ props.summary.subtotal_price_string }}</span>
                             </p>
                             <p class="flex justify-between mb-2">
+                                <span>Costo por persona(s) extra:</span>
+                                <span class="font-bold">{{ props.summary.extra_person_price_string }}</span>
+                            </p>
+                            <p class="flex justify-between mb-2">
                                 <span>Impuestos:</span>
                                 <span class="font-bold">{{ props.summary.taxed_price_string }}</span>
                             </p>
@@ -230,15 +234,26 @@ const errorAlert = (errorContent = null) => {
 
                     <div>
                         <details class="mb-6 cursor-pointer">
-                            <summary class="font-bold text-lg">Politicas de cancelación</summary>
+                            <summary class="font-bold text-lg">Terminos, condiciones y politicas</summary>
                             
                             <div class="mt-3">
-                                
-                                <p class="flex justify-between mb-2 font-bold first-letter:capitalize">
-                                    Podrás cancelar 48horas antes de tu check-in sin ningún cargo extra
-                                    Puedes acceder a tu habitación desde las 15:00hrs
-                                    Debes dejar la habitación antes de las 13:00hrs
-                                </p>
+                                <div class="my-2">
+
+                                    <p class="font-bold first-letter:capitalize">Politicas de cancelación</p>
+                                    <p>
+                                        Podrás cancelar 48 horas antes de tu check-in sin ningún cargo extra.
+                                    </p>
+
+                                </div>
+                                <div class="my-2">
+
+                                    <p class="font-bold first-letter:capitalize">Checkin y Checkout</p>
+                                    <p>
+                                        Puedes acceder a tu habitación desde las 15:00hrs
+                                        Debes dejar la habitación antes de las 13:00hrs
+                                    </p>
+
+                                </div>
                                 
                             </div>
                         </details>

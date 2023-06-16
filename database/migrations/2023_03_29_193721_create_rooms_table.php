@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('base_capacity');
             $table->integer('max_capacity');
             $table->integer('base_price');
+            $table->decimal('extra_person_price')->nullable();
 
             $table->timestamps();
         });

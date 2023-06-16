@@ -7,13 +7,15 @@ use Illuminate\Support\Carbon;
 class BookingSummary {
 
     public $distribution;
-    public $municipal;
     public $request;
+
     public $iva;
+    public $municipal;
     public $taxes;
 
     private $subtotalPrice;
     private $totalPrice;
+    private $extraPersonPrice;
 
     private $totalPax;
     private $totalRoomsNeededByPax;
@@ -39,7 +41,7 @@ class BookingSummary {
         $this->totalRoomsAvailable = $this->distribution['total_availability_for_period'];
         $this->totalRoomsNeededByPax = $this->getRoomsNeededByPax();
         $this->totalRoomsNeeded = $this->calculateNecessaryRooms();
-
+        $this->extraPersonPrice = $this->calculateExtraPersonPrice() ?? 00.0;
     }
 
     public function getSummary()
@@ -56,6 +58,8 @@ class BookingSummary {
             'itemized' => [
 
             ],
+            'extra_person_price' => $this->extraPersonPrice,
+            'extra_person_price_string' => $this->formatPrice($this->extraPersonPrice),
             'total_price_string' => $this->formatPrice($this->totalPrice),
             'subtotal_price_string' => $this->formatPrice($this->subtotalPrice),
             'total_pax' => $this->totalPax,
@@ -129,6 +133,17 @@ class BookingSummary {
         return $this->subtotalPrice;
     }
 
+    public function getExtraPersonPrice()
+    {
+        return $this->extraPersonPrice;
+    }
+
+    public function addExtraPersonPriceTo($price)
+    {
+        $extraPersonPrice = $this->extraPersonPrice;
+        return $extraPersonPrice += $price;
+    }
+
     // setters
 
     public function setTaxes($iva, $municipal)
@@ -169,6 +184,17 @@ class BookingSummary {
     public function calculateTaxPrice()
     {
         return ($this->subtotalPrice * $this->getTax());
+    }
+
+    public function calculateExtraPersonPrice()
+    {
+        $baseCapacity = ($this->distribution['room']['baseCapacity'] * $this->totalRoomsNeeded);
+        $extraGuests = ($this->totalPax - $baseCapacity);
+        if ($extraGuests <= 0) {
+            return 0;
+        }
+        $extraPersonPrice = (($this->distribution['room']['extra_person_price'] * $extraGuests) * $this->request['nights']);
+        return $extraPersonPrice;
     }
 
     //  Helpers
