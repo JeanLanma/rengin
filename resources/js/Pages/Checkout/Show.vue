@@ -225,6 +225,24 @@ const errorAlert = (errorContent = null) => {
                         </div>
 
                     </div>
+
+                    <div class="border-b border-[#3C3C4399] opacity-50 my-6"></div>
+
+                    <div>
+                        <details class="mb-6 cursor-pointer">
+                            <summary class="font-bold text-lg">Politicas de cancelación</summary>
+                            
+                            <div class="mt-3">
+                                
+                                <p class="flex justify-between mb-2 font-bold first-letter:capitalize">
+                                    Podrás cancelar 48horas antes de tu check-in sin ningún cargo extra
+                                    Puedes acceder a tu habitación desde las 15:00hrs
+                                    Debes dejar la habitación antes de las 13:00hrs
+                                </p>
+                                
+                            </div>
+                        </details>
+                    </div>
                 </div>
 
             </section>
