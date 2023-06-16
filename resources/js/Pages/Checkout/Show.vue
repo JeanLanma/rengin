@@ -78,7 +78,7 @@ const makeBooking = () => {
 }
 
 onMounted(() => {
-    
+    console.log(props.summary);
     if(!props.summary.has_enough_rooms){
         errorAlert().then((result) => {
             if (result.isConfirmed) {
@@ -99,7 +99,6 @@ onMounted(() => {
     form.booking.room_type_id = props.booking.room_type.roomTypeId;
     form.booking.items = JSON.stringify(props.booking.room_type.itemized_price);
 
-    console.log(form);
 })
 
 /**
@@ -128,8 +127,8 @@ const successAlert = (SuccessConent = null) => {
 };
 const errorAlert = (errorContent = null) => {
     const defaultContent = {
-        title: '¡Ups tenemos un inconveniente!',
-        text: 'Hemos encontrado un incoveniente al procesar su reserva, por favor intente de nuevo.',
+        title: '¡Sin habitaciones disponibles!',
+        text: 'Lo sentimos, por el momento ya no hay habitaciones disponibles para las fechas seleccionadas. Por favor comunícate directamente con nosotros al 333 614 0223 .',
         imageUrl: '/assets/logo.png',
         imageWidth: 240,
         imageHeight: 146,

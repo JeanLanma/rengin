@@ -36,7 +36,7 @@ class BookingSummary {
     public function summarize()
     {
         $this->totalPax = $this->getTotalPax();
-        $this->totalRoomsAvailable = $this->distribution['availability'];
+        $this->totalRoomsAvailable = $this->distribution['total_availability_for_period'];
         $this->totalRoomsNeededByPax = $this->getRoomsNeededByPax();
         $this->totalRoomsNeeded = $this->calculateNecessaryRooms();
 
@@ -49,7 +49,7 @@ class BookingSummary {
         $this->totalPrice = $this->calculateTotalPrice();
 
         return [
-            'has_enough_rooms' => $this->hasEnoghRooms(),
+            'has_enough_rooms' => $this->hasEnoughRooms(),
             'total_rooms_needed_by_pax' => $this->totalRoomsNeededByPax,
             'total_rooms_needed' => $this->totalRoomsNeeded,
             'total_rooms_available' => $this->distribution['availability'],
@@ -108,6 +108,12 @@ class BookingSummary {
         return ($this->request['adults'] + $this->request['children']);
     }
 
+    /**
+     * Get the number of rooms needed by the total pax
+     * @return int
+     * 
+     * Eg. 5 pax, 2 max capacity per room = 3 rooms
+     */
     public function getRoomsNeededByPax()
     {
         return ceil($this->totalPax / $this->distribution['room']['maxCapacity']);
@@ -167,9 +173,16 @@ class BookingSummary {
 
     //  Helpers
 
-    public function hasEnoghRooms()
+    /**
+     * Check if the distribution has enough rooms for the request
+     * totalRoomsNeededByPax * nights <= totalRoomsAvailable
+     * @return bool
+     * example: 2 rooms for 2 nights = 4, 4 rooms available = true
+     * example: 2 rooms for 2 nights = 4, 3 rooms available = false
+     */
+    public function hasEnoughRooms()
     {
-        return ($this->totalRoomsNeededByPax <= $this->totalRoomsAvailable);
+        return (($this->totalRoomsNeededByPax * $this->request['nights']) <= $this->totalRoomsAvailable);
     }
 
     public function formatPrice(int $price)

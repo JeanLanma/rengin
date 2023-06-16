@@ -65,7 +65,6 @@ class Booking {
             ];
 
         });
-
         return $distributionResult;
     }
 
@@ -96,6 +95,7 @@ class Booking {
             'canBeBooked' => $canBeBooked,
             'roomTypeId' => $r->room_id,
             'availability' => $r->availability,
+            'total_availability_for_period' => $roomDistribution->sum('availability'),
             'price' => $price,
             'price_string' => $this->formatPrice($price),
             'nights' => $nights,
