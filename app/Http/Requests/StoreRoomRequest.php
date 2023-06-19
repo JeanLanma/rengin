@@ -34,6 +34,7 @@ class StoreRoomRequest extends FormRequest
             'base_capacity' => ['required', 'numeric'],
             'max_capacity' => ['required', 'numeric'],
             'base_price' => ['required', 'numeric', 'min:0'],
+            'extra_person_price' => ['nullable', 'numeric', 'min:0'],
         ];
     }
 

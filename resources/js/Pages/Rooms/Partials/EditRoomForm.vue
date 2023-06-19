@@ -24,6 +24,7 @@ const form = useForm({
     max_capacity: props.room.max_capacity.toString(),
     base_price: props.room.base_price.toString(),
     cover: null,
+    extra_person_price: props.room.extra_person_price,
 });
 
 const photoPreview = ref(null);
@@ -209,6 +210,20 @@ console.log(props.room);
                 />
                 <InputError :message="form.errors.max_capacity" class="mt-2" />
             </div>
+            <!-- Extra person price -->
+            <br class="hidden sm:block">
+            <div class="col-span-6 sm:col-span-2">
+                <InputLabel for="extra_person_price" value="Precio por persona extra" />
+                <TextInput
+                    id="extra_person_price"
+                    v-model="form.extra_person_price"
+                    type="text"
+                    class="mt-1 block w-full"
+                    autocomplete="extra_person_price"
+                />
+                <InputError :message="form.errors.extra_person_price" class="mt-2" />
+            </div>
+            <br class="hidden sm:block">
             <!-- Description -->
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="description" value="Descripción" />
