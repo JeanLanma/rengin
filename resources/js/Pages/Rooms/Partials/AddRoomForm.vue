@@ -217,9 +217,6 @@ const clearPhotoFileInput = () => {
                 />
                 <InputError :message="form.errors.base_price" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-4">
-                <FormNumberInput />
-            </div>
         </template>
 
         <template #actions>
