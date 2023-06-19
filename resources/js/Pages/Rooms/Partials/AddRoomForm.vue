@@ -10,7 +10,6 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import Dropzone from '@/Pages/Rooms/Partials/Dropzone.vue';
 import Tooltip from '@/Components/Tooltip.vue';
-import FormNumberInput from '@/Shared/FormNumberInput.vue';
 
 const props = defineProps({
     user: Object,
@@ -25,6 +24,7 @@ const form = useForm({
     max_capacity: '',
     base_price: '0.00',
     cover: '',
+    extra_person_price: '0.00',
 });
 
 const photoPreview = ref(null);
@@ -217,6 +217,20 @@ const clearPhotoFileInput = () => {
                 />
                 <InputError :message="form.errors.base_price" class="mt-2" />
             </div>
+                        <!-- Extra person price -->
+                        <br class="hidden sm:block">
+            <div class="col-span-6 sm:col-span-2">
+                <InputLabel for="extra_person_price" value="Precio por persona extra" />
+                <TextInput
+                    id="extra_person_price"
+                    v-model="form.extra_person_price"
+                    type="text"
+                    class="mt-1 block w-full"
+                    autocomplete="extra_person_price"
+                />
+                <InputError :message="form.errors.extra_person_price" class="mt-2" />
+            </div>
+            <br class="hidden sm:block">
         </template>
 
         <template #actions>

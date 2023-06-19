@@ -33,7 +33,7 @@ class BookingStore {
 
     public function insertBooking($data,GuestModel $guest, $summary)
     {
-        $folio = $this->generateBookingFolio($data['room_type_id'], $guest->id, $data['checkin'], $data['checkout'], $data['rooms']);
+        $folio = $this->generateBookingFolio($data['room_type_id'], $guest->id, $data['checkin'], $data['nights'], $data['rooms']);
         return BookingModel::create([
             'room_id' => $data['room_type_id'],
             'guest_id' => $guest->id,
@@ -72,8 +72,8 @@ class BookingStore {
         return $this->distribution->decrementAvailability($roomId, $data);
     }
 
-    public function generateBookingFolio($roomId, $guestId, $startDate, $endDate, $rooms) {
-        $folio = 'HCP'. $roomId . '-' . $guestId . '-' . $rooms . '-' . strtotime($startDate) . '-' . strtotime($endDate) . '-' . rand(1000, 9999);
+    public function generateBookingFolio($roomId, $guestId, $startDate, $nights, $rooms) {
+        $folio = 'HCP-R'. $roomId . 'G' . $guestId . 'Q' . $rooms . '-' . strtotime($startDate) . 'N' . $nights . '-' . rand(1000, 9999);
         return $folio;
     }
 
