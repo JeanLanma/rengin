@@ -13,6 +13,7 @@ class BookingSummary {
     public $municipal;
     public $taxes;
 
+    private $cleanPrice;
     private $subtotalPrice;
     private $totalPrice;
     private $extraPersonPrice;
@@ -47,7 +48,8 @@ class BookingSummary {
     public function getSummary()
     {
 
-        $this->subtotalPrice = $this->calculateSubtotalPrice();
+        $this->cleanPrice = $this->calculateSubtotalPrice();
+        $this->subtotalPrice = $this->addExtraPersonPriceTo($this->calculateSubtotalPrice());
         $this->totalPrice = $this->calculateTotalPrice();
 
         return [
@@ -66,6 +68,8 @@ class BookingSummary {
             'total_price' => $this->totalPrice,
             'subtotal_price' => $this->subtotalPrice,
             'taxed_price_string' => $this->formatPrice($this->calculateTaxPrice()),
+            'clean_price' => $this->cleanPrice,
+            'clean_price_string' => $this->formatPrice($this->cleanPrice),
             'taxes' => [
                 'iva' => $this->iva,
                 'municipal' => $this->municipal,
@@ -89,7 +93,8 @@ class BookingSummary {
     */
     public function beforeTaxes()
     {
-        return $this->subtotalPrice;
+        $beforeTaxes = $this->subtotalPrice;
+        return $beforeTaxes;
     }
 
     public function getItemized(){
@@ -140,8 +145,7 @@ class BookingSummary {
 
     public function addExtraPersonPriceTo($price)
     {
-        $extraPersonPrice = $this->extraPersonPrice;
-        return $extraPersonPrice += $price;
+        return $price += $this->extraPersonPrice;
     }
 
     // setters

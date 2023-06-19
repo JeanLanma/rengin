@@ -127,7 +127,7 @@ const successAlert = (SuccessConent = null) => {
 };
 const errorAlert = (errorContent = null) => {
     const defaultContent = {
-        title: '¡Sin habitaciones disponibles!',
+        title: 'Habitaciones no disponibles',
         text: 'Lo sentimos, por el momento ya no hay habitaciones disponibles para las fechas seleccionadas. Por favor comunícate directamente con nosotros al 333 614 0223 .',
         imageUrl: '/assets/logo.png',
         imageWidth: 240,
@@ -211,9 +211,9 @@ const errorAlert = (errorContent = null) => {
                             
                             <p class="flex justify-between mb-2">
                                 <span>Subtotal:</span>
-                                <span class="font-bold">{{ props.summary.subtotal_price_string }}</span>
+                                <span class="font-bold">{{ props.summary.clean_price_string }}</span>
                             </p>
-                            <p class="flex justify-between mb-2">
+                            <p v-if="props.summary.extra_person_price > 0" class="flex justify-between mb-2">
                                 <span>Costo por persona(s) extra:</span>
                                 <span class="font-bold">{{ props.summary.extra_person_price_string }}</span>
                             </p>
