@@ -1,6 +1,7 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
+import { useFloating } from '@floating-ui/vue'
 import Swal from 'sweetalert2';
 import Dropdown from '@/Shared/Dropdown.vue';
 import DropdownItem from '@/Shared/DropdownItem.vue';
@@ -87,6 +88,7 @@ const AddInternalReferenceBooking = (data, booking) => {
     }).then((result) => {
     if (result.isConfirmed) {
         console.log(result.value);
+        router.visit(route('bookings.index', props.queryFilters));
         Swal.fire({
         title: `La referencia ha sido agregada correctamente`,
         icon: 'success',
@@ -140,7 +142,7 @@ onMounted(() => {
     // console.clear();
     // Pagination
     // console.log(paginationData.value);
-    // console.log(props.bookings);
+    console.log(props.bookings);
     // Query Params
     // console.log(props.queryFilters);
 });
@@ -159,7 +161,7 @@ onMounted(() => {
 
 
             </div>
-            <Dropdown :title="translateFilter(props.queryFilters.status) ?? 'Pendientes'">
+            <Dropdown :title="'Reservaciones ' + translateFilter(props.queryFilters.status) ?? 'Pendientes'">
                 <DropdownItem>
                     <Link :href="useFilters({status: 'pending'}, props.queryFilters)" :only="['bookings', 'queryFilters']">Pendientes</Link>
                 </DropdownItem>
@@ -184,6 +186,7 @@ onMounted(() => {
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Habitación</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Precio</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Creada el</th>
+                            <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Ref. interna</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-right text-gray-500 dark:text-gray-400">			          
                                 <svg
                                 class="w-6 text-right fill-current text-grey-dark"
@@ -214,8 +217,11 @@ onMounted(() => {
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.total_price_formatted }}</td>
 
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.created_at.split('T')[0] }}</td>
+
+                            <td @click="AddInternalReferenceBooking({id: booking.id}, booking)" v-if="booking.internal_reference && booking.internal_reference != ''" class="font-bold lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking?.internal_reference}}</td>
+                            <td @click="AddInternalReferenceBooking({id: booking.id}, booking)" v-else class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700 underline text-sky-500">Agregar</td>
                             
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><p @click="AddInternalReferenceBooking({id: booking.id}, booking)" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Acciones</p></td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><p class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver reserva</p></td>
 
                         </tr>
 
