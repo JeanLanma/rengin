@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const props = defineProps({
     title: {
@@ -8,10 +8,23 @@ const props = defineProps({
         default: 'Dropdown',
         required: false,
     }
-})
-
+});
 
 const isOpen = ref(false);
+
+onMounted(() => {
+    document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside);
+});
+
+const handleClickOutside = (event) => {
+    if (!event.target.closest('.relative')) {
+        isOpen.value = false;
+    }
+}
 
 </script>
 

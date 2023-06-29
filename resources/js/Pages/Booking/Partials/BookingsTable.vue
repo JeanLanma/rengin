@@ -1,7 +1,6 @@
 <script setup>
 import { Link, router } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
-import { useFloating } from '@floating-ui/vue'
 import Swal from 'sweetalert2';
 import Dropdown from '@/Shared/Dropdown.vue';
 import DropdownItem from '@/Shared/DropdownItem.vue';
@@ -184,7 +183,7 @@ onMounted(() => {
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Check-In</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Check-Out</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Habitación</th>
-                            <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Precio</th>
+                            <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Total</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Creada el</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-left text-gray-500 dark:text-gray-400">Ref. interna</th>
                             <th class="lg:px-4 px-6 lg:py-3.5 py-6 font-bold text-right text-gray-500 dark:text-gray-400">			          
@@ -214,34 +213,36 @@ onMounted(() => {
 
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.room.type }}<span class="text-xs text-gray-500/40 dark:text-gray-300/25"> x{{booking.number_of_rooms}}</span><br>{{ booking.room.name }}</td>
 
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.total_price_formatted }}</td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-green-500 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.total_price_formatted }}</td>
 
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking.created_at.split('T')[0] }}</td>
 
                             <td @click="AddInternalReferenceBooking({id: booking.id}, booking)" v-if="booking.internal_reference && booking.internal_reference != ''" class="font-bold lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">{{ booking?.internal_reference}}</td>
                             <td @click="AddInternalReferenceBooking({id: booking.id}, booking)" v-else class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700 underline text-sky-500">Agregar</td>
                             
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><p class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver reserva</p></td>
+                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700">
+
+                                <div class="flex gap-2">
+                                    <div class="w-5 mr-2 transform hover:text-indigo-500 hover:scale-110">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                    </div>
+                                    <div class="w-5 mr-2 transform hover:text-indigo-500 hover:scale-110">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </td>
 
                         </tr>
 
                         <tr v-else class="dark:hover:bg-gray-600 hover:bg-gray-100">
 
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-base font-bold text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
-
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
-
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
-
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
-
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
-
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
-
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"></td>
-                            
-                            <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-sm text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"><a href="#" class="text-sky-600 dark:text-white hover:text-sky-700 hover:dark:text-gray-200 underline">Ver detalles</a></td>
+                            <td colspan="9" class="lg:px-4 px-6 lg:py-4 py-6 lg:text-base font-bold text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700 text-center">Sin datos disponibles</td>
 
                         </tr>
 
@@ -259,15 +260,9 @@ onMounted(() => {
                             <button innerText="Previo" ></button>
                         </Link>
                         
-                        <!-- <Link v-if="false" v-for="link in paginationData.previusLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
-                            <button :innerText="link.label"></button>
-                        </Link> -->
                         <Link aria-disabled="true" disabled href="#" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 text-center flex justify-center items-center" preserveScroll>
                             <button :innerText="`pag. ${props.bookings.current_page}`"></button>
                         </Link>
-                        <!-- <Link v-if="false" v-for="link in paginationData.nextLinks" :href="link.url" as="button" class="min-w-auto h-10 bg-sky-500 dark:bg-sky-500/50  p-2 rounded-none hover:bg-sky-700 text-white font-semibold  hover:flex-grow transition-all duration-200 ease-in-out border-2 border-x-sky-300 text-center flex justify-center items-center" preserveScroll>
-                            <button :innerText="link.label"></button>
-                        </Link> -->
 
                         <Link :disabled="props.bookings.next_page_url == null" as="button" :href="props.bookings.next_page_url + '&' + convertFiltersToQueryString(props.queryFilters) ?? '#'" class="min-w-auto w-32 h-10 bg-sky-500 dark:bg-sky-500/50 p-2 rounded-r-xl hover:bg-sky-700 text-white font-semibold transition-all duration-200 ease-in-out overflow-hidden border-y-2 border-r-2 flex justify-center items-center" preserveScroll>
                             <button innerText="Siguiente"></button>
