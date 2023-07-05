@@ -12,6 +12,7 @@ use App\Repository\Booking\BookingGet;
 use App\Services\SendEmailService;
 use App\Http\Requests\Booking\StoreBookingRequest;
 use App\Models\Booking as ModelsBooking;
+use App\Repository\Users\User;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -28,9 +29,11 @@ class BookingController extends Controller
         ]);
     }
 
-    public function show()
+    public function show(BookingGet $BookingGet, $booking)
     {
-        return inertia('Booking/Show');
+        return inertia('Booking/Show',[
+            'booking' => $BookingGet->getBookingById($booking),
+        ]);
     }
 
     public function booking( Booking $booking )

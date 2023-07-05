@@ -1,4 +1,5 @@
 <script setup>
+// TREAD
 import UserDetails from '@/Pages/User/Partials/UserDetails.vue';
 import BreadCrumbArrow from '@/Shared/BreadCrumbArrow.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';

@@ -7,6 +7,11 @@ use App\Models\Booking as BookingModel;
 
 class BookingGet {
 
+    public function getBookingById (int $id)
+    {
+        return BookingModel::with('guest')->with('room')->findOrFail($id);
+    }
+
     public function getBookings(int $limit = 10) : object
     {
         return BookingModel::with('guest')->with('room')->paginate($limit);

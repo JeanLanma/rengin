@@ -37,7 +37,7 @@ Route::middleware([
 
 Route::get('/bookings', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('bookings.index');
 
-Route::get('/bookings/show', [App\Http\Controllers\Booking\BookingController::class, 'show'])->name('bookings.show');
+Route::get('/bookings/show/{booking}', [App\Http\Controllers\Booking\BookingController::class, 'show'])->name('bookings.show');
 
 Route::get('/bookings/reference/{booking}/{reference}', [App\Http\Controllers\Booking\BookingController::class, 'reference'])->name('bookings.reference');
 

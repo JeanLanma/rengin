@@ -1,8 +1,10 @@
 <script setup>
+import BookingDetails from '@/Pages/Booking/Partials/BookingDetails.vue';
+import BreadCrumbArrow from '@/Shared/BreadCrumbArrow.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import BookingsTable from '@/Pages/Booking/Partials/BookingsTable.vue';
+import { Link } from '@inertiajs/vue3';
 const props = defineProps({
-    bookings: {
+    booking: {
         type: Object,
         required: true,
     },
@@ -10,17 +12,19 @@ const props = defineProps({
 </script>
 
 <template>
-    <AppLayout title="Usuarios">
+    <AppLayout title="Reservación">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Usuarios
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"> 
+                <Link :href="route('users.index')"><span class="hover:underline">Reservaciones</span></Link>
+                <BreadCrumbArrow /> 
+                Ver detalle
             </h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                    <BookingsTable :bookings="props.bookings"/>
+                    <BookingDetails :booking="props.booking"/>
                 </div>
             </div>
         </div>

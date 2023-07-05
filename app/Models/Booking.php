@@ -56,7 +56,7 @@ class Booking extends Model
     protected function checkInFormatted(): Attribute
     {
         return Attribute::make(
-            get: fn () => ucfirst(Carbon::parse($this->check_in)->isoFormat('ddd D [de] MMMM [de] YYYY'))
+            get: fn () => ucfirst(Carbon::parse($this->check_in)->isoFormat('ddd D [de] MMMM, YYYY'))
         );
     }
     /**
@@ -65,7 +65,7 @@ class Booking extends Model
     protected function checkOutFormatted(): Attribute
     {
         return Attribute::make(
-            get: fn () => ucfirst(Carbon::parse($this->check_out)->isoFormat('ddd D [de] MMMM [de] YYYY'))
+            get: fn () => ucfirst(Carbon::parse($this->check_out)->isoFormat('ddd D [de] MMMM, YYYY'))
         );
     }
 
