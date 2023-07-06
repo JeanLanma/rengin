@@ -40,7 +40,13 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
                 'booking' => fn () => $request->session()->get('booking'),
-            ]
+            ],
+            'rengin' => $request->user() 
+                ? ['user' => [
+                    'is_admin' => $request->user()->hasRole('admin'),
+                    'is_manager' => $request->user()->hasRole('manager'),
+                ]]
+                : null,
         ]);
     }
 }

@@ -64,132 +64,78 @@ const BookingStatus = {
     <div>
         <div class="p-3 py-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
 
+            <!-- Header -->
             <div class="flex justify-between items-center mb-8">
             
-                <h1 class="text-2xl font-medium text-gray-900 dark:text-white mb-4">
-                    Reservación de {{ props.booking.guest.full_name }}
+                <h1 class="text-2xl text-gray-700 dark:text-white">
+                    Reservación de <span class="font-bold">{{ props.booking.guest.full_name }}</span>
+                    <div>
+                        <span
+                        @click="setStatus(props.booking.id, 1)"
+                        :class="hasStatus(BookingStatus.confirmed) 
+                            ? 'inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600 cursor-pointer' 
+                            : 'hidden'"
+                        
+                        >
+                        Confirmada
+                        </span>
+                        <span
+                        @click="setStatus(props.booking.id, 2)"
+                        :class="hasStatus(BookingStatus.pending)
+                        ? 'inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600 cursor-pointer'
+                        : 'hidden'"
+                        >
+                        Pendiente
+                        </span>
+                        <span
+                        @click="setStatus(props.booking.id, 3)"
+                        :class="hasStatus(BookingStatus.canceled)
+                        ? 'inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600 cursor-pointer'  
+                        : 'hidden'"
+                        >
+                        Cancelada
+                        </span>
+                    </div>
                 </h1>
 
-                <Link method="DELETE" as="button" :href="route('users.delete', {user: props.booking.id})">
+                <Link class="hidden" as="button" href="#">
                     <ActionButton as="danger">
                         Eliminar
                     </ActionButton>
                 </Link>
             </div>
 
-            <div>
-                <h2 class="text-xl font-medium text-gray-900 dark:text-white">
-                    Folio: {{ props.booking.folio }}
-                </h2>
+            <div class="p-4 lg:p-2">
+
+                <h4 class="text-xl dark:text-white text-gray-700 font-bold">Resumen</h4>
+                <ul class="mt-2 dark:text-gray-100 text-gray-700">
+                    <li class="flex border-y dark:border-y-white/20 py-3">
+                        <span class="font-bold w-24">Habitación:</span>
+                        <span class="dark:text-gray-300 text-gray-600"><span class="text-xs"> x{{ props.booking.number_of_rooms }}</span> - {{ props.booking.room.name }}<span class="text-xs"> ({{ props.booking.room.type }})</span></span>
+                    </li>
+                    <li class="flex border-b dark:border-y-white/20 py-3">
+                        <span class="font-bold w-24">Huepedes:</span>
+                        <span :title="`Adultos ${props.booking.adults}, Niños ${props.booking.children}, Infantes ${props.booking.children}`" class="dark:text-gray-300 text-gray-600">{{ props.booking.adults }}-{{ props.booking.children }}-{{ props.booking.infants }}</span>
+                    </li>
+                    <li class="flex border-y dark:border-y-white/20 py-3">
+                        <span class="font-bold w-24">Check in:</span>
+                        <span class="dark:text-gray-300 text-gray-600">{{ props.booking.check_in_formatted }}</span>
+                    </li>
+                    <li class="flex border-b dark:border-y-white/20 py-3">
+                        <span class="font-bold w-24">Check out:</span>
+                        <span class="dark:text-gray-300 text-gray-600">{{ props.booking.check_out_formatted }}</span>
+                    </li>
+                    <li class="flex border-b dark:border-y-white/20 py-3">
+                        <span class="font-bold w-24">Subtotal:</span>
+                        <span class="dark:text-gray-300 text-gray-600">{{ props.booking.subtotal_price_formatted }}</span>
+                    </li>
+                    <li class="flex border-b dark:border-y-white/20 py-3">
+                        <span class="font-bold w-24">Total:</span>
+                        <span class="dark:text-gray-300 text-gray-600">{{ props.booking.total_price_formatted }}</span>
+                    </li>
+                </ul>
+            
             </div>
-
-            <!-- Resumen -->
-            <div>
-                <div class="mb-4">
-                    <h2 class="dark:text-white text-gray-600 text-xl font-bold">
-                        Resumen
-                    </h2>
-                </div>
-                <div class="dark:text-white text-gray-600 py-6 px-3 lg:px-12 overflow-auto border border-gray-200 dark:border-gray-700 rounded-lg">
-
-                    <div class="flex gap-x-4 flex-wrap text-xl">
-                        <div class="font-bold text-xl">Check in:</div>
-                        <div class="">{{ props.booking.check_in }}</div>
-                        <div class="font-bold text-xl">Check out:</div>
-                        <div class="">{{ props.booking.check_out }}</div>
-                    </div>
-
-                    <div class="w-full lg:h-4 h-12"></div>
-
-                    <div class="flex gap-x-4 flex-wrap text-xl">
-                        <div class="font-bold text-xl">Subtotal:</div>
-                        <div class="">{{ props.booking.subtotal_price_formatted }}</div>
-                    </div>
-
-                    <div class="w-full lg:h-4 h-12"></div>
-
-                    <div class="flex gap-x-4 flex-wrap text-xl">
-                        <div class="font-bold text-xl">Total:</div>
-                        <div class="">{{ props.booking.total_price_formatted }}</div>
-                    </div>
-
-                    <div class="w-full lg:h-4 h-12"></div>
-                    
-                    <div class="flex gap-x-16 flex-wrap text-xl">
-                        <div class="font-bold text-xl">Estatus</div>
-                        <div>          
-                            <div class="flex gap-2">
-                                <span
-                                @click="setStatus(props.booking.id, 1)"
-                                :class="hasStatus(BookingStatus.confirmed) 
-                                    ? 'bg-yellow-cta text-white border border-yellow-cta-acent inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold cursor-pointer' 
-                                    : 'inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600 cursor-pointer'"
-                                
-                                >
-                                Confirmada
-                                </span>
-                                <span
-                                @click="setStatus(props.booking.id, 2)"
-                                :class="hasStatus(BookingStatus.pending)
-                                ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white cursor-pointer'
-                                : 'inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600 cursor-pointer'"
-                                >
-                                Pendiente
-                                </span>
-                                <span
-                                @click="setStatus(props.booking.id, 3)"
-                                :class="hasStatus(BookingStatus.canceled)
-                                ? 'inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-yellow-cta text-white cursor-pointer'  
-                                : 'inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600 cursor-pointer'"
-                                >
-                                Cancelada
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Habitacion -->
-            <div class="mt-8">
-                <div class="mb-4">
-                    <h2 class="dark:text-white text-gray-600 text-xl font-bold">
-                        Habitación
-                    </h2>
-                </div>
-                <div class="dark:text-white text-gray-600 py-6 px-3 lg:px-12 overflow-auto border border-gray-200 dark:border-gray-700 rounded-lg">
-
-                    
-                    <div class="flex gap-x-4 flex-wrap text-xl">
-                        <div class="font-bold text-xl">Codigo de habitación</div>
-                        <div class="">{{ props.booking.room.type }}</div>
-                    </div>
-
-                    <div class="w-full lg:h-4 h-12"></div>
-
-                    <div class="flex gap-x-4 flex-wrap text-xl">
-                        <div class="font-bold text-xl">Adultos:</div>
-                        <div class="">{{ props.booking.adults }}</div>
-                        <div class="font-bold text-xl">Niños:</div>
-                        <div class="">{{ props.booking.children }}</div>
-                        <div class="font-bold text-xl">Infantes:</div>
-                        <div class="">{{ props.booking.infants }}</div>
-                    </div>
-
-                    <div class="w-full lg:h-4 h-12"></div>
-
-                    <div class="flex gap-x-4 flex-wrap text-xl">
-                        <div class="font-bold text-xl">Noches:</div>
-                        <div class="">{{ props.booking.nights }}</div>
-                    </div>
-
-                    <div class="w-full lg:h-4 h-12"></div>
-
-                </div>
-            </div>
-
-
             
         </div>
 
