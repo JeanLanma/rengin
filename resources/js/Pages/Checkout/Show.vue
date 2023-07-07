@@ -3,7 +3,7 @@ import BookingLayout from '@/Layouts/BookingLayout.vue';
 import CTAButton from '@/Shared/CTAButton.vue';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { onMounted } from 'vue';
-import { usePage, useForm } from '@inertiajs/vue3';
+import { usePage, useForm, Link } from '@inertiajs/vue3';
 import ErrorForm from '@/Shared/ErrorForm.vue';
 import Swal from 'sweetalert2';
 
@@ -38,16 +38,21 @@ const form = useForm({
         "last_name": null,
         "email": null,
         "phone": null
-    }
+    },
+    "terms": null,
 })
 
 const makeBooking = () => {
 
+    if(!form.terms){
+        termsCheckAlert();
+        return;
+    }
+
     form.post(route('direct-booking.store'), {
         preserveScroll: true,
         onSuccess: (response) => {
-            console.clear();
-            console.log(usePage());
+
             if(usePage().props.flash.booking != null){
                 const success = usePage().props.flash.booking;
                 const defaultContent = {
@@ -78,7 +83,7 @@ const makeBooking = () => {
 }
 
 onMounted(() => {
-    console.log(props.summary);
+    
     if(!props.summary.has_enough_rooms){
         errorAlert().then((result) => {
             if (result.isConfirmed) {
@@ -140,7 +145,25 @@ const errorAlert = (errorContent = null) => {
     const content = errorContent ? errorContent : defaultContent;
     return Swal.fire(content);
 };
+const termsCheckAlert = () => {
 
+    form.setError('terms', 'Por favor acepte los términos y condiciones.');
+
+    Swal.fire({
+    title: 'Términos y condiciones',
+    html: 'Por favor acepte los <a href="'+route('direct-booking.policies')+'" target="_blank" class="text-blue-500">términos y condiciones</a>.',
+    timer: 1500,
+    timerProgressBar: true
+    })
+
+    setTimeout(() => {
+        clearTermsError();
+    }, 5000)
+}
+
+const clearTermsError = () => {
+    if(form.errors.terms) form.clearErrors('terms');
+}
 </script>
 
 <template>
@@ -383,6 +406,13 @@ const errorAlert = (errorContent = null) => {
                                 <ErrorForm :error="form.errors['booking.card_cvc']" />
                             </div>
 
+                        </div>
+
+                        <div>
+                            <div class="flex items-center mt-4">
+                                <input @click="() => clearTermsError()" v-model="form.terms" id="terms-check" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="terms-check" class="ml-2 text-sm font-medium text-gray-300" :class="{ 'text-red-500': form.errors.terms }">He leido y acepto la <a :href="route('direct-booking.policies')" class="hover:text-yellow-cta text-yellow-cta-acent" target="_blank">Política de privacidad, reservaciones y protección de datos personales</a>.</label>
+                            </div>
                         </div>
 
                         <div>
