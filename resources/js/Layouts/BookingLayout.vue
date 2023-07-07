@@ -39,6 +39,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('booking')" :active="route().current('booking')">
                                     Reservar
                                 </NavLink>
+                                <NavLink :href="route('direct-booking.policies')" :active="route().current('direct-booking.policies')">
+                                    Politicas
+                                </NavLink>
                             </div>
                         </div>
 
@@ -76,6 +79,9 @@ const showingNavigationDropdown = ref(false);
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('booking')" :active="route().current('booking')">
                             Reservar
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('direct-booking.policies')" :active="route().current('direct-booking.policies')">
+                            Politicas
                         </ResponsiveNavLink>
                     </div>
 

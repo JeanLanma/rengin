@@ -22,7 +22,7 @@ Route::get('/direct-booking/checkout', [App\Http\Controllers\Booking\BookingCont
 
 Route::post('/direct-booking/checkout', [App\Http\Controllers\Booking\BookingController::class, 'store'])->name('direct-booking.store');
 
-Route::match(['get', 'post'], '/nd/direct-booking/checkout', [App\Http\Controllers\Booking\BookingController::class, 'ndstore'])->name('nd.direct-booking.store');
+Route::get('/direct-booking/policies', [App\Http\Controllers\Booking\BookingPoliciesController::class, 'index'])->name('direct-booking.policies');
 
 Route::middleware([
     'auth:sanctum',
