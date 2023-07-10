@@ -66,7 +66,7 @@ const makeBooking = () => {
                     confirmButtonColor: '#0ea5e9',
                 }
                 successAlert(defaultContent).then((result) => {
-                    if (result.isConfirmed) {
+                    if (result.isConfirmed || result.isDismissed) {
                         window.location.replace(route('booking'));
                     }
                 });
