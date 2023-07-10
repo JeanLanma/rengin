@@ -40,7 +40,7 @@ import { Link } from '@inertiajs/vue3';
                                         al cliente a quien sea el usuario de los servicios y de la plataforma conocida como
                                         <a class="hover:text-[#5E6C2C] text-[#839226]" href="http://www.hotelcasinoplaza.mx/">
                                             www.hotelcasinoplaza.mx
-                                        </a>
+                                        </a> y a la plataforma de reservaciones en línea conocida como rengin.pcbtroniks.com.
                                     </p>
                                 </div>
 
