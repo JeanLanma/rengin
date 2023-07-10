@@ -52,7 +52,7 @@ const makeBooking = () => {
     form.post(route('direct-booking.store'), {
         preserveScroll: true,
         onSuccess: (response) => {
-
+            form.reset();
             if(usePage().props.flash.booking != null){
                 const success = usePage().props.flash.booking;
                 const defaultContent = {
@@ -416,7 +416,7 @@ const clearTermsError = () => {
                         </div>
 
                         <div>
-                            <CTAButton class="w-full font-bold bg-yellow-cta hover:bg-yellow-cta-acent text-white" type="submit">Reservar ahora</CTAButton>
+                            <CTAButton class="w-full font-bold bg-yellow-cta hover:bg-yellow-cta-acent text-white" type="submit" :disabled="form.processing">Reservar ahora</CTAButton>
                         </div>
 
                     </form>
