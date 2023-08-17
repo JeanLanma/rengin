@@ -1,8 +1,8 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm.vue';
 import SectionBorder from '@/Components/SectionBorder.vue';
 import EditRoomForm from '@/Pages/Rooms/Partials/EditRoomForm.vue';
+import UploadRoomImageForm from './Partials/UploadRoomImageForm.vue';
 
 
 const props = defineProps({
@@ -30,9 +30,9 @@ const props = defineProps({
                     <SectionBorder />
                 </div>
 
-                <template v-if="false">
+                <template v-if="$page.props.jetstream.canUpdateProfileInformation">
 
-                    <DeleteUserForm class="mt-10 sm:mt-0" />
+                    <UploadRoomImageForm />
                 </template>
             </div>
         </div>
