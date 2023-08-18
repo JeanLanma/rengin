@@ -2,6 +2,7 @@
 
 namespace App\Repository\Rooms;
 
+use App\Models\Room as RoomModel;
 use App\Repository\Distribution\Distribution;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +16,7 @@ class Room {
 
     public function find($id)
     {
-        return DB::table('rooms')->where('id', $id)->first() ?? abort(404);
+        return RoomModel::with('gallery')->find($id);
     }
 
     public static function getPaginate($limit = 5)

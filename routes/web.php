@@ -99,3 +99,8 @@ Route::get('/booking', [App\Http\Controllers\Booking\BookingController::class, '
 Route::get('/booking/show/', [App\Http\Controllers\Booking\BookingController::class, 'show'])->name('booking.show');
 
 
+// Uploads
+
+Route::post('/upload-image', [App\Http\Controllers\Upload\UploadImageController::class, 'uploadImage'])->name('upload.image');
+
+Route::delete('/delete-image/{image_id}', [App\Http\Controllers\Upload\UploadImageController::class, 'deleteImage'])->name('delete.image');

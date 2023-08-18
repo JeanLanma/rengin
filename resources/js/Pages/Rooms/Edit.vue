@@ -32,7 +32,7 @@ const props = defineProps({
 
                 <template v-if="$page.props.jetstream.canUpdateProfileInformation">
 
-                    <UploadRoomImageForm />
+                    <UploadRoomImageForm :room="room"/>
                 </template>
             </div>
         </div>
