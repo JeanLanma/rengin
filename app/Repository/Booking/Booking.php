@@ -26,7 +26,8 @@ class Booking {
             ->whereBetween('date', $dates)
             ->where('status', 'available')
             ->leftJoin('rooms as room', 'dis.room_id', '=', 'room.id')
-            ->get(['dis.room_id','dis.date', 'dis.availability', 'dis.price', 'dis.status', 'room.name', 'room.type', 'room.description', 'room.cover', 'room.base_capacity', 'room.max_capacity', 'room.extra_person_price']);
+            ->leftJoin('images as gallery', 'room.id', '=', 'gallery.gallery_id')
+            ->get(['dis.room_id','dis.date', 'dis.availability', 'dis.price', 'dis.status', 'room.name', 'room.type', 'room.description', 'room.cover', 'room.base_capacity', 'room.max_capacity', 'room.extra_person_price', 'gallery.image_src']);
 
         $distributionResult = [];
 
@@ -37,6 +38,10 @@ class Booking {
             $r = $roomDistribution->first();
             $price = 0;
             $itemizedPrice = [];
+            $gallery = array();
+            if(!in_array($roomDistribution->pluck('image_src'), $gallery)){
+                $gallery[] = $roomDistribution->pluck('image_src');
+            }
             if($canBeBooked){
                 $items = $this->getComputedPriceItemized($roomDistribution, $nights);
                 $price = $items['total'];
@@ -54,7 +59,6 @@ class Booking {
                 'nights' => $nights,
                 'itemized_price' => $itemizedPrice,
                 'room' => [
-                    // 'id' => $r->room_id,
                     'name' => $r->name,
                     'type' => $r->type,
                     'description' => $r->description,
@@ -62,11 +66,12 @@ class Booking {
                     'baseCapacity' => $r->base_capacity,
                     'maxCapacity' => $r->max_capacity,
                     'extra_person_price' => $r->extra_person_price,
+                    'gallery' => $gallery ?? '',
                 ]
             ];
 
         });
-        return $distributionResult;
+        return response()->json($distributionResult);
     }
 
     public function getBookingRoomCheckout($data)
