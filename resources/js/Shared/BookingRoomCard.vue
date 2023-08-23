@@ -1,7 +1,11 @@
 <script setup>
 import { Taxes } from '@/utils';
-import { useForm, router } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 import { ref } from 'vue';
+
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
+import BookingRoomCardGallery from './BookingRoomCardGallery.vue';
 
 const _settings = ref(null);
 
@@ -33,9 +37,7 @@ console.log(props.room);
 <div class='flex items-center justify-center min-h-screen md:min-h-0 md:py-8 from-[#F9F5F3] via-[#F9F5F3] to-[#F9F5F3] bg-gradient-to-br px-2'>
     <div class='w-full max-w-md md:max-w-5xl xl:max-w-6xl mx-auto bg-white rounded-3xl shadow-xl transition-all duration-300 overflow-hidden' :class="props.room.canBeBooked ? ' hover:shadow-yellow-cta/25 ' : ''">
         <div class='max-w-md md:max-w-5xl xl:max-w-6xl mx-auto md:flex md:flex-row md:justify-between'>
-            <div class='h-[14.75rem] md:h-[21.25rem] md:w-2/5 bg-cover bg-center overflow-hidden'>
-                <img class="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-110" :src="props.room.room.cover" :alt="props.room.room.name">
-            </div>
+            <BookingRoomCardGallery :room="props.room.room" />
             <div class='md:h-[21.25rem] p-4 sm:p-6 md:w-3/5'>
                 <p class='font-bold text-gray-700 text-[22px] leading-7 mb-1'>{{ props.room.room.name }}</p>
                 <div v-if="room.canBeBooked" class='flex flex-row'>

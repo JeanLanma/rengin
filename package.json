@@ -22,7 +22,8 @@
         "@floating-ui/vue": "^1.0.1",
         "@vuepic/vue-datepicker": "^4.4.0",
         "luxon": "^3.3.0",
-        "sweetalert2": "^11.7.10"
+        "sweetalert2": "^11.6.13",
+        "vue3-carousel": "^0.3.1"
     },
     "imports": {
         "#utils": "./resources/js/utils"
