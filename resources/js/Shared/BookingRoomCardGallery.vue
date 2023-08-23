@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 
 
 const props = defineProps({
@@ -46,15 +46,11 @@ const handleMouseLeave = () => {
     autoScrollInterval = null;
 }
 
-onMounted(() => {
-    autoScrollInterval = setInterval(()=>{
-        nextImage();
-    }, intervalTime);
-});
+
 </script>
 
 <template>
-    <div @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" class='h-[14.75rem] md:h-[21.25rem] md:w-2/5 bg-cover bg-center overflow-hidden flex relative'>
+    <div  class='h-[14.75rem] md:h-[21.25rem] md:w-2/5 bg-cover bg-center overflow-hidden flex relative'>
             
         <span @click="nextImage" class="absolute z-50 top-1/2 -translate-y-1/2 right-0 hover:bg-white/20 cursor-pointer transition-all duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" width="70px" height="70px" viewBox="0 0 24 24" fill="none">
