@@ -26,10 +26,10 @@ const hasStatus = (status) => {
     return status == props.booking.status;
 }
 
-const setStatus = () => {
+const useModal = (title, content) => {
     showModal.value = true;
-    textModal.value.title = 'Cambiar estatus';
-    textModal.value.content = '¿Estás seguro de cambiar el estatus de esta reservación?';
+    textModal.value.title = title;
+    textModal.value.content = content;
 }
 
 onMounted(() => {
@@ -71,7 +71,6 @@ const BookingStatus = {
                     Reservación de <span class="font-bold">{{ props.booking.guest.full_name }}</span>
                     <div>
                         <span
-                        @click="setStatus(props.booking.id, 1)"
                         :class="hasStatus(BookingStatus.confirmed) 
                             ? 'inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600 cursor-pointer' 
                             : 'hidden'"
@@ -80,7 +79,6 @@ const BookingStatus = {
                         Confirmada
                         </span>
                         <span
-                        @click="setStatus(props.booking.id, 2)"
                         :class="hasStatus(BookingStatus.pending)
                         ? 'inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600 cursor-pointer'
                         : 'hidden'"
@@ -88,7 +86,6 @@ const BookingStatus = {
                         Pendiente
                         </span>
                         <span
-                        @click="setStatus(props.booking.id, 3)"
                         :class="hasStatus(BookingStatus.canceled)
                         ? 'inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-1 text-xs font-semibold text-sky-600 cursor-pointer'  
                         : 'hidden'"
@@ -98,11 +95,6 @@ const BookingStatus = {
                     </div>
                 </h1>
 
-                <Link class="hidden" as="button" href="#">
-                    <ActionButton as="danger">
-                        Eliminar
-                    </ActionButton>
-                </Link>
             </div>
 
             <div class="p-4 lg:p-2">

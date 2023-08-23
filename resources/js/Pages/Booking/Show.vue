@@ -3,6 +3,7 @@ import BookingDetails from '@/Pages/Booking/Partials/BookingDetails.vue';
 import BreadCrumbArrow from '@/Shared/BreadCrumbArrow.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3';
+import BookingSummary from './Partials/BookingSummary.vue';
 const props = defineProps({
     booking: {
         type: Object,
@@ -73,6 +74,11 @@ const props = defineProps({
                 </div>
                 </div>
 
+                <div class="h-4"></div>
+
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
+                    <BookingSummary :booking="props.booking"/>
+                </div>
             </div>
         </div>
     </AppLayout>
