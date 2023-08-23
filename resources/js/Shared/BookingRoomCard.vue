@@ -25,6 +25,7 @@ const BookRoom = () => {
         method: 'get',
     })
 }
+console.log(props.room);
 </script>
 <template>
     <!-- component -->

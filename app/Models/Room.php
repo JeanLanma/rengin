@@ -11,10 +11,6 @@ class Room extends Model
 {
     use HasFactory;
 
-    // Appends
-
-    protected $appends = ['gallery'];
-
     // Attributes
 
     public function images(): Attribute

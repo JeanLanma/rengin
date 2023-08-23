@@ -5,6 +5,7 @@ namespace App\Repository\Booking;
 use App\Enums\BookingStatus;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\GetBookingRequest;
+use App\Repository\Image\GetImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
@@ -38,10 +39,15 @@ class Booking {
             $r = $roomDistribution->first();
             $price = 0;
             $itemizedPrice = [];
-            $gallery = array();
-            if(!in_array($roomDistribution->pluck('image_src'), $gallery)){
-                $gallery[] = $roomDistribution->pluck('image_src');
-            }
+            $gallery = [
+                [
+                    'id' => null,
+                    'image_src' => $this->getCoverUrl($r->cover),
+                    'image_alt' => $r->name,
+                    'sort_order' => 0
+                ]
+            ];
+            $gallery = array_merge($gallery, GetImage::getImagesStatic(['gallery_id' => $r->room_id])->toArray());
             if($canBeBooked){
                 $items = $this->getComputedPriceItemized($roomDistribution, $nights);
                 $price = $items['total'];
@@ -71,7 +77,7 @@ class Booking {
             ];
 
         });
-        return response()->json($distributionResult);
+        return $distributionResult;
     }
 
     public function getBookingRoomCheckout($data)

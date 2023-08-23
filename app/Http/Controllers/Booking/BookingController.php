@@ -39,7 +39,7 @@ class BookingController extends Controller
     public function booking( Booking $booking )
     {
         $rooms = $booking->getAvailabilityDate(request()->all());
-        return response()->json($rooms, 200);
+
         return inertia('BookingShow/Show', [
             'settings' => request()->all(),
             'distribution' => $rooms
