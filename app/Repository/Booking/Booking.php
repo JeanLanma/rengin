@@ -155,10 +155,16 @@ class Booking {
         $acc = 0;
         $items = [];
         $prices = $price->pluck('price');
+        $room = $price->first();
         for($i = 0; $i < $nights; $i++)
         {
             $acc += $prices[$i];
-            $items[] = ['night' => $i + 1, 'price' => $prices[$i], 'string' => 'noche x'. $i + 1 .' costo $' . number_format($prices[$i], 2, '.', ','), 'price_string' => '$'.number_format($prices[$i], 2, '.', ','), 'accumulated' => '$'.number_format($acc, 2, '.', ',')];
+            $items[] = [
+                'night' => $i + 1,
+                'price' => $prices[$i],
+                'string' => 'noche x'. $i + 1 .' costo $' . number_format($prices[$i], 2, '.', ','),
+                'price_string' => '$'.number_format($prices[$i], 2, '.', ','), 'accumulated' => '$'.number_format($acc, 2, '.', ',') . (($room->first()->extra_person_price) != null && ($room->first()->extra_person_price > 0) ? 'costo por persona extra $' . number_format($room->extra_person_price, '.', ',') : '')
+            ];
         }
         return ['total' => $acc, 'items' => $items];
     }
