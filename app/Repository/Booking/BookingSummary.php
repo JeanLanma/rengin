@@ -3,8 +3,10 @@
 namespace App\Repository\Booking;
 
 use Illuminate\Support\Carbon;
+use App\Traits\NumberFormat;
 
 class BookingSummary {
+    use NumberFormat;
 
     public $distribution;
     public $request;
@@ -213,11 +215,6 @@ class BookingSummary {
     public function hasEnoughRooms()
     {
         return (($this->totalRoomsNeededByPax * $this->request['nights']) <= $this->totalRoomsAvailable);
-    }
-
-    public function formatPrice(int $price)
-    {
-        return '$' . number_format($price, 2, '.', ',');
     }
 
     /**

@@ -9,8 +9,11 @@ use App\Repository\Image\GetImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use App\Traits\NumberFormat;
 
 class Booking {
+
+    use NumberFormat;
 
     public function setBookingReference($id, $reference)
     {
@@ -124,20 +127,9 @@ class Booking {
         ];
     }
 
-    /**
-     * Format price to string "$ 10,000.00"
-     * 
-     * @param int $price
-     * @return string
-     */
-    public function formatPrice(int $price)
-    {
-        return '$ ' . number_format($price, 2, '.', ',');
-    }
-
     public static function formatPriceStatic(int $price)
     {
-        return '$ ' . number_format($price, 2, '.', ',');
+        return '$' . number_format($price, 2, '.', ',');
     }
 
     public function getComputedPrice($price, $nights)
@@ -152,18 +144,18 @@ class Booking {
     }
     public function getComputedPriceItemized($price, $nights)
     {
-        $acc = 0;
+        $acc = 0.00;
         $items = [];
         $prices = $price->pluck('price');
-        $room = $price->first();
+        $extraPersonPrice = $price->first()->extra_person_price;
         for($i = 0; $i < $nights; $i++)
         {
             $acc += $prices[$i];
             $items[] = [
                 'night' => $i + 1,
                 'price' => $prices[$i],
-                'string' => 'noche x'. $i + 1 .' costo $' . number_format($prices[$i], 2, '.', ','),
-                'price_string' => '$'.number_format($prices[$i], 2, '.', ','), 'accumulated' => '$'.number_format($acc, 2, '.', ',') . (($room->first()->extra_person_price) != null && ($room->first()->extra_person_price > 0) ? 'costo por persona extra $' . number_format($room->extra_person_price, '.', ',') : '')
+                'price_string' => '$'.number_format($prices[$i], 2, '.', ','), 'accumulated' => '$'.number_format($acc, 2, '.', ','),
+                'string' => 'noche x'. $i + 1 .' costo $' . number_format($prices[$i], 2, '.', ','). (($extraPersonPrice) != null && ($extraPersonPrice > 0) ? ' persona extra $' . number_format($extraPersonPrice, 2,'.', ',') : '')
             ];
         }
         return ['total' => $acc, 'items' => $items];

@@ -74,7 +74,20 @@ const makeBooking = () => {
         },
         onError: (error) => {
             console.log(error);
-            alert('Error al procesar la reserva, por favor intente de nuevo.');
+            let errors = '';
+            for (const err in error) {
+                errors += '- ' + error[err] + "<br/>";
+            }
+            errorAlert({
+                title: 'Error al realizar la reservación',
+                html: errors,
+                imageUrl: '/assets/logo.png',
+                imageWidth: 240,
+                imageHeight: 146,
+                imageAlt: 'Hotel Casino Plaza',
+                confirmButtonText: '¡Entendido!',
+                confirmButtonColor: '#0ea5e9',
+            })
             setTimeout(() => {
                 form.clearErrors();
             }, 9000)
@@ -132,6 +145,7 @@ const successAlert = (SuccessConent = null) => {
 };
 const errorAlert = (errorContent = null) => {
     const defaultContent = {
+        icon: 'error',
         title: 'Habitaciones no disponibles',
         text: 'Lo sentimos, por el momento ya no hay habitaciones disponibles para las fechas seleccionadas. Por favor comunícate directamente con nosotros al 333 614 0223 .',
         imageUrl: '/assets/logo.png',

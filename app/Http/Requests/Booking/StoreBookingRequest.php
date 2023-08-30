@@ -59,7 +59,10 @@ class StoreBookingRequest extends FormRequest
             // Booking Object
             'bookig.adults.min' => 'Debe seleccionar al menos un adulto',
             'bookig.adults.required' => 'Debe seleccionar al menos un adulto',
-
+            'booking.checkin.required' => 'El campo fecha de llegada es requerido',
+            'booking.checkout.required' => 'El campo fecha de salida es requerido',
+            'booking.checkin.after_or_equal' => 'La fecha de llegada debe ser mayor o igual a hoy',
+            'booking.checkout.after' => 'La fecha de salida debe ser mayor a la fecha de llegada',
             // Guest Object
             'guest.name.required' => 'El campo nombre es requerido',
             'guest.last_name.required' => 'El campo apellido es requerido',

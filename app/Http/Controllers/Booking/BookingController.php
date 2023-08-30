@@ -50,7 +50,7 @@ class BookingController extends Controller
     {        
         $room_type = $booking->getBookingRoomCheckout(request()->all());
         $summary = new BookingSummary($room_type, request()->all());
-        dd($summary);
+        // dd($summary->getSummary());
         return inertia('Checkout/Show', [
             'booking' => $booking::BookingRoomAdapter(request()->settings, $room_type),
             'summary' => $summary->getSummary()
