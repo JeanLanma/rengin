@@ -84,7 +84,7 @@ const format = ([DateStart, DateEnd]) => {
                     </div>
                     <!-- counters -->
                     <!-- <section class="flex flex-col items-end gap-2 mt-4 overflow-hidden h-0 transition duration-300 ease-in-out" ref="roomGuestsInput"> -->
-                    <section @mouseleave="showDetails = false" class="md:col-span-2 flex flex-col gap-3 w-80 xl:w-64 mt-2 p-4 rounded-md bg-white absolute origin-top-right right-4 ring-1 z-10 ring-black ring-opacity-5 focus:outline-none shadow-2xl" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" v-if="showDetails">
+                    <section @mouseleave="showDetails = false" class="md:col-span-2 flex flex-col gap-3 w-80 xl:w-64 mt-2 p-4 rounded-md bg-white absolute origin-top-right right-4 ring-1 z-50 ring-black ring-opacity-5 focus:outline-none shadow-2xl" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" v-if="showDetails">
 
                         <p class="font-bold">Seleccione las habitaciones y los huespedes</p>
                         <!-- Counter Adults -->
