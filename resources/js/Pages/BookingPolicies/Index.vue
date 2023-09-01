@@ -1,6 +1,6 @@
 <script setup>
-import ActionButton from '@/Shared/ActionButton.vue';
 import BookingLayout from '@/Layouts/BookingLayout.vue';
+import ActionButton from '@/Shared/ActionButton.vue';
 import { Link } from '@inertiajs/vue3';
 
 </script>
@@ -35,12 +35,12 @@ import { Link } from '@inertiajs/vue3';
                                 <div>
                                     <p class="text-gray-700 text-justify">
                                         La presente política de privacidad es para manejo y recolección correcta de sus datos al
-                                        realizar una reservación en el Hotel Casino Plaza y utiliza los servicios de reserva en línea.
-                                        Desde este momento se entenderá como empresa específicamente al “Hotel Casino Plaza” y
+                                        realizar una reservación en el Hotel Puerta del Sol y utiliza los servicios de reserva en línea.
+                                        Desde este momento se entenderá como empresa específicamente al “Hotel Puerta del Sol” y
                                         al cliente a quien sea el usuario de los servicios y de la plataforma conocida como
-                                        <a class="hover:text-[#5E6C2C] text-[#839226]" href="http://www.hotelcasinoplaza.mx/">
-                                            www.hotelcasinoplaza.mx
-                                        </a> y a la plataforma de reservaciones en línea conocida como rengin.pcbtroniks.com.
+                                        <a class="hover:text-[#5E6C2C] text-[#839226]" href="http://hotelpuertadelsol.com.mx//">
+                                            hotelpuertadelsol.com.mx
+                                        </a> y a la plataforma de reservaciones en línea conocida como hotelpuertadelsol.pcbtroniks.com.
                                     </p>
                                 </div>
 
@@ -53,8 +53,8 @@ import { Link } from '@inertiajs/vue3';
 
                                     <p class="mt-4 text-justify">
                                         Los datos que se recopilan en la plataforma del hotel son únicamente para la reservación de
-                                        servicios de hospedaje, y alimentos dentro del restaurante “los Alcatraces”, Hotel Casino
-                                        Plaza no maneja ningún otro servicio en esta plataforma como vuelos, transportes, lavandería
+                                        servicios de hospedaje, y alimentos dentro del restaurante bar “Flor de Azafran”, Hotel Puerta
+                                        Del Sol no maneja ningún otro servicio en esta plataforma como vuelos, transportes, lavandería
                                         y estacionamiento. Todos los demás servicios que se ven en la página son contratados bajo
                                         previo acuerdo y pago físicamente en el Hotel.
                                     </p>
@@ -106,8 +106,8 @@ import { Link } from '@inertiajs/vue3';
                                     </h2>
 
                                     <p class="mt-4 text-justify">
-                                        Los datos son solicitados con el propósito de realizar una reservación en el Hotel Casino
-                                        Plaza, son utilizados con fines informativos para brindar una excelente atención al huésped
+                                        Los datos son solicitados con el propósito de realizar una reservación en el Hotel Puerta
+                                        Del Sol, son utilizados con fines informativos para brindar una excelente atención al huésped
                                         al momento de llegar al hotel y son necesarios para poder realizar el apartado o reservación
                                         de habitación en las fechas que sean seleccionadas. 
                                     </p>
@@ -128,12 +128,12 @@ import { Link } from '@inertiajs/vue3';
                                         de mercado. Podrá recibir publicidad por parte del hotel en algún momento en formato digital
                                         como correo, mensajes y llamadas. Si en algún momento usted desea no seguir recibiendo
                                         esta publicidad podrá hacérnoslo saber a través de un correo electrónico a
-                                        <span class="hover:text-[#5E6C2C] text-[#839226]">clientes@hotelcasinoplaza.mx</span>, esto no dejará de hacer que siga viendo publicidad genérica
+                                        <span class="hover:text-[#5E6C2C] text-[#839226]">reservaciones@hotelpuertadelsol.com.mx</span>, esto no dejará de hacer que siga viendo publicidad genérica
                                         en nuestros otros canales de comunicación como Facebook, instagram, comerciales, folletos,
                                         comerciales auditivos y twitter.
 
                                         <br> <br>
-                                        Es importante hacerle saber que el Hotel Casino Plaza en todo momento de abstendrá de
+                                        Es importante hacerle saber que el Hotel Puerta del Sol en todo momento de abstendrá de
                                         vender o arrendar sus datos personales a algún tercero.
                                     </p>
                                 </div>
