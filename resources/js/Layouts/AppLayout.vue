@@ -60,9 +60,6 @@ const logout = () => {
                                 <NavLink :href="route('distribution.index')" :active="route().current('distribution.*')">
                                     Distribución
                                 </NavLink>
-                                <NavLink :href="route('users.index')" :active="route().current('users.*')">
-                                    Usuarios
-                                </NavLink>
                             </div>
                         </div>
 
@@ -147,11 +144,11 @@ const logout = () => {
                                     <template #content>
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Manage Account
+                                            Mi cuenta
                                         </div>
 
                                         <DropdownLink :href="route('profile.show')">
-                                            Profile
+                                            Perfil
                                         </DropdownLink>
 
                                         <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
@@ -160,10 +157,21 @@ const logout = () => {
 
                                         <div class="border-t border-gray-200 dark:border-gray-600" />
 
+                                        <!-- Account Management -->
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            Gestionar usuarios
+                                        </div>
+
+                                        <DropdownLink :href="route('users.index')">
+                                            Usuarios
+                                        </DropdownLink>
+    
+                                        <div class="border-t border-gray-200 dark:border-gray-600" />
+
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <DropdownLink as="button">
-                                                Log Out
+                                                Cerrar session
                                             </DropdownLink>
                                         </form>
                                     </template>
@@ -214,9 +222,6 @@ const logout = () => {
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('distribution.index')" :active="route().current('distribution.*')">
                             Distribución
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('users.index')" :active="route().current('users.*')">
-                            Usuarios
                         </ResponsiveNavLink>
                     </div>
 
