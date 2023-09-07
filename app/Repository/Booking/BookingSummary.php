@@ -19,6 +19,7 @@ class BookingSummary {
     private $subtotalPrice;
     private $totalPrice;
     private $extraPersonPrice;
+    private $extraGuests;
 
     private $totalPax;
     private $totalRoomsNeededByPax;
@@ -53,14 +54,15 @@ class BookingSummary {
         $this->cleanPrice = $this->calculateSubtotalPrice();
         $this->subtotalPrice = $this->addExtraPersonPriceTo($this->calculateSubtotalPrice());
         $this->totalPrice = $this->calculateTotalPrice();
-
         return [
             'has_enough_rooms' => $this->hasEnoughRooms(),
             'total_rooms_needed_by_pax' => $this->totalRoomsNeededByPax,
             'total_rooms_needed' => $this->totalRoomsNeeded,
             'total_rooms_available' => $this->distribution['availability'],
             'itemized' => [
-
+                'has_extra_person' => ($this->extraGuests > 0) ? true : false,
+                'number_of_extra_guests' => $this->extraGuests,
+                'itemized_price' => $this->setItemized(),
             ],
             'extra_person_price' => $this->extraPersonPrice,
             'extra_person_price_string' => $this->formatPrice($this->extraPersonPrice),
@@ -99,8 +101,18 @@ class BookingSummary {
         return $beforeTaxes;
     }
 
-    public function getItemized(){
-
+    public function setItemized(){
+        $recalculated = [];
+        if($this->extraGuests > 0){
+            foreach($this->distribution['itemized_price'] as $item){
+                
+                $itemized = $item;
+                $itemized['string'] = $item['string'] . ' mas ' . $this->extraGuests . ' persona(s)';;
+                $recalculated[] = $itemized;
+                
+            }
+        }
+        return $recalculated;
     }
 
     public function getTax(){
@@ -195,11 +207,11 @@ class BookingSummary {
     public function calculateExtraPersonPrice()
     {
         $baseCapacity = ($this->distribution['room']['baseCapacity'] * $this->totalRoomsNeeded);
-        $extraGuests = ($this->totalPax - $baseCapacity);
-        if ($extraGuests <= 0) {
+        $this->extraGuests = ($this->totalPax - $baseCapacity);
+        if ($this->extraGuests <= 0) {
             return 0;
         }
-        $extraPersonPrice = (($this->distribution['room']['extra_person_price'] * $extraGuests) * $this->request['nights']);
+        $extraPersonPrice = (($this->distribution['room']['extra_person_price'] * $this->extraGuests) * $this->request['nights']);
         return $extraPersonPrice;
     }
 

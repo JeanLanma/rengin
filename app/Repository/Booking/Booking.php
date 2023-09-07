@@ -155,7 +155,7 @@ class Booking {
                 'night' => $i + 1,
                 'price' => $prices[$i],
                 'price_string' => '$'.number_format($prices[$i], 2, '.', ','), 'accumulated' => '$'.number_format($acc, 2, '.', ','),
-                'string' => 'noche x'. $i + 1 .' costo $' . number_format($prices[$i], 2, '.', ','). (($extraPersonPrice) != null && ($extraPersonPrice > 0) ? ' persona extra $' . number_format($extraPersonPrice, 2,'.', ',') : '')
+                'string' => 'noche x'. $i + 1 .' costo $' . number_format($prices[$i], 2, '.', ',')
             ];
         }
         return ['total' => $acc, 'items' => $items];
