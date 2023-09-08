@@ -54,6 +54,7 @@ class BookingSummary {
         $this->cleanPrice = $this->calculateSubtotalPrice();
         $this->subtotalPrice = $this->addExtraPersonPriceTo($this->calculateSubtotalPrice());
         $this->totalPrice = $this->calculateTotalPrice();
+        $this->distribution['itemized_price'] = $this->setItemized() ?? $this->distribution['itemized_price'];
         return [
             'has_enough_rooms' => $this->hasEnoughRooms(),
             'total_rooms_needed_by_pax' => $this->totalRoomsNeededByPax,
@@ -62,7 +63,7 @@ class BookingSummary {
             'itemized' => [
                 'has_extra_person' => ($this->extraGuests > 0) ? true : false,
                 'number_of_extra_guests' => $this->extraGuests,
-                'itemized_price' => $this->setItemized(),
+                'itemized_price' => $this->distribution['itemized_price'],
             ],
             'extra_person_price' => $this->extraPersonPrice,
             'extra_person_price_string' => $this->formatPrice($this->extraPersonPrice),
@@ -107,12 +108,13 @@ class BookingSummary {
             foreach($this->distribution['itemized_price'] as $item){
                 
                 $itemized = $item;
-                $itemized['string'] = $item['string'] . ' mas ' . $this->extraGuests . ' persona(s)';;
+                $itemized['string'] = $item['string'] . ' mas ' . $this->extraGuests . ' persona(s) extra ' .  $this->formatPrice($this->extraPersonPrice);
                 $recalculated[] = $itemized;
                 
             }
+            return $recalculated;
         }
-        return $recalculated;
+        return $this->distribution['itemized_price'];
     }
 
     public function getTax(){
