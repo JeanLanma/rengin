@@ -3,9 +3,10 @@ import BookingLayout from '@/Layouts/BookingLayout.vue';
 import CTAButton from '@/Shared/CTAButton.vue';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { onMounted } from 'vue';
-import { usePage, useForm, Link } from '@inertiajs/vue3';
+import { usePage, useForm } from '@inertiajs/vue3';
 import ErrorForm from '@/Shared/ErrorForm.vue';
 import Swal from 'sweetalert2';
+import { displayPluralityOfNights, displayPluralityOfGuests } from '@/utils/booking.js';
 
 const props = defineProps({
     booking: Object,
@@ -115,7 +116,7 @@ onMounted(() => {
     form.booking.nights = props.summary.nights;
     form.booking.rooms = props.summary.total_rooms_needed;
     form.booking.room_type_id = props.booking.room_type.roomTypeId;
-    form.booking.items = JSON.stringify(props.booking.room_type.itemized_price);
+    form.booking.items = JSON.stringify(props.summary.itemized.itemized_price);
 
 })
 
@@ -178,6 +179,9 @@ const termsCheckAlert = () => {
 const clearTermsError = () => {
     if(form.errors.terms) form.clearErrors('terms');
 }
+
+console.log(props.booking);
+console.log(props.summary);
 </script>
 
 <template>
@@ -221,20 +225,15 @@ const clearTermsError = () => {
                         <div class="mt-3">
                             
                             <p class="flex justify-between mb-2">
-                                <span>Llegada:</span>
+                                <span>Llegada</span>
                                 <span class="font-bold first-letter:capitalize">{{ props.summary.checkin_string }}</span>
                             </p>
                             <p class="flex justify-between mb-2">
-                                <span>Salida:</span>
+                                <span>Salida</span>
                                 <span class="font-bold first-letter:capitalize">{{ props.summary.checkout_string }}</span>
                             </p>
-                            <p class="flex justify-between mb-2">
-                                <span>Noches:</span>
-                                <span class="font-bold first-letter:capitalize">{{ props.booking.room_type.nights }}</span>
-                            </p>
-                            <p class="flex justify-between mb-2">
-                                <span>Habitaciones:</span>
-                                <span class="font-bold first-letter:capitalize">{{ props.summary.total_rooms_needed }}</span>
+                            <p class="flex mb-2">
+                                <span class="">{{ props.summary.total_pax + ' ' + displayPluralityOfGuests(props.summary.total_pax) }}, {{ props.booking.room_type.nights + ' ' + displayPluralityOfNights(props.booking.room_type.nights) }}</span>
                             </p>
                             
                         </div>
@@ -251,7 +250,7 @@ const clearTermsError = () => {
                                 <span class="font-bold">{{ props.summary.clean_price_string }}</span>
                             </p>
                             <p v-if="props.summary.extra_person_price > 0" class="flex justify-between mb-2">
-                                <span>Costo por persona(s) extra:</span>
+                                <span>Costo por persona/s extra:</span>
                                 <span class="font-bold">{{ props.summary.extra_person_price_string }}</span>
                             </p>
                             <p class="flex justify-between mb-2">

@@ -36,3 +36,11 @@ class Booking {
 }
 
 export default new Booking(getDefaultPeriod());
+
+export const displayPluralityOfNights = (nights) => {
+    return (nights > 1) ? 'noches' : 'noche';
+}
+
+export const displayPluralityOfGuests = (guests) => {
+    return (guests > 1) ? 'huespedes' : 'huesped';
+}
