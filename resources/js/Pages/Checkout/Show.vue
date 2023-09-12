@@ -62,7 +62,7 @@ const makeBooking = () => {
                     imageUrl: '/assets/logo.png',
                     imageWidth: 240,
                     imageHeight: 146,
-                    imageAlt: 'Hotel Casino Plaza',
+                    imageAlt: 'Logo Hotel - Rengin',
                     confirmButtonText: '¡Entendido!',
                     confirmButtonColor: '#0ea5e9',
                 }
@@ -80,12 +80,11 @@ const makeBooking = () => {
                 errors += '- ' + error[err] + "<br/>";
             }
             errorAlert({
+                icon: 'error',
                 title: 'Error al realizar la reservación',
                 html: errors,
-                imageUrl: '/assets/logo.png',
                 imageWidth: 240,
                 imageHeight: 146,
-                imageAlt: 'Hotel Casino Plaza',
                 confirmButtonText: '¡Entendido!',
                 confirmButtonColor: '#0ea5e9',
             })
@@ -131,12 +130,11 @@ onMounted(() => {
 
 const successAlert = (SuccessConent = null) => {
     const defaultContent = {
+        icon: 'success',
         title: '¡Reservación exitosa!',
         text: 'La reserva se ha realizado con éxito, en breve recibirá un correo electrónico con los detalles de la misma.',
-        imageUrl: '/assets/logo.png',
         imageWidth: 240,
         imageHeight: 146,
-        imageAlt: 'Hotel Casino Plaza',
         confirmButtonText: '¡Entendido!',
         confirmButtonColor: '#0ea5e9',
     }
@@ -185,7 +183,7 @@ console.log(props.summary);
 </script>
 
 <template>
-    <BookingLayout title="Hotel Casino Plaza">
+    <BookingLayout title="Hotel Puertas Del Sol">
 
         <div class="md:grid md:grid-cols-6 max-w-7xl md:px-4 lg:px-6 xl:px-8 mx-auto">
             <!-- Booking Item -->

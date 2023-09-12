@@ -53,7 +53,7 @@ const format = ([DateStart, DateEnd]) => {
 </script>
 
 <template>
-    <BookingLayout title="Hotel Casino Plaza">
+    <BookingLayout title="Hotel Puerta Del Sol">
 
         <!-- Book Form -->
         <section class="mx-auto w-full max-w-md md:max-w-5xl xl:max-w-6xl">
