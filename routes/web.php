@@ -67,6 +67,8 @@ Route::post('/distribution/update/multiple', [App\Http\Controllers\Distribution\
 
 Route::post('/distribution/update/period/room/{roomId}', [App\Http\Controllers\Distribution\DistributionController::class, 'updatePeriod'])->name('distribution.update.period');
 
+Route::get('/distribution/room/{room_id}/increase/{years?}/years/', [App\Http\Controllers\Distribution\IncreaseDistributionController::class, 'increaseDistribution'])->name('distribution.add.availability');
+
 // Users
 Route::get('/users/me/', function(){
     $user = Auth::user();
