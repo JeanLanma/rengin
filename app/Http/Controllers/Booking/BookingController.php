@@ -50,6 +50,7 @@ class BookingController extends Controller
     {        
         $room_type = $booking->getBookingRoomCheckout(request()->all());
         $summary = new BookingSummary($room_type, request()->all());
+        if(!$room_type['canBeBooked']){return redirect()->route('booking');};
         return inertia('Checkout/Show', [
             'booking' => $booking::BookingRoomAdapter(request()->settings, $room_type),
             'summary' => $summary->getSummary()
