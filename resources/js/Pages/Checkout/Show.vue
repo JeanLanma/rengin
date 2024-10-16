@@ -356,7 +356,7 @@ console.log(props.summary);
                         <div class="border-b border-[#3C3C4399] opacity-50 my-12"></div>
 
                         <!-- Payment Form -->
-                        <div class="mt-3">
+                        <div class="mt-3 hidden">
 
                             <p class="font-bold text-center">Datos de pago</p>
 
