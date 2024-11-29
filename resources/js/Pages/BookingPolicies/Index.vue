@@ -20,7 +20,7 @@ import { Link } from '@inertiajs/vue3';
                             <div class="flex justify-between items-center mb-8">
                             
                                 <h1 class="text-2xl text-gray-700 font-bold">
-                                    Política de privacidad, reservaciones y protección de datos personales
+                                    Política de privacidad
                                 </h1>
 
                                 <!-- <Link as="button" href="#">
@@ -34,13 +34,7 @@ import { Link } from '@inertiajs/vue3';
 
                                 <div>
                                     <p class="text-gray-700 text-justify">
-                                        La presente política de privacidad es para manejo y recolección correcta de sus datos al
-                                        realizar una reservación en el Hotel Puerta del Sol y utiliza los servicios de reserva en línea.
-                                        Desde este momento se entenderá como empresa específicamente al “Hotel Puerta del Sol” y
-                                        al cliente a quien sea el usuario de los servicios y de la plataforma conocida como
-                                        <a class="hover:text-[#5E6C2C] text-[#839226]" href="http://hotelpuertadelsol.com.mx//">
-                                            hotelpuertadelsol.com.mx
-                                        </a> y a la plataforma de reservaciones en línea conocida como hotelpuertadelsol.pcbtroniks.com.
+                                        El presente Política de Privacidad establece los términos en que Hotel Real de Castilla usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. Esta compañía está comprometida con la seguridad de los datos de sus usuarios. Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurando que sólo se empleará de acuerdo con los términos de este documento. Sin embargo esta Política de Privacidad puede cambiar con el tiempo o ser actualizada por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos cambios.
                                     </p>
                                 </div>
 
@@ -48,22 +42,11 @@ import { Link } from '@inertiajs/vue3';
                                 <div class="h-8"></div>
                                 <div class="text-gray-700">
                                     <h2 class="font-bold text-lg">
-                                        Información general
+                                        Información que es recogida
                                     </h2>
 
                                     <p class="mt-4 text-justify">
-                                        Los datos que se recopilan en la plataforma del hotel son únicamente para la reservación de
-                                        servicios de hospedaje, y alimentos dentro del restaurante bar “Flor de Azafran”, Hotel Puerta
-                                        Del Sol no maneja ningún otro servicio en esta plataforma como vuelos, transportes, lavandería
-                                        y estacionamiento. Todos los demás servicios que se ven en la página son contratados bajo
-                                        previo acuerdo y pago físicamente en el Hotel.
-                                    </p>
-                                    <p class="mt-4 text-justify">
-                                        Los servicios de eventos y banquetes ofertados en la página son únicamente informativos y
-                                        el material fotográfico tiene como objetivo brindar una descripción general y visual del
-                                        servicio que se oferta, para hacerse acreedor a la fecha consultada se debe poner en contacto
-                                        con su asesor de ventas para saber los términos y condiciones específicos para su contratación
-                                        de espacio, mobiliario y alimentos y bebidas. 
+                                        Nuestro sitio web podrá recoger información personal por ejemplo: Nombre, información de contacto como su dirección de correo electrónico e información demográfica. Así mismo cuando sea necesario podrá ser requerida información específica para procesar algún pedido o realizar una entrega o facturación.l.
                                     </p>
                                 </div>
 
@@ -71,30 +54,15 @@ import { Link } from '@inertiajs/vue3';
                                 <div class="h-8"></div>
                                 <div class="text-gray-700">
                                     <h2 class="font-bold text-lg">
-                                        Políticas de reserva
+                                        Uso de la información recogida
                                     </h2>
 
                                     <p class="mt-4 text-justify">
-                                        Para realizar la reservación es necesario que nosotros tengamos inventario suficiente en las
-                                        fechas de reserva que se estás seleccionando. Las tarifas so sujetas a cambio sin previo aviso
-                                        de acuerdo a la disponibilidad de las fechas por lo cual, las tarifas que se ven en la página no
-                                        es una garantía de que sea lo que va a pagar, hasta haber efectuado el cobro efectivo.
-                                    </p>
-                                    <p class="mt-4 text-justify">
-                                        Cuando recibimos su reserva podemos hacer uso de los datos de la tarjeta de crédito o débito
-                                        únicamente para realizar la retención y poder garantizar su reservación y al aceptar este
-                                        documento nos permite hacer dicho movimiento por la cantidad de la primera noche de su
-                                        reservación.
+                                        Nuestro sitio web emplea la información con el fin de proporcionar el mejor servicio posible, particularmente para mantener un registro de usuarios, de pedidos en caso que aplique, y mejorar nuestros servicios. Es posible que sean enviados correos electrónicos periódicamente a través de nuestro sitio con ofertas especiales y otra información publicitaria que consideremos relevante para usted o que pueda brindarle algún beneficio, estos correos electrónicos serán enviados a la dirección que usted proporcione y podrán ser cancelados en cualquier momento.
                                     </p>
 
                                     <p class="mt-4 text-justify">
-                                        Las políticas de cancelación son 48 horas antes de la hora de su llegada al hotel, tomando en
-                                        cuenta que el check-in es a las 15:00 horas, America/Mexico_city. Si el cliente cancela su 
-                                        Reservación después de este tiempo estipulado se hará acreedor a una penalidad por la
-                                        cantidad de la primera noche de estancia. De la misma manera si no se presenta sin previo
-                                        aviso a la empresa aplicará la misma forma de penalidad y si se va antes de que se cumpla el
-                                        total de su estancia la empresa no está obligada a rembolsar el restante de la estancia, siempre
-                                        que el hotel no haya tenido impedimento para ofrecer el servicio.
+                                        Hotel Real de Castilla está altamente comprometido para cumplir con el compromiso de mantener su información segura. Usamos los sistemas más avanzados y los actualizamos constantemente para asegurarnos que no exista ningún acceso no autorizado.
                                     </p>
                                 </div>
 
@@ -102,89 +70,137 @@ import { Link } from '@inertiajs/vue3';
                                 <div class="h-8"></div>
                                 <div class="text-gray-700">
                                     <h2 class="font-bold text-lg">
-                                        De los datos recopilados
+                                        Cookies
                                     </h2>
 
                                     <p class="mt-4 text-justify">
-                                        Los datos son solicitados con el propósito de realizar una reservación en el Hotel Puerta
-                                        Del Sol, son utilizados con fines informativos para brindar una excelente atención al huésped
-                                        al momento de llegar al hotel y son necesarios para poder realizar el apartado o reservación
-                                        de habitación en las fechas que sean seleccionadas. 
+                                        Una cookie se refiere a un fichero que es enviado con la finalidad de solicitar permiso para almacenarse en su ordenador, al aceptar dicho fichero se crea y la cookie sirve entonces para tener información respecto al tráfico web y también, facilita las futuras visitas a una web recurrente. Otra función que tienen las cookies es que con ellas las web pueden reconocerte individualmente y por tanto brindarte el mejor servicio personalizado de su web.
                                     </p>
                                     <p class="mt-4 text-justify">
-                                        Usted puede visitar la página cada que guste sin necesidad de revelar ningún dato de
-                                        información personal, pero para realizar el apartado de una habitación será necesario que
-                                        proporcione a la página su nombre completo, su número telefónico, una dirección de correo
-                                        electrónico y los datos de una tarjeta bancaria a la cual solo el personal seleccionado del hotel
-                                        tendrá acceso y toda información concerniente a su persona (datos personales) será manejada
-                                        con absoluta confidencialidad y tanto la obtención como el uso, divulgación, como su
-                                        almacenamiento solo se realizará con la finalidad de hacer una reservación dentro del hotel.
+                                        Nuestro sitio web emplea las cookies para poder identificar las páginas que son visitadas y su frecuencia. Esta información es empleada únicamente para análisis estadístico y después la información se elimina de forma permanente. Usted puede eliminar las cookies en cualquier momento desde su ordenador. Sin embargo las cookies ayudan a proporcionar un mejor servicio de los sitios web, estás no dan acceso a información de su ordenador ni de usted, a menos de que usted así lo quiera y la proporcione directamente. Usted puede aceptar o negar el uso de cookies, sin embargo la mayoría de navegadores aceptan cookies automáticamente pues sirve para tener un mejor servicio web. También usted puede cambiar la configuración de su ordenador para declinar las cookies. Si se declinan es posible que no pueda utilizar algunos de nuestros servicios.
                                     </p>
 
-                                    <p class="mt-4 text-justify">
-                                        En virtud de lo anterior, a partir de este momento en que nos otorga su consentimiento, el
-                                        Hotel podrá mantener sus registros, físicos y electrónicos con finalidad de tener el archivo de
-                                        sus reservas y como parte de la base de datos de huéspedes con los cuales realizamos estudios
-                                        de mercado. Podrá recibir publicidad por parte del hotel en algún momento en formato digital
-                                        como correo, mensajes y llamadas. Si en algún momento usted desea no seguir recibiendo
-                                        esta publicidad podrá hacérnoslo saber a través de un correo electrónico a
-                                        <span class="hover:text-[#5E6C2C] text-[#839226]">reservaciones@hotelpuertadelsol.com.mx</span>, esto no dejará de hacer que siga viendo publicidad genérica
-                                        en nuestros otros canales de comunicación como Facebook, instagram, comerciales, folletos,
-                                        comerciales auditivos y twitter.
-
-                                        <br> <br>
-                                        Es importante hacerle saber que el Hotel Puerta del Sol en todo momento de abstendrá de
-                                        vender o arrendar sus datos personales a algún tercero.
-                                    </p>
                                 </div>
                                 
                                 <!-- seguridad -->
                                 <div class="h-8"></div>
                                 <div class="text-gray-700">
                                     <h2 class="font-bold text-lg">
-                                        De la seguridad
+                                        Enlaces a Terceros
                                     </h2>
 
                                     <p class="mt-4 text-justify">
-                                        Al momento de utilizar el sitio web, contamos con la seguridad necesaria para proteger sus
-                                        datos en un certificado SSL para transmitir la información cifrada del cliente al servidor del
-                                        motor de reservaciones, sin embargo esto no nos exime de ser propensos a algún virus o
-                                        algún ataque cibernético que nos deje expuestos, pero por nuestra parte tomaremos las
-                                        medidas necesarias para prevenir esto. 
+                                        Este sitio web pudiera contener enlaces a otros sitios que pudieran ser de su interés. Una vez que usted de clic en estos enlaces y abandone nuestra página, ya no tenemos control sobre al sitio al que es redirigido y por lo tanto no somos responsables de los términos o privacidad ni de la protección de sus datos en esos otros sitios terceros. Dichos sitios están sujetos a sus propias políticas de privacidad por lo cual es recomendable que los consulte para confirmar que usted está de acuerdo con estas.
                                     </p>
-                                    <p class="mt-4 text-justify">
-                                        Obtenemos información de terceros como la actividad de la cuenta y la información de la
-                                        cuenta, el proveedor de la página web, testimonios de clientes que en nuestro sitio web
-                                        además de otros respaldos. Al publicar contenido con nuestro nombre nos esta autiorizando
-                                        para podamos usar el mismo material como testimonio de cliente satisfecho e incentivar a
-                                        nuevos clientes a la compra de nuestros servicios. 
-                                    </p>
+
                                 </div>
 
                                 <!-- limite de responsabilidades -->
                                 <div class="h-8"></div>
                                 <div class="text-gray-700">
                                     <h2 class="font-bold text-lg">
-                                        Limitaciones de nuestras responsabilidades
+                                        Control de su información personal
                                     </h2>
 
                                     <p class="mt-4 text-justify">
-                                        Como empresa nos deslindamos de responsabilidades costos o gastos derivados de lesiones
-                                        a clientes o a terceros, en cuanto al mal uso de las instalaciones del hotel y que por este acto
-                                        el cliente pueda llegar a sufrir accidentes, perdida de la vida, daño a bienes inmuebles, falta
-                                        de disfrute, disgusto, decepción o angustia, ya sea mental o física. Tampoco asumiremos
-                                        responsabilidades costos o gastos derivados de enfermedades, robo, conflictos laborales,
-                                        fallas mecánicas, cuarentenas, pandemias, acciones gubernamentales, clima o cualquier otro
-                                        acto externo a al control directo de la empresa.
+                                        En cualquier momento usted puede restringir la recopilación o el uso de la información personal que es proporcionada a nuestro sitio web. Cada vez que se le solicite rellenar un formulario, como el de alta de usuario, puede marcar o desmarcar la opción de recibir información por correo electrónico. En caso de que haya marcado la opción de recibir nuestro boletín o publicidad usted puede cancelarla en cualquier momento.
                                     </p>
                                     <p class="mt-4 text-justify">
-                                        En caso de que el cliente no cuente con la documentación necesaria para viajar a México y
-                                        más específicamente al Estado de Jalisco, no nos hacemos responsables y de igual manera
-                                        aplicará penalidad en su reservación al tomarse como un no show. Así mismo si ya al estar
-                                        pagada el total de la estancia sucede algo por lo cual el cliente no pueda disfrutar de todos
-                                        sus días en el hotel, la empresa no es responsable por lo cual no hay rembolsos, puede tomarse
-                                        una noche a penalidad y el resto quedará sujeto a saldo a favor por el tiempo que en ese
-                                        momento se considere prudente y con sus respectivas restricciones.
+                                        Esta compañía no venderá, cederá ni distribuirá la información personal que es recopilada sin su consentimiento, salvo que sea requerido por un juez con un orden judicial.
+                                    </p>
+                                    <p class="mt-4 text-justify">
+                                        Hotel Real de Castilla se reserva el derecho de cambiar los términos de la presente Política de Privacidad en cualquier momento.
+                                    </p>
+                                </div>
+
+                                <h2 class="text-2xl text-gray-700 font-bold">
+                                    Términos y condiciones
+                                </h2>
+
+                                <div class="h-8"></div>
+                                <div class="text-gray-700">
+                                    <h2 class="font-bold text-lg">
+                                        INFORMACIÓN RELEVANTE
+                                    </h2>
+
+                                    <p class="mt-4 text-justify">
+                                        Es requisito necesario para la adquisición de los servicios que se ofrecen en este sitio, que lea y acepte los siguientes Términos y Condiciones que a continuación se redactan. El uso de nuestros servicios así como la compra de nuestros servicios implicará que usted ha leído y aceptado los Términos y Condiciones de Uso en el presente documento. Todas los servicios que son ofrecidos por nuestro sitio web pudieran ser creadas, cobradas, enviadas o presentadas por una página web tercera y en tal caso estarían sujetas a sus propios Términos y Condiciones. En algunos casos, para adquirir un servicio, será necesario el registro por parte del usuario, con ingreso de datos personales fidedignos y definición de una contraseña.
+                                    </p>
+                                    <p class="mt-4 text-justify">
+                                        El usuario puede elegir y cambiar la clave para su acceso de administración de la cuenta en cualquier momento, en caso de que se haya registrado y que sea necesario para la compra de alguno de nuestros servicios. http://hotelrealdecastilla-wp.test/ no asume la responsabilidad en caso de que entregue dicha clave a terceros.
+                                    </p>
+                                    <p class="mt-4 text-justify">
+                                        Todas las compras y transacciones que se lleven a cabo por medio de este sitio web, están sujetas a un proceso de confirmación y verificación, el cual podría incluir la verificación del stock y disponibilidad de servicios, validación de la forma de pago, validación de la factura (en caso de existir) y el cumplimiento de las condiciones requeridas por el medio de pago seleccionado. En algunos casos puede que se requiera una verificación por medio de correo electrónico.
+                                    </p>
+                                    <p class="mt-4 text-justify">
+                                        Los precios de los servicios ofrecidos en esta Tienda Online es válido solamente en las compras realizadas en este sitio web.
+                                    </p>
+                                </div>
+
+                                <div class="h-8"></div>
+                                <div class="text-gray-700">
+                                    <h2 class="font-bold text-lg">
+                                        LICENCIA
+                                    </h2>
+
+                                    <p class="mt-4 text-justify">
+                                        Hotel Real de Castilla a través de su sitio web concede una licencia para que los usuarios utilicen los servicios que son vendidos en este sitio web de acuerdo a los Términos y Condiciones que se describen en este documento.
+                                    </p>
+                                </div>
+
+                                <div class="h-8"></div>
+                                <div class="text-gray-700">
+                                    <h2 class="font-bold text-lg">
+                                        PROPIEDAD
+                                    </h2>
+
+                                    <p class="mt-4 text-justify">
+                                        Usted no puede declarar propiedad intelectual o exclusiva a ninguno de nuestros servicios, modificado o sin modificar. En caso de que no se especifique lo contrario, nuestros servicios se proporcionan sin ningún tipo de garantía, expresa o implícita. En ningún esta compañía será responsables de ningún daño incluyendo, pero no limitado a, daños directos, indirectos, especiales, fortuitos o consecuentes u otras pérdidas resultantes del uso o de la imposibilidad de utilizar nuestros servicios.
+                                    </p>
+                                </div>
+
+                                <div class="h-8"></div>
+                                <div class="text-gray-700">
+                                    <h2 class="font-bold text-lg">
+                                        POLÍTICA DE REEMBOLSO Y GARANTÍA
+                                    </h2>
+
+                                    <p class="mt-4 text-justify">
+                                        En el caso de servicios que sean mercancías irrevocables no-tangibles, no realizamos reembolsos después de que se otorgue el servicio, usted tiene la responsabilidad de entender antes de comprarlo. Le pedimos que lea cuidadosamente antes de comprarlo. Hacemos solamente excepciones con esta regla cuando la descripción no se ajusta al servicio. Hay algunos servicios que pudieran tener garantía y posibilidad de reembolso pero este será especificado al comprar el servicio. En tales casos la garantía solo cubrirá fallas de fábrica y sólo se hará efectiva cuando el servicio se haya usado correctamente. La garantía no cubre averías o daños ocasionados por uso indebido. Los términos de la garantía están asociados a fallas de fabricación y funcionamiento en condiciones normales de los servicios y sólo se harán efectivos estos términos si el equipo ha sido usado correctamente. Esto incluye:
+                                    </p>
+                                    <p class="mt-4 text-justify">
+                                        De acuerdo a las especificaciones técnicas indicadas para cada servicio.
+                                        En condiciones ambientales acorde con las especificaciones indicadas por el fabricante.
+                                        En uso específico para la función con que fue diseñado de fábrica.
+                                        En condiciones de operación eléctricas acorde con las especificaciones y tolerancias indicadas.
+                                    </p>
+                                </div>
+
+                                <div class="h-8"></div>
+                                <div class="text-gray-700">
+                                    <h2 class="font-bold text-lg">
+                                        COMPROBACIÓN ANTIFRAUDE
+                                    </h2>
+
+                                    <p class="mt-4 text-justify">
+                                        La compra del cliente puede ser aplazada para la comprobación antifraude. También puede ser suspendida por más tiempo para una investigación más rigurosa, para evitar transacciones fraudulentas.
+                                    </p>
+                                </div>
+
+                                <div class="h-8"></div>
+                                <div class="text-gray-700">
+                                    <h2 class="font-bold text-lg">
+                                        PRIVACIDAD
+                                    </h2>
+
+                                    <p class="mt-4 text-justify">
+                                        hotelrealdecastilla.com.mx garantiza que la información personal que usted envía cuenta con la seguridad necesaria. Los datos ingresados por usuario o en el caso de requerir una validación de los pedidos no serán entregados a terceros, salvo que deba ser revelada en cumplimiento a una orden judicial o requerimientos legales.
+                                    </p>
+                                    <p class="mt-4 text-justify">
+                                        La suscripción a boletines de correos electrónicos publicitarios es voluntaria y podría ser seleccionada al momento de crear su cuenta.
+                                    </p>
+                                    <p class="mt-4 text-justify">
+                                        Hotel Real de Castilla reserva los derechos de cambiar o de modificar estos términos sin previo aviso.
                                     </p>
                                 </div>
                             
