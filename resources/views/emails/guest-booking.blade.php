@@ -3,7 +3,7 @@
 <head>
 
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
-<title>Hotel Puerta Del Sol - Reservación</title>
+<title>{{ config('app.name') }} - Reservación</title>
 
 <style type="text/css">
 
@@ -305,16 +305,16 @@
               <td height="35" align="center" valign="top" style="font-size:35px; line-height:35px;">&nbsp;</td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>Av. López Mateos Sur 4205 Zapopan Jalisco, México</multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>184 Calle Colón, Col. Centro, Guadalajara, Jalisco, México</multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Contacto: reservaciones@hotelpuertadelsol.com.mx</multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Contacto: reservaciones@hotelrealdecastilla.com.mx</multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Copyright &copy; 2023 <a href="http://www.hotelpuertadelsol.com.mx/">www.hotelpuertadelsol.com.mx</a> </multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Copyright &copy; 2024 <a href="https://hotelrealdecastilla.com.mx">https://hotelrealdecastilla.com.mx</a> </multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#0EA5E9; font-weight:bold; line-height:28px;" mc:edit="bm12-20"><a style="color: #0EA5E9;" href="mailto:reservaciones@hotelpuertadelsol.com.mx">¿Tiene alguna duda?</a></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#0EA5E9; font-weight:bold; line-height:28px;" mc:edit="bm12-20"><a style="color: #0EA5E9;" href="mailto:reservaciones@hotelrealdecastilla.com.mx">¿Tiene alguna duda?</a></td>
             </tr>
             </table></td>
         </tr>
