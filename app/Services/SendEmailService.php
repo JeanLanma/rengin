@@ -36,8 +36,8 @@ class SendEmailService {
     public static function getAdministrativeEmails(): array
     {
         return [
-            'reservaciones@hotelpuertadelsol.com.mx',
-            'jean.langarica@pcbtroniks.com'
+            'reservaciones@hotelrealdecastilla.com.mx',
+            'desarrollo.software@pcbtroniks.com'
         ];
     }
 }
