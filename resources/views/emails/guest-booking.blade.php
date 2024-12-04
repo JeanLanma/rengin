@@ -91,7 +91,7 @@
       <td height="8" align="center" valign="top" style="font-size:8px; line-height:8px;">&nbsp;</td>
     </tr>
     <tr>
-      <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#FFF; font-weight:normal;display: none;" mc:edit="bm12-02"><multiline>You can't see this email?<a href="#" style="text-decoration:none; color:#FFF;"><b style="font-size:14px;">View it in your browser</b></a></multiline></td>
+      <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#FFF; font-weight:normal;display: none;" mc:edit="bm12-02"><multiline>You can't see this email?<a href="#" style="text-decoration:none; color:#FFF;"><b style="font-size:14px;"></b></a></multiline></td>
     </tr>
               </table>
               
