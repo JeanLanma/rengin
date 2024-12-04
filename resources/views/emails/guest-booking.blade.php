@@ -305,7 +305,7 @@
               <td height="35" align="center" valign="top" style="font-size:35px; line-height:35px;">&nbsp;</td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>184 Calle Colón, Col. Centro, Guadalajara, Jalisco, México</multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>Av. Ramón Corona 171, Guadalajara Centro, Guadalajara, México, CP 44100, Guadalajara, México.</multiline></td>
             </tr>
             <tr>
               <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Contacto: reservaciones@hotelrealdecastilla.com.mx</multiline></td>
