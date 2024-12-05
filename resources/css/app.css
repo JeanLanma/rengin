@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer utilities {
+    .animate-blur:hover {
+        animation: blur-in-expand 0.4s linear both;
+    }
+
+    .blur-in-expand{animation:blur-in-expand 0.4s linear both}
+    
+    @keyframes blur-in-expand{0%{transform:scale(0);filter:blur(12px);opacity:0}100%{transform:scale(1);filter:blur(0);opacity:1}}
+
+    .scale-up-center{animation:scale-up-center 0.4s; } 
+    
+    @keyframes scale-up-center{ 0%{transform:scale(.5)} 100%{transform:scale(1)} }
+
+    .box-shadow {
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    }
+    .box-shadow-sm {
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }
+    .box-shadow-dark {
+        box-shadow: #374151 0px 1px 4px;
+    }
+}
