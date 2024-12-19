@@ -45,7 +45,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'users.delete']);
 
         // create roles and assign existing permissions
-
         $admin->givePermissionTo(Permission::all());
     
     }
