@@ -183,7 +183,7 @@ console.log(props.summary);
 </script>
 
 <template>
-    <BookingLayout title="Hotel Puertas Del Sol">
+    <BookingLayout title="Reservación">
 
         <div class="md:grid md:grid-cols-6 max-w-7xl md:px-4 lg:px-6 xl:px-8 mx-auto">
             <!-- Booking Item -->
@@ -301,7 +301,7 @@ console.log(props.summary);
 
                 <div class="bg-white rounded-[14px] px-4 py-6 text-[#3C3C4399] mt-4 border border-yellow-cta">
 
-                    <h2 class="font-bold text-xl">Información de pago</h2>
+                    <h2 class="font-bold text-xl">Información de reserva</h2>
 
                     <form @submit.prevent="makeBooking">
                         <input type="hidden" name="room_type_id" :value="props.booking.room_type.roomTypeId">

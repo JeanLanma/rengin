@@ -305,16 +305,16 @@
               <td height="35" align="center" valign="top" style="font-size:35px; line-height:35px;">&nbsp;</td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>184 Calle Colón, Col. Centro, Guadalajara, Jalisco, México</multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>José Gpe. Montenegro #1572 44170 Guadalajara, Jalisco, México.</multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Contacto: reservaciones@hotelrealdecastilla.com.mx</multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Contacto: reservaciones@hotelisabel.com</multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Copyright &copy; 2024 <a href="https://hotelrealdecastilla.com.mx">https://hotelrealdecastilla.com.mx</a> </multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Copyright &copy; 2024 <a href="https://www.hotelisabel.com/">https://www.hotelisabel.com/</a> </multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#0EA5E9; font-weight:bold; line-height:28px;" mc:edit="bm12-20"><a style="color: #0EA5E9;" href="mailto:reservaciones@hotelrealdecastilla.com.mx">¿Tiene alguna duda?</a></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#0EA5E9; font-weight:bold; line-height:28px;" mc:edit="bm12-20"><a style="color: #0EA5E9;" href="mailto:reservaciones@hotelisabel.com">¿Tiene alguna duda?</a></td>
             </tr>
             </table></td>
         </tr>
