@@ -36,7 +36,7 @@ class SendEmailService {
     public static function getAdministrativeEmails(): array
     {
         return [
-            'reservaciones@hotelrealdecastilla.com.mx',
+            'reservaciones@hotelisabel.com',
             'desarrollo.software@pcbtroniks.com'
         ];
     }
