@@ -90,19 +90,15 @@ Route::delete('/users/delete/{user}', [App\Http\Controllers\User\UserController:
 Route::get('/permissions', [App\Http\Controllers\Permissions\PermissionsController::class, 'index'])->name('permissions.index');
 Route::get('/roles/sync/{user}/{role}', [App\Http\Controllers\Permissions\PermissionsController::class, 'sync'])->name('sync.user.role');
 
+Route::get('/booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking.getAvailabilityDate');
+Route::get('/booking/show/', [App\Http\Controllers\Booking\BookingController::class, 'show'])->name('booking.show');
 
 // EMail Previews
 
 Route::get('/email/booking/{booking?}', [App\Http\Controllers\Email\EmailController::class, 'guestBooking'])->name('email.booking');
 });
 
-Route::get('/booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking.getAvailabilityDate');
-
-Route::get('/booking/show/', [App\Http\Controllers\Booking\BookingController::class, 'show'])->name('booking.show');
-
-
 // Uploads
 
 Route::post('/upload-image', [App\Http\Controllers\Upload\UploadImageController::class, 'uploadImage'])->name('upload.image');
-
 Route::delete('/delete-image/{image_id}', [App\Http\Controllers\Upload\UploadImageController::class, 'deleteImage'])->name('delete.image');
