@@ -11,10 +11,12 @@ class EmailController extends Controller
 {
     public function guestBooking(BookingModel $booking)
     {
+        // $To = $booking->email;
+        $To = request()->has('to') ? request()->to : 'desarrollo.software@pcbtroniks.com';
+        Mail::to('desarrollo.software@pcbtroniks.com')->send(new \App\Mail\GuestBookingMakeMail($booking));
         return view('emails.guest-booking', [
             'data' => $booking,
         ]);
-        // return Mail::to('desarrollo.software@pcbtroniks.com')->send(new \App\Mail\GuestBookingMakeMail($booking));
     }
 
     public function getAdministrativeEmails(): array
