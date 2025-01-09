@@ -13,16 +13,17 @@ class EmailController extends Controller
     {
         // $To = $booking->email;
         $To = request()->has('to') ? request()->to : 'desarrollo.software@pcbtroniks.com';
-        Mail::to($To)->queue(new \App\Mail\GuestBookingMakeMail($booking));
+        // Mail::to($To)->queue(new \App\Mail\GuestBookingMakeMail($booking));
         return view('emails.guest-booking', [
             'data' => $booking,
         ]);
     }
 
-    public function getAdministrativeEmails(): array
+    public function adminBooking(BookingModel $booking)
     {
-        return [
-            ''
-        ];
+        dd($booking);
+        return view('emails.admin-booking', [
+            'data' => $booking,
+        ]);
     }
 }

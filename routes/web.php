@@ -71,6 +71,7 @@ Route::get('/booking/show/', [App\Http\Controllers\Booking\BookingController::cl
 
 // EMail Previews
 Route::get('/email/booking/{booking?}', [App\Http\Controllers\Email\EmailController::class, 'guestBooking'])->name('email.booking');
+Route::get('/email/booking/admin/{booking?}', [App\Http\Controllers\Email\EmailController::class, 'adminBooking'])->name('email.adminBooking');
 
 });
 
