@@ -97,7 +97,12 @@ console.log(props.booking);
                 </h1>
 
                 <div>
-                    <Link :href="route('email.booking', props.booking.id)">
+                    <Link class="mr-4" :href="route('email.adminBooking', props.booking.id)">
+                        <ActionButton as="dark">
+                            Ver correo
+                        </ActionButton>
+                    </Link>
+                    <Link :href="route('email.adminBooking', {booking: props.booking.id, send: true})">
                         <ActionButton as="dark">
                             Reenviar correo
                         </ActionButton>

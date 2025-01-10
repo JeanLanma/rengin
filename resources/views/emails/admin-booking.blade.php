@@ -1,16 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
     <meta name="viewport" content="width=device-width">
-
-
-
-
 
     <style type="text/css">
         @media only screen and (max-width: 600px) {
@@ -177,17 +171,11 @@
 
                 <center style="width: 100%; min-width: 580px;">
 
-
-
                     <table class="spacer" style="border-spacing: 0; border-collapse: collapse; padding: 0; vertical-align: middle;">
                         <tr style="padding: 0; vertical-align: middle;">
                             <td height="40" style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 0; vertical-align: middle; font-family: "Helvetica","Arial",sans-serif; font-weight: normal; margin: 0; line-height: 23px; font-size: 14px;'></td>
                         </tr>
                     </table>
-
-
-
-
 
                     <table class="container main ltr" style="border-spacing: 0; border-collapse: collapse; padding: 0; vertical-align: middle; -webkit-border-radius: 8px 8px 6px 6px; -moz-border-radius: 8px 8px 6px 6px; border-radius: 8px 8px 6px 6px; background-color: #ffffff; width: 580px; margin: 0 auto; text-align: inherit;">
 
@@ -195,7 +183,7 @@
 
                             <td class="header center" style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 40px 0; vertical-align: middle; font-family: "Helvetica","Arial",sans-serif; font-weight: normal; margin: 0; line-height: 23px; font-size: 14px; color: #ffffff; background-color: #f2f2f2; -webkit-border-radius: 6px 6px 0 0; -moz-border-radius: 6px 6px 0 0; border-radius: 6px 6px 0 0; text-align: center;'>
 
-                                <center style="width: 100%; min-width: 580px;"><span><a href="{{ route('dashboard') }}" style="color: #2dc4f0; text-decoration: none;"><img class="center" src="{{ url('/') }}/assets/rengin-logo.svg" alt="Aliamed" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none; margin: 0 auto; float: none; color: #ffffff; font-size: 30px; width: 40px;"></a></span></center>
+                                <center style="width: 100%; min-width: 580px;"><span><a href="{{ route('dashboard') }}" style="color: #2dc4f0; text-decoration: none;"><img class="center" src="{{ url('/') }}/assets/rengin-logo.svg" alt="Rengin Booking Engine Logo" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none; margin: 0 auto; float: none; color: #ffffff; font-size: 30px; width: 40px;"></a></span></center>
 
                             </td>
 
@@ -278,13 +266,12 @@
 
                                                 <td style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: top; font-family: "Helvetica","Arial",sans-serif; font-weight: normal; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd;'>
 
-                                                    Aliamed<br>
+                                                    {{ $data['guest']['full_name'] }}.<br>
 
-                                                    Direccion<br>
 
-                                                    <b>Teléfono:</b> 3300000000<br>
+                                                    <b>Adultos:</b> {{ $data['adults'] }}<br>
 
-                                                    <b>Correo electrónico</b> gustavo.gonzalez@aliamed.com.mx
+                                                    <b>Menores:</b> {{ $data['children'] }}
                                                 </td>
 
                                             </tr>
@@ -302,7 +289,7 @@
 
                                                 <td style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: middle; font-family: "Helvetica","Arial",sans-serif; font-weight: bold; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd; background-color: #efefef; color: #444;'>Habitación</td>
 
-                                                <td style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: middle; font-family: "Helvetica","Arial",sans-serif; font-weight: bold; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd; background-color: #efefef; color: #444;'>Modelo</td>
+                                                <td style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: middle; font-family: "Helvetica","Arial",sans-serif; font-weight: bold; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd; background-color: #efefef; color: #444;'>Codigo</td>
 
                                                 <td style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: middle; font-family: "Helvetica","Arial",sans-serif; font-weight: bold; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd; background-color: #efefef; color: #444;'>Precio ex. impuesto</td>
 
@@ -328,13 +315,13 @@
 
                                                 <td style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: top; font-family: "Helvetica","Arial",sans-serif; font-weight: normal; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd;'>
 
-                                                    Suplemento </td>
+                                                {{ $data['room']['type'] }} </td>
 
                                                 <td class="right" style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: top; font-family: "Helvetica","Arial",sans-serif; font-weight: normal; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd; text-align: right;'>
 
-                                                    $3,448.28 </td>
+                                                    ${{ $data['subtotal_price']}} </td>
 
-                                                <td class="right" style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: top; font-family: "Helvetica","Arial",sans-serif; font-weight: normal; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd; text-align: right;'>$3,448.28</td>
+                                                <td class="right" style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: top; font-family: "Helvetica","Arial",sans-serif; font-weight: normal; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd; text-align: right;'>${{ $data['subtotal_price']}}</td>
 
                                             </tr>
 
@@ -350,7 +337,7 @@
 
                                                 <td colspan="4" class="right" style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: top; font-family: "Helvetica","Arial",sans-serif; font-weight: normal; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd; text-align: right;'><b>Impuestos (19%):</b></td>
 
-                                                <td class="right" style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: top; font-family: "Helvetica","Arial",sans-serif; font-weight: normal; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd; text-align: right;'>$551.72</td>
+                                                <td class="right" style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 7px; vertical-align: top; font-family: "Helvetica","Arial",sans-serif; font-weight: normal; margin: 0; line-height: 16px; font-size: 12px; border: 1px solid #ddd; text-align: right;'>${{ $data['total_price'] - $data['subtotal_price']}}</td>
 
                                             </tr>
 
@@ -393,10 +380,6 @@
 
                     </table>
 
-
-
-
-
                     <table class="spacer" style="border-spacing: 0; border-collapse: collapse; padding: 0; vertical-align: middle;">
                         <tr style="padding: 0; vertical-align: middle;">
                             <td height="40" style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse!important; padding: 0; vertical-align: middle; font-family: "Helvetica","Arial",sans-serif; font-weight: normal; margin: 0; line-height: 23px; font-size: 14px;'></td>
@@ -412,5 +395,4 @@
     </table>
 
 </body>
-
 </html>
