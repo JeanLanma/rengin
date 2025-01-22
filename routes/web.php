@@ -69,9 +69,12 @@ Route::get('/roles/sync/{user}/{role}', [App\Http\Controllers\Permissions\Permis
 Route::get('/booking', [App\Http\Controllers\Booking\BookingController::class, 'index'])->name('booking.getAvailabilityDate');
 Route::get('/booking/show/', [App\Http\Controllers\Booking\BookingController::class, 'show'])->name('booking.show');
 
-// EMail Previews
+// Mail Previews
 Route::get('/email/booking/{booking?}', [App\Http\Controllers\Email\EmailController::class, 'guestBooking'])->name('email.booking');
 Route::get('/email/booking/admin/{booking?}', [App\Http\Controllers\Email\EmailController::class, 'adminBooking'])->name('email.adminBooking');
+
+// Config
+Route::get('/property/config', [App\Http\Controllers\Property\Config\PropertyConfigController::class, 'index'])->name('config.index');
 
 });
 
