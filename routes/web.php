@@ -18,6 +18,7 @@ Route::get('/direct-booking', [App\Http\Controllers\Booking\BookingController::c
 Route::get('/direct-booking/checkout', [App\Http\Controllers\Booking\BookingController::class, 'checkout'])->name('direct-booking.checkout');
 Route::post('/direct-booking/checkout', [App\Http\Controllers\Booking\BookingController::class, 'store'])->name('direct-booking.store');
 Route::get('/direct-booking/policies', [App\Http\Controllers\Booking\BookingPoliciesController::class, 'index'])->name('direct-booking.policies');
+Route::get('/direct-booking/static/policies', [App\Http\Controllers\Booking\BookingPoliciesController::class, 'policies'])->name('direct-booking.policies.static');
 
 Route::middleware([
     'auth:sanctum',

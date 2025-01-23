@@ -10,4 +10,9 @@ class BookingPoliciesController extends Controller
     {
         return inertia('BookingPolicies/Index');
     }
+
+    public function policies()
+    {
+        return view('front.policies.index');
+    }
 }
