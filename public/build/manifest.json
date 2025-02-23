@@ -3,18 +3,22 @@
     "file": "assets/Tooltip-c8925cc4.css",
     "src": "Tooltip.css"
   },
+
   "_ActionButton-f7883e80.js": {
     "file": "assets/ActionButton-f7883e80.js",
+
     "imports": [
       "resources/js/app.js"
     ]
   },
+
   "_ActionMessage-722b443e.js": {
     "file": "assets/ActionMessage-722b443e.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
+
   "_ActionSection-9a666065.js": {
     "file": "assets/ActionSection-9a666065.js",
     "imports": [
@@ -36,12 +40,14 @@
       "resources/js/app.js"
     ]
   },
+
   "_AuthenticationCardLogo-63a4f83d.js": {
     "file": "assets/AuthenticationCardLogo-63a4f83d.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
+
   "_BookingLayout-8e9e122b.js": {
     "file": "assets/BookingLayout-8e9e122b.js",
     "imports": [
