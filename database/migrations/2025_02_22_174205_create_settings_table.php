@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('name')->unique()->default('Hotel');
-            $table->text('description')->nullable()->default('');
+            $table->text('description')->nullable();
             $table->string('phone')->nullable();
             $table->string('country')->nullable();
             $table->string('state')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('tax_address')->nullable();
             $table->string('hotel_code')->unique()->default('hotel');
-            $table->text('embedded_map')->nullable()->default('');
+            $table->text('embedded_map')->nullable();
             $table->string('checkin_time')->nullable()->default('15:00');
             $table->string('checkout_time')->nullable()->default('12:00');
 
