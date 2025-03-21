@@ -2,7 +2,7 @@
 import BookingLayout from '@/Layouts/BookingLayout.vue';
 import CTAButton from '@/Shared/CTAButton.vue';
 import '@vuepic/vue-datepicker/dist/main.css';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { usePage, useForm } from '@inertiajs/vue3';
 import ErrorForm from '@/Shared/ErrorForm.vue';
 import Swal from 'sweetalert2';
@@ -177,7 +177,12 @@ const termsCheckAlert = () => {
 const clearTermsError = () => {
     if(form.errors.terms) form.clearErrors('terms');
 }
+/**
+ * Dinamic Section for Booking Form
+**/
 
+ const ShowPaymentForm = ref(true);
+/** **/
 console.log(props.booking);
 console.log(props.summary);
 </script>
@@ -356,7 +361,7 @@ console.log(props.summary);
                         <div class="border-b border-[#3C3C4399] opacity-50 my-12"></div>
 
                         <!-- Payment Form -->
-                        <div class="mt-3 hidden">
+                        <div v-show="ShowPaymentForm" class="mt-3">
 
                             <p class="font-bold text-center">Datos de pago</p>
 
