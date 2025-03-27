@@ -9,7 +9,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
         <div class="p-6 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
 
             <h1 class="mt-4 text-2xl font-medium text-gray-900 dark:text-white">
-                ¡Bienvenido a Rengin!
+                ¡Bienvenido a Rengin! <span>- <a class="underline-offset-2 underline hover:text-sky-500 transition-colors duration-150" target="_blank" :href="route('booking')">Visitar motor de reservas</a></span>
             </h1>
             
         </div>
