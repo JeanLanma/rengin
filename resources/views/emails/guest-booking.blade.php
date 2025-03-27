@@ -305,16 +305,16 @@
               <td height="35" align="center" valign="top" style="font-size:35px; line-height:35px;">&nbsp;</td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>José Gpe. Montenegro #1572 44170 Guadalajara, Jalisco, México.</multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>{{ $property['name'] }}</multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Contacto: reservaciones@hotelisabel.com</multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Contacto: {{ $property['contact_email'] }}</multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Copyright &copy; 2024 <a href="https://www.hotelisabel.com/">https://www.hotelisabel.com/</a> </multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Copyright &copy; 2025 <a href="{{ $property['url'] }}">{{ $property['url'] }}</a> </multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#0EA5E9; font-weight:bold; line-height:28px;" mc:edit="bm12-20"><a style="color: #0EA5E9;" href="mailto:reservaciones@hotelisabel.com">¿Tiene alguna duda?</a></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#0EA5E9; font-weight:bold; line-height:28px;" mc:edit="bm12-20"><a style="color: #0EA5E9;" href="mailto:{{ $property['contact_email'] }}">¿Tiene alguna duda?</a></td>
             </tr>
             </table></td>
         </tr>

@@ -214,4 +214,17 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Rengin Property Configuration
+    |--------------------------------------------------------------------------
+    |
+    | This configuration file is used to set up the Rengin application.
+    | It contains the default settings for the application, including
+    | the default currency, language, and other settings.
+    */
+    'property' => [
+        'address' => env('PROPERTY_ADDRESS', 'Guadalajara, Jalisco, Mexico.'),
+        'contact_email' => env('PROPERTY_CONTACT_EMAIL', 'support@rengin.com'),
+    ],
 ];
