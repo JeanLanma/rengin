@@ -201,7 +201,7 @@ onMounted(() => {
                     </thead>
                     <tbody class="bg-white divide-y shadow-inner divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
 
-                        <tr v-if="props.bookings.data.length > 1" v-for="booking in props.bookings.data" class="dark:hover:bg-gray-600 hover:bg-gray-100">
+                        <tr v-if="props.bookings.data.length > 0" v-for="booking in props.bookings.data" class="dark:hover:bg-gray-600 hover:bg-gray-100">
 
                             <td class="lg:px-4 px-6 lg:py-4 py-6 lg:text-base font-bold text-left text-gray-500 dark:text-gray-300 whitespace-nowrap border-r border-r-gray-200 dark:border-r-gray-700"># {{ booking.id }}</td>
 
