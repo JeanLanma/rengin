@@ -8,7 +8,7 @@ export const hasDarkMode = () => {
 export const Taxes = (price, tax = null) => {
     const defaultTax = {
       'iva': 0.16,
-      'municipal': 0.03
+      'municipal': 0.04
     }
 
     const iva = tax?.iva ?? defaultTax.iva;

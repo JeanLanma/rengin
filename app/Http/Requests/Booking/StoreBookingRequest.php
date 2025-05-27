@@ -37,7 +37,7 @@ class StoreBookingRequest extends FormRequest
             'booking.card_name' => ['required', 'string', 'min:3'],
             'booking.card_number' => ['required', 'string', 'min:16'],
             'booking.card_expiration_month' => ['required', 'string', 'min:1', 'max:12'],
-            'booking.card_expiration_year' => ['required', 'integer', 'min:2021', 'max:2030'],
+            'booking.card_expiration_year' => ['required', 'integer', 'min:2025', 'max:2099'],
             'booking.card_cvc' => ['required', 'integer', 'digits:3'],
             // Guest Object
             'guest.name' => ['required', 'string', 'min:3'],
