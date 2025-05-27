@@ -2,7 +2,7 @@
 import BookingLayout from '@/Layouts/BookingLayout.vue';
 import CTAButton from '@/Shared/CTAButton.vue';
 import '@vuepic/vue-datepicker/dist/main.css';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { usePage, useForm } from '@inertiajs/vue3';
 import ErrorForm from '@/Shared/ErrorForm.vue';
 import Swal from 'sweetalert2';
@@ -62,7 +62,7 @@ const makeBooking = () => {
                     imageUrl: '/assets/logo.png',
                     imageWidth: 240,
                     imageHeight: 146,
-                    imageAlt: 'Hotel Casino Plaza',
+                    imageAlt: 'Logo Hotel - Rengin',
                     confirmButtonText: '¡Entendido!',
                     confirmButtonColor: '#0ea5e9',
                 }
@@ -80,12 +80,11 @@ const makeBooking = () => {
                 errors += '- ' + error[err] + "<br/>";
             }
             errorAlert({
+                icon: 'error',
                 title: 'Error al realizar la reservación',
                 html: errors,
-                imageUrl: '/assets/logo.png',
                 imageWidth: 240,
                 imageHeight: 146,
-                imageAlt: 'Hotel Casino Plaza',
                 confirmButtonText: '¡Entendido!',
                 confirmButtonColor: '#0ea5e9',
             })
@@ -131,12 +130,11 @@ onMounted(() => {
 
 const successAlert = (SuccessConent = null) => {
     const defaultContent = {
+        icon: 'success',
         title: '¡Reservación exitosa!',
         text: 'La reserva se ha realizado con éxito, en breve recibirá un correo electrónico con los detalles de la misma.',
-        imageUrl: '/assets/logo.png',
         imageWidth: 240,
         imageHeight: 146,
-        imageAlt: 'Hotel Casino Plaza',
         confirmButtonText: '¡Entendido!',
         confirmButtonColor: '#0ea5e9',
     }
@@ -179,13 +177,18 @@ const termsCheckAlert = () => {
 const clearTermsError = () => {
     if(form.errors.terms) form.clearErrors('terms');
 }
+/**
+ * Dinamic Section for Booking Form
+**/
 
+ const ShowPaymentForm = ref(true);
+/** **/
 console.log(props.booking);
 console.log(props.summary);
 </script>
 
 <template>
-    <BookingLayout title="Hotel Casino Plaza">
+    <BookingLayout title="Reservación">
 
         <div class="md:grid md:grid-cols-6 max-w-7xl md:px-4 lg:px-6 xl:px-8 mx-auto">
             <!-- Booking Item -->
@@ -303,7 +306,7 @@ console.log(props.summary);
 
                 <div class="bg-white rounded-[14px] px-4 py-6 text-[#3C3C4399] mt-4 border border-yellow-cta">
 
-                    <h2 class="font-bold text-xl">Información de pago</h2>
+                    <h2 class="font-bold text-xl">Información de reserva</h2>
 
                     <form @submit.prevent="makeBooking">
                         <input type="hidden" name="room_type_id" :value="props.booking.room_type.roomTypeId">
@@ -358,7 +361,7 @@ console.log(props.summary);
                         <div class="border-b border-[#3C3C4399] opacity-50 my-12"></div>
 
                         <!-- Payment Form -->
-                        <div class="mt-3">
+                        <div v-show="ShowPaymentForm" class="mt-3">
 
                             <p class="font-bold text-center">Datos de pago</p>
 

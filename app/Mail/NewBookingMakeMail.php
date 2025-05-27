@@ -23,7 +23,7 @@ class NewBookingMakeMail extends Mailable
     public function __construct($data)
     {
         $this->data = $data;
-        $this->subject = 'Nueva reserva reserva ' . $this->data['folio'];
+        $this->subject = 'Reservación web rengin ' . $this->data['folio'];
     }
 
 

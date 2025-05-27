@@ -3,7 +3,7 @@
 <head>
 
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
-<title>Hotel Casino Plaza - Reservación</title>
+<title>{{ config('app.name') }} - Reservación</title>
 
 <style type="text/css">
 
@@ -75,14 +75,14 @@
     <tr>
       <td align="center" valign="middle"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
         <tr>
-          <td align="center" valign="top" bgcolor="#839226" style="-moz-border-radius: 25px 25px 0px 0px; border-radius: 25px 25px 0px 0px;"><table width="485" border="0" align="center" cellpadding="0" cellspacing="0" class="two-left-inner">
+          <td align="center" valign="top" bgcolor="#0EA5E9" style="-moz-border-radius: 25px 25px 0px 0px; border-radius: 25px 25px 0px 0px;"><table width="485" border="0" align="center" cellpadding="0" cellspacing="0" class="two-left-inner">
             <tr>
               <td height="35" align="center" valign="top" style="font-size:35px; line-height:35px;">&nbsp;</td>
             </tr>
             <tr>
               <td align="center" valign="top"><table border="0" align="left" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td align="center" valign="middle"><a href="#"><img editable="true" mc:edit="bm12-01" src="{{ asset('assets/logo.png') }}" width="105" height="40" alt="" /></a></td>
+                  <td align="center" valign="middle"><a href="#"></a></td>
                 </tr>
               </table>
               
@@ -91,7 +91,7 @@
       <td height="8" align="center" valign="top" style="font-size:8px; line-height:8px;">&nbsp;</td>
     </tr>
     <tr>
-      <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#FFF; font-weight:normal;display: none;" mc:edit="bm12-02"><multiline>You can't see this email?<a href="#" style="text-decoration:none; color:#FFF;"><b style="font-size:14px;">View it in your browser</b></a></multiline></td>
+      <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#FFF; font-weight:normal;display: none;" mc:edit="bm12-02"><multiline>You can't see this email?<a href="#" style="text-decoration:none; color:#FFF;"><b style="font-size:14px;"></b></a></multiline></td>
     </tr>
               </table>
               
@@ -121,14 +121,14 @@
                 </tr>
 
                 <tr>
-                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:18px; color:#839226; font-weight:normal; line-height:34px;" mc:edit="bm12-04"><multiline>{{ $data['guest']['full_name'] }}</multiline></td>
+                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:18px; color:#0EA5E9; font-weight:normal; line-height:34px;" mc:edit="bm12-04"><multiline>{{ $data['guest']['full_name'] }}</multiline></td>
                 </tr>
               </table>
               
               
               <table width="200" border="0" align="left" cellpadding="0" cellspacing="0" class="full">
                 <tr>
-                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:18px; color:#839226; font-weight:bold;" mc:edit="bm12-05"><multiline>Detalles de la reserva</multiline></td>
+                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:18px; color:#0EA5E9; font-weight:bold;" mc:edit="bm12-05"><multiline>Detalles de la reserva</multiline></td>
                 </tr>
 
                 <tr>
@@ -192,7 +192,7 @@
                   <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:18px; color:#000000; font-weight:normal; line-height:34px;" mc:edit="bm12-08"><multiline>{{ $data['room']['name'] }} x{{ $data['number_of_rooms'] }}</multiline></td>
                 </tr>
                 <tr>
-                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:16px; color:#839226; font-weight:normal; line-height:28px;" mc:edit="bm12-09"><multiline>Noches: {{ $data['nights'] }}</multiline></td>
+                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:16px; color:#0EA5E9; font-weight:normal; line-height:28px;" mc:edit="bm12-09"><multiline>Noches: {{ $data['nights'] }}</multiline></td>
                 </tr>
 
               </table>
@@ -257,7 +257,7 @@
       <td height="30" align="left" valign="top" style="font-size:30px; line-height:30px;">&nbsp;</td>
     </tr>
     <tr>
-      <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:24px; color:#839226; font-weight:bold; line-height:28px;" mc:edit="bm12-16"><multiline>{{ $data['total_price_formatted'] }}</multiline></td>
+      <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:24px; color:#0EA5E9; font-weight:bold; line-height:28px;" mc:edit="bm12-16"><multiline>{{ $data['total_price_formatted'] }}</multiline></td>
     </tr>
   </table>
 
@@ -280,7 +280,7 @@
     <tr>
       <td align="center" valign="middle"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
         <tr>
-          <td align="center" valign="top" bgcolor="#839226" style="-moz-border-radius:0px 0px 25px 25px; border-radius:0px 0px 25px 25px;"><table width="200" border="0" cellspacing="0" cellpadding="0">
+          <td align="center" valign="top" bgcolor="#0EA5E9" style="-moz-border-radius:0px 0px 25px 25px; border-radius:0px 0px 25px 25px;"><table width="200" border="0" cellspacing="0" cellpadding="0">
             <tr>
               <td align="center" valign="top">&nbsp;</td>
             </tr>
@@ -305,16 +305,16 @@
               <td height="35" align="center" valign="top" style="font-size:35px; line-height:35px;">&nbsp;</td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>Pedro Moreno 726 Centro Histórico C.P. 44100. Guadalajara Jalisco, México</multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>José Gpe. Montenegro #1572 44170 Guadalajara, Jalisco, México.</multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Contacto: reservas-gdl@hotelcasinoplaza.mx</multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Contacto: reservaciones@hotelisabel.com</multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Copyright &copy; 2023 <a href="https://hotelcasinoplaza.com">hotelcasinoplaza.com</a> </multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Copyright &copy; 2024 <a href="https://www.hotelisabel.com/">https://www.hotelisabel.com/</a> </multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#839226; font-weight:bold; line-height:28px;" mc:edit="bm12-20"><a style="color: #839226;" href="mailto:reservas-gdl@hotelcasinoplaza.mx">¿Tiene alguna duda?</a></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#0EA5E9; font-weight:bold; line-height:28px;" mc:edit="bm12-20"><a style="color: #0EA5E9;" href="mailto:reservaciones@hotelisabel.com">¿Tiene alguna duda?</a></td>
             </tr>
             </table></td>
         </tr>
