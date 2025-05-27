@@ -19,7 +19,7 @@ class Room {
         return RoomModel::with('gallery')->find($id);
     }
 
-    public static function getPaginate($limit = 5)
+    public static function getPaginate($limit = 15)
     {
         return DB::table('rooms')->paginate($limit);
     }

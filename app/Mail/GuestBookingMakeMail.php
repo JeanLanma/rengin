@@ -23,7 +23,7 @@ class GuestBookingMakeMail extends Mailable
     public function __construct($data)
     {
         $this->data = $data;
-        $this->subject = 'Confirmación de reserva';
+        $this->subject = 'Confirmación de su reserva - ' . config('app.name');
     }
 
 

@@ -14,22 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory()->create([
-            'name' => 'Jean Langarica',
-            'email' => 'jean.langarica@pcbtroniks.com',
+        $user = \App\Models\User::factory()->create([
+            'name' => 'Desarrollo Software',
+            'email' => 'desarrollo.software@pcbtroniks.com',
             'password' => Hash::make('123123123'),
-        ]);
-        \App\Models\User::factory()->create([
-            'name' => 'Daniel Rivera',
-            'email' => 'daniel.rivera@pcbtroniks.com',
-            'password' => Hash::make('123123123'),
-        ]);
-        \App\Models\User::factory()->create([
-            'name' => 'Recepcion Hotel',
-            'email' => 'ejecutivaventas@hotelcasinoplaza.mx',
-            'password' => Hash::make('Recepcion@2700'),
         ]);
 
         $this->call(PermissionSeeder::class);
+
+        $user->assignRole('admin');
     }
 }
