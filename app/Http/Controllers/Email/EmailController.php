@@ -11,16 +11,26 @@ class EmailController extends Controller
 {
     public function guestBooking(BookingModel $booking)
     {
+        // $To = $booking->email;
+        $To = request()->has('to') ? request()->to : 'desarrollo.software@pcbtroniks.com';
+        Mail::to($To)->queue(new \App\Mail\GuestBookingMakeMail($booking));
         return view('emails.guest-booking', [
             'data' => $booking,
         ]);
-        // return Mail::to('desarrollo.software@pcbtroniks.com')->send(new \App\Mail\GuestBookingMakeMail($booking));
     }
 
-    public function getAdministrativeEmails(): array
+    public function adminBooking(BookingModel $booking)
     {
-        return [
-            ''
-        ];
+        $To = request()->has('to') ? request()->to : 'desarrollo.software@pcbtroniks.com';
+        if(request()->has('cc')){
+            Mail::to($To)->cc(request()->cc)->queue(new \App\Mail\AdminConfirmationBooking($booking));
+        }
+        if(request()->has('send') && request()->send == true){
+            Mail::to($To)->queue(new \App\Mail\AdminConfirmationBooking($booking));
+            return redirect()->back()->with('success', 'Email enviado correctamente');
+        }
+        return view('emails.admin-booking', [
+            'data' => $booking,
+        ]);
     }
 }

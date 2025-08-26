@@ -42,6 +42,7 @@ const BookingStatus = {
     'pending': 'pending',
     'canceled': 'canceled',
 }
+console.log(props.booking);
 
 </script>
 
@@ -68,7 +69,7 @@ const BookingStatus = {
             <div class="flex justify-between items-center mb-8">
             
                 <h1 class="text-2xl text-gray-700 dark:text-white">
-                    Reservación de <span class="font-bold">{{ props.booking.guest.full_name }}</span>
+                    Reservación de <span class="font-bold">{{ props.booking.guest.full_name }}</span> #{{ props.booking.id }}
                     <div>
                         <span
                         :class="hasStatus(BookingStatus.confirmed) 
@@ -95,11 +96,23 @@ const BookingStatus = {
                     </div>
                 </h1>
 
+                <div>
+                    <Link class="mr-4" :href="route('email.adminBooking', props.booking.id)">
+                        <ActionButton as="dark">
+                            Ver correo
+                        </ActionButton>
+                    </Link>
+                    <Link :href="route('email.adminBooking', {booking: props.booking.id, send: true})">
+                        <ActionButton as="dark">
+                            Reenviar correo
+                        </ActionButton>
+                    </Link>
+                </div>
             </div>
 
             <div class="p-4 lg:p-2">
 
-                <h4 class="text-xl dark:text-white text-gray-700 font-bold">Resumen</h4>
+                <h4 class="text-xl dark:text-white text-gray-700 font-bold">Resumen - <small class="font-normal">{{ props.booking.folio }}</small></h4>
                 <ul class="mt-2 dark:text-gray-100 text-gray-700">
                     <li class="flex border-y dark:border-y-white/20 py-3">
                         <span class="font-bold w-24">Habitación:</span>
