@@ -397,8 +397,6 @@ console.log(props.summary);
                                     </select>
                                     <select v-model="form.booking.card_expiration_year" name="card_expiration_year" id="card_expiration_year" class="border border-[#ddd] rounded w-full">
                                         <option value="null" selected aria-selected="true" disabled aria-disabled="true">--- Año ---</option>
-                                        <option value="2023">2023</option>
-                                        <option value="2024">2024</option>
                                         <option value="2025">2025</option>
                                         <option value="2026">2026</option>
                                         <option value="2027">2027</option>
@@ -408,6 +406,9 @@ console.log(props.summary);
                                         <option value="2031">2031</option>
                                         <option value="2032">2032</option>
                                         <option value="2033">2033</option>
+                                        <option value="2034">2034</option>
+                                        <option value="2035">2035</option>
+                                        <option value="2036">2036</option>
                                     </select>
                                     
                                 </div>

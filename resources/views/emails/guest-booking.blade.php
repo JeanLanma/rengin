@@ -75,7 +75,7 @@
     <tr>
       <td align="center" valign="middle"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
         <tr>
-          <td align="center" valign="top" bgcolor="#0EA5E9" style="-moz-border-radius: 25px 25px 0px 0px; border-radius: 25px 25px 0px 0px;"><table width="485" border="0" align="center" cellpadding="0" cellspacing="0" class="two-left-inner">
+          <td align="center" valign="top" bgcolor="#5e6c2c" style="-moz-border-radius: 25px 25px 0px 0px; border-radius: 25px 25px 0px 0px;"><table width="485" border="0" align="center" cellpadding="0" cellspacing="0" class="two-left-inner">
             <tr>
               <td height="35" align="center" valign="top" style="font-size:35px; line-height:35px;">&nbsp;</td>
             </tr>
@@ -121,14 +121,14 @@
                 </tr>
 
                 <tr>
-                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:18px; color:#0EA5E9; font-weight:normal; line-height:34px;" mc:edit="bm12-04"><multiline>{{ $data['guest']['full_name'] }}</multiline></td>
+                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:18px; color:#5e6c2c; font-weight:normal; line-height:34px;" mc:edit="bm12-04"><multiline>{{ $data['guest']['full_name'] }}</multiline></td>
                 </tr>
               </table>
               
               
               <table width="200" border="0" align="left" cellpadding="0" cellspacing="0" class="full">
                 <tr>
-                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:18px; color:#0EA5E9; font-weight:bold;" mc:edit="bm12-05"><multiline>Detalles de la reserva</multiline></td>
+                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:18px; color:#5e6c2c; font-weight:bold;" mc:edit="bm12-05"><multiline>Detalles de la reserva</multiline></td>
                 </tr>
 
                 <tr>
@@ -192,7 +192,7 @@
                   <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:18px; color:#000000; font-weight:normal; line-height:34px;" mc:edit="bm12-08"><multiline>{{ $data['room']['name'] }} x{{ $data['number_of_rooms'] }}</multiline></td>
                 </tr>
                 <tr>
-                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:16px; color:#0EA5E9; font-weight:normal; line-height:28px;" mc:edit="bm12-09"><multiline>Noches: {{ $data['nights'] }}</multiline></td>
+                  <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:16px; color:#5e6c2c; font-weight:normal; line-height:28px;" mc:edit="bm12-09"><multiline>Noches: {{ $data['nights'] }}</multiline></td>
                 </tr>
 
               </table>
@@ -257,7 +257,7 @@
       <td height="30" align="left" valign="top" style="font-size:30px; line-height:30px;">&nbsp;</td>
     </tr>
     <tr>
-      <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:24px; color:#0EA5E9; font-weight:bold; line-height:28px;" mc:edit="bm12-16"><multiline>{{ $data['total_price_formatted'] }}</multiline></td>
+      <td align="left" valign="top" style="font-family:'Open Sans', Verdana, Arial; font-size:24px; color:#5e6c2c; font-weight:bold; line-height:28px;" mc:edit="bm12-16"><multiline>{{ $data['total_price_formatted'] }}</multiline></td>
     </tr>
   </table>
 
@@ -280,7 +280,7 @@
     <tr>
       <td align="center" valign="middle"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
         <tr>
-          <td align="center" valign="top" bgcolor="#0EA5E9" style="-moz-border-radius:0px 0px 25px 25px; border-radius:0px 0px 25px 25px;"><table width="200" border="0" cellspacing="0" cellpadding="0">
+          <td align="center" valign="top" bgcolor="#5e6c2c" style="-moz-border-radius:0px 0px 25px 25px; border-radius:0px 0px 25px 25px;"><table width="200" border="0" cellspacing="0" cellpadding="0">
             <tr>
               <td align="center" valign="top">&nbsp;</td>
             </tr>
@@ -305,16 +305,16 @@
               <td height="35" align="center" valign="top" style="font-size:35px; line-height:35px;">&nbsp;</td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>José Gpe. Montenegro #1572 44170 Guadalajara, Jalisco, México.</multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:normal; line-height:28px;" mc:edit="bm12-18"><multiline>Pedro Moreno 726 Centro Histórico C.P. 44100 Guadalajara Jalisco, México.</multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Contacto: reservaciones@hotelisabel.com</multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Contacto: reservaciones@hotelcasinoplaza.mx</multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Copyright &copy; 2024 <a href="https://www.hotelisabel.com/">https://www.hotelisabel.com/</a> </multiline></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#FFF; font-weight:bold; line-height:28px;" mc:edit="bm12-19"><multiline>Copyright &copy; 2025 <a href="https://www.hotelcasinoplaza.mx/">https://www.hotelcasinoplaza.mx/</a> </multiline></td>
             </tr>
             <tr>
-              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#0EA5E9; font-weight:bold; line-height:28px;" mc:edit="bm12-20"><a style="color: #0EA5E9;" href="mailto:reservaciones@hotelisabel.com">¿Tiene alguna duda?</a></td>
+              <td align="center" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#5e6c2c; font-weight:bold; line-height:28px;" mc:edit="bm12-20"><a style="color: #5e6c2c;" href="mailto:reservaciones@hotelcasinoplaza.mx">¿Tiene alguna duda?</a></td>
             </tr>
             </table></td>
         </tr>
