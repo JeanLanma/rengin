@@ -35,7 +35,7 @@ class BookingSummary {
         $this->request = $request;
 
         $this->iva = .16;
-        $this->municipal = .04;
+        $this->municipal = .05;
         $this->summarize();
     }
 
